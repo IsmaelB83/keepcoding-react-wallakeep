@@ -8,6 +8,7 @@
 }
 
 .Login-wrapper {
+    max-width: 320px;
     padding: 4rem 2rem;
     background-color: white;
     box-shadow: 3px 3px 7px rgba(0, 0, 0, .5);
