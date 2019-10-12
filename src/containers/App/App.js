@@ -22,7 +22,7 @@ export default class App extends Component {
             <Route path='/user/messages' exact component={Home} />
             <Route path='/products' exact component={Home} />
             <Route path='/products/new' exact component={Home} />
-            <Route path='/products/:id' exact component={Home} />
+            <Route path='/products/:' exact component={Home} />
             <Route path='/' exact component={Home} />
             <Redirect to="/login"/>
         </Switch>

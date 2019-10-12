@@ -1,13 +1,42 @@
-body {
+ /**
+ * Simple reset
+ */
+ *, *::before, *::after {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+:root {
+  font-size: 16px;
+  font-family: 'Lato', sans-serif;
+}
+
+ul, li {
+  list-style: none;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+img, embed, object, video {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+}
+
+/**
+* Color palette (generated with https://coolors.co/)
+*/
+:root {
+  --main-color: rgb(15, 153, 137);
+  --secondary-color:  rgb(168, 245, 236);
+  --dark-grey: rgb(30, 30, 36);
+  --medium-grey: rgb(48, 48, 54);
+  --light-grey: rgb(193, 188, 172);
+  --main-white: #fafafa;
+  --main-black: #020202;
 }

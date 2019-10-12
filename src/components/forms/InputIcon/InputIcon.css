@@ -1,0 +1,8 @@
+.InputIcon-icon {
+    padding-right: 3px;
+    padding-bottom: 2px;
+}
+
+.InputIcon-icon + input::placeholder{
+    font-size: .9rem;
+}
