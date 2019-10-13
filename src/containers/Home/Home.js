@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 // Own modules
 import Footer from '../../components/Footer/Footer';
-import Navbar from '../../components/Navbar/Navbar';
+import Navbar from '../../components/nav/Navbar/Navbar';
 // CSS styles
 import './Home.css';
 

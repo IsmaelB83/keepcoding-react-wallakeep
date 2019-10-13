@@ -19,9 +19,18 @@ export default class InputSearch extends Component {
             <div className='InputSearch'>
                 <SearchIcon className='InputSearch__Icon InputSearch__Icon--start'/>
                 <input type='text' className='InputSearch__Input' placeholder='Buscar productos por nombre' />
-                <HighlightOffIcon className='InputSearch__Icon InputSearch__Icon--end'/>
+                { this.props.showRemove && 
+                    <HighlightOffIcon className='InputSearch__Icon InputSearch__Icon--end'/>
+                }
             </div>
 
         );
     }
+}
+
+/**
+ * Propiedades por defecto
+ */
+InputSearch.defaultProps = {
+    showRemove: false,
 }

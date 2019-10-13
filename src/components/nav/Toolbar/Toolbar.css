@@ -1,0 +1,25 @@
+.Toolbar {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: white;
+    height: 100vh;
+    top: 0;
+    right: 100%;
+    padding: 4rem 2rem;
+}
+
+@media only screen and (min-width: 600px) {
+    .Toolbar {
+        position: relative;
+        top: 0;
+        right: 0;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+        padding: 0;
+    }
+}

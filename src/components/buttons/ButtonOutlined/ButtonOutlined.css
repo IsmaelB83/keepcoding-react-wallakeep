@@ -1,0 +1,13 @@
+button.ButtonOutlined__button {
+    padding: 0 1rem;
+    border-radius: 50px;
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
+    background-color: white;
+    text-transform: none;
+}
+
+button.ButtonOutlined__button:hover {
+    background-color: var(--main-color);
+    color: white;
+}

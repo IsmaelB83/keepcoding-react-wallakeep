@@ -1,12 +1,13 @@
 .InputSearch {
-    width: 80%;
+    width: 60%;
     font-size: .9rem;
+    line-height: 1rem;
     position: relative;
 }
 
 .InputSearch__Icon {
     position: absolute;
-    top: .75rem;
+    top: .5rem;
     color: grey;
 }
 
@@ -20,8 +21,9 @@
 
 .InputSearch__Input {
     width: 100%;
-    font-size: 1em;
-    padding: 1rem 1rem 1rem 3rem;
+    font-size: 1rem;
+    line-height: 1rem;
+    padding: .75rem .75rem .65rem 3rem;
     border: 1px solid var(--light-grey);
     border-radius: 3rem;
     background-color: var(--light-grey);

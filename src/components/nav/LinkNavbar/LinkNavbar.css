@@ -1,0 +1,53 @@
+/*
+ *  Link
+ */
+.LinkNavbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+}   
+
+.LinkNavbar::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -10px;
+    width: 100%;
+}
+
+.LinkNavbar--inactive::after {
+    width: 0;  
+    transition: transform .1s ease-in-out;
+    border-bottom: 3px solid black;
+}
+
+.LinkNavbar--inactive:hover::after {
+    width: 100%;
+}
+
+.LinkNavbar--active::after {
+    border-bottom: 3px solid var(--main-color);
+}
+
+/*
+ * Icono
+ */
+ .LinkNavbar .LinkNavbar__icon {
+    margin-right: 6px;
+    font-size: 1.5rem;
+}
+
+/*
+ * Texto
+ */
+.LinkNavbar .LinkNavbar__span {
+    font-size: .875rem;
+    line-height: 1rem;
+}
+
+.LinkNavbar--active .LinkNavbar__span {
+    font-weight: 700;
+    color: var(--main-color);
+}
