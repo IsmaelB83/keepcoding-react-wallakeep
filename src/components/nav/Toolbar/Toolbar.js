@@ -15,17 +15,25 @@ import './Toolbar.css';
  * Component para el navbar
  */
 export default class Toolbar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showToolbar: false
+        }
+    }
     /**
      * Render
      */
     render() {
         return (
             <div className='Toolbar'>
-                <LinkNavbar className='normal' active={true} icon={<LocalAtmIcon className='LinkNavbar__icon'/>} label={'0€ saldo'}/>
-                <LinkNavbar className='normal' icon={<ChatBubbleOutlineIcon className='LinkNavbar__icon'/>} label={'Mensajes'}/>
-                <LinkNavbar className='normal' icon={<AccountCircleIcon className='LinkNavbar__icon'/>} label={'Mi zona'}/>
-                <ButtonFill/>
-                <MenuIcon/>
+                <div className={`Toolbar__wrapper ${this.state.showToolbar?'Toolbar__wrapper--show':''}`}>
+                    <LinkNavbar className='normal' active={true} icon={<LocalAtmIcon className='LinkNavbar__icon'/>} label={'0€ saldo'}/>
+                    <LinkNavbar className='normal' icon={<ChatBubbleOutlineIcon className='LinkNavbar__icon'/>} label={'Mensajes'}/>
+                    <LinkNavbar className='normal' icon={<AccountCircleIcon className='LinkNavbar__icon'/>} label={'Mi zona'}/>
+                    <ButtonFill/>
+                </div>
+                <MenuIcon onClick={()=>this.setState({showToolbar: !this.state.showToolbar})}/>
             </div>
         );
     }
