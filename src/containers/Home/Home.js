@@ -15,15 +15,15 @@ export default class Home extends Component {
    */
   render() {   
     return (
-      <div className='Home-wrapper'>
+      <div className='Home__Wrapper'>
         <header>
           <Navbar/>
         </header>
-        <main className='Home-container'>
-          <section className='Home-carousel'>
+        <main className='Home__Container'>
+          <section className='Home__Carousel'>
             <h1>¿Qué estas buscando hoy?</h1>
           </section>
-          <section className='Home-summary'>
+          <section className='Home__Summary'>
             <h2>Resumen por categorías</h2>
             <ul>
               <li></li>

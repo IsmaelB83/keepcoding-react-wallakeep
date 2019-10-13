@@ -1,5 +1,5 @@
 .Footer {
-    padding: 20px 0;
+    padding: 2.5rem 0;
     margin-top: 40px;
     width: 100%;
     background:black;
@@ -8,35 +8,27 @@
     line-height: .9rem; 
 }
 
-.footer a[href^="tel:"], .footer a[href^="mailto:"], .footer a {
+.Footer a[href^="tel:"], .Footer a[href^="mailto:"] {
     color: orange;
     text-decoration: none;
 }
 
-.footer a[href^="tel:"]:hover, .footer a[href^="mailto:"]:hover, .footer a:hover {
+.Footer a[href^="tel:"]:hover, .Footer a[href^="mailto:"]:hover {
     color: orangered;
     text-decoration: none;
 }
 
-.footer a[href^="tel:"]:before {
+.Footer a[href^="tel:"]:before {
     content: "\260e";
     margin: 0 4px;
 }
 
-.footer a[href^="mailto:"]:before {
+.Footer a[href^="mailto:"]:before {
     content: "\2709";
     margin: 0 4px;
 }
 
-.footer-last p {
-    margin: 0;
-    padding: 15px 0 0 0;
-    text-align: center;
-    border-top: solid 1px #232323;
-    font-family: 'Open Sans', sans-serif;
-}
-
-.footer .footer-item .title {
+.Footer .Footer-item .title {
     letter-spacing: 1px;
     font-weight: 600;
     border-bottom: solid 1px #3a3a3a;
@@ -46,18 +38,18 @@
     text-transform: uppercase;
 }
 
-.footer .footer-item .footer-contact-block {
+.Footer .Footer-item .Footer-contact-block {
     margin-left: 5px;
     padding: 5px;
 }
 
-.footer .footer-item .footer-contact-block p {
+.Footer .Footer-item .Footer-contact-block p {
     display: inline;
     margin-left: 3px;
     padding: 10px;
 }
 
-.footer .footer-item ul {
+.Footer .Footer-item ul {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -68,23 +60,23 @@
     padding-inline-start: 40px;
 }
 
-.footer-item.links {
+.Footer-item.links {
     line-height: 16px;
     letter-spacing: 0.5px;
 }
 
-.footer-item .spinner {
+.Footer-item .spinner {
     margin-bottom: 5px;
     width: 50px;
 }
 
-.footer-item h3 {
+.Footer-item h3 {
     font-size: 1.0rem;
     text-transform: uppercase;
     color: #3d3d3d;
 }
 
-.footer .footer-link {
+.Footer .Footer-link {
     display: inline-block;
     margin: 5px;
     border: 1px solid #353535;
@@ -96,7 +88,7 @@
     text-transform: capitalize;
 }
 
-.footer .footer-link:hover {
+.Footer .Footer-link:hover {
     background: #7c7e83;
     color: #cccccc;
 }

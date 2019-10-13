@@ -7,24 +7,24 @@
     background: linear-gradient(-45deg, var(--main-color), var(--secondary-color));
 }
 
-.Login-wrapper {
+.Login__Wrapper {
     max-width: 320px;
     padding: 3rem 2rem;
     background-color: white;
     box-shadow: 3px 3px 7px rgba(0, 0, 0, .5);
 }
 
-.Login-form {
+.Login__Form {
     display: grid;
     grid-gap: 2rem;
 }
 
-.Login-form .button {
+.Login__Form .button {
     align-self: flex-end;
 }
 
 @media only screen and (min-width: 600px) {
-    .Login-wrapper {
+    .Login__Wrapper {
         max-width: 400px;
         padding: 4rem 2rem;
     }

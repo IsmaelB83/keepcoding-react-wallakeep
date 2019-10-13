@@ -1,9 +1,9 @@
 // NPM modules
 import React, { Component } from 'react';
 // Own modules
-import InputPassword from '../../components/forms/InputPassword/InputPassword';
-import InputCheckbox from '../../components/forms/InputCheckbox/InputCheckbox';
-import InputIcon from '../../components/forms/InputIcon/InputIcon';
+import InputPassword from '../../components/inputs/InputPassword/InputPassword';
+import InputCheckbox from '../../components/inputs/InputCheckbox/InputCheckbox';
+import InputIcon from '../../components/inputs/InputIcon/InputIcon';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Button from '@material-ui/core/Button';
 // Assets
@@ -35,9 +35,9 @@ export default class Login extends Component {
   render() {   
     return (
       <div className='Login'>
-        <div className='Login-wrapper'>
-          <form className='Login-form' onSubmit={this.handleOnSubmit}>
-            <img src={imageLogo} className='Login-logo' alt='nodepop-logo' />
+        <div className='Login__Wrapper'>
+          <form className='Login__Form' onSubmit={this.handleOnSubmit}>
+            <img src={imageLogo} className='Login__Logo' alt='nodepop-logo' />
             <InputIcon 
               name='email'
               value={this.state.email}

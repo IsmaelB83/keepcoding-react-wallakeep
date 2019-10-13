@@ -1,0 +1,13 @@
+.Navbar {
+    padding: .6rem 3rem;
+    background-color: white;
+    border-bottom: 1px solid var(--light-grey);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.Navbar__Logo {
+    width: 40px;
+    height: 40px;
+}

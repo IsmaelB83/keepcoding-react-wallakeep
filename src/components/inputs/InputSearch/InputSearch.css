@@ -1,0 +1,40 @@
+.InputSearch {
+    width: 80%;
+    font-size: .9rem;
+    position: relative;
+}
+
+.InputSearch__Icon {
+    position: absolute;
+    top: .75rem;
+    color: grey;
+}
+
+.InputSearch__Icon--start {
+    left: 1rem;
+}
+
+.InputSearch__Icon--end {
+    right: 1rem;
+}
+
+.InputSearch__Input {
+    width: 100%;
+    font-size: 1em;
+    padding: 1rem 1rem 1rem 3rem;
+    border: 1px solid var(--light-grey);
+    border-radius: 3rem;
+    background-color: var(--light-grey);
+    color: grey;
+    outline: none;
+}
+
+.InputSearch:hover .InputSearch__Input {
+    background-color: white;
+    border: 1px solid var(--main-color);
+    outline: none;
+}
+
+.InputSearch:hover .InputSearch__Icon {
+    color: var(--main-color);
+}

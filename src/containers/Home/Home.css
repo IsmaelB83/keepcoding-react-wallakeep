@@ -1,14 +1,16 @@
-.Home-container {
-    min-height: 100vh;
+.Home__Wrapper {
+}
+
+.Home__Container {
     max-width: 90%;
     margin: 0 auto;
     padding: 1rem;
 }
 
-.Home-summary {
+.Home__Summary {
     background-color: main(--main-white);
 }
 
-.Home-carousel {
+.Home__Carousel {
     background-color: main(--light-grey);
 }

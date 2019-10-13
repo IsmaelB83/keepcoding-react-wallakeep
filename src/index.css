@@ -10,7 +10,7 @@
 
 :root {
   font-size: 16px;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 ul, li {
@@ -36,7 +36,7 @@ img, embed, object, video {
   --secondary-color:  rgb(168, 245, 236);
   --dark-grey: rgb(30, 30, 36);
   --medium-grey: rgb(48, 48, 54);
-  --light-grey: rgb(193, 188, 172);
+  --light-grey: rgba(216, 220, 224, .7);
   --main-white: rgb(250, 250, 250);
   --main-black: rgb(2, 2, 2);
 }
