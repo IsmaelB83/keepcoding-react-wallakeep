@@ -16,19 +16,23 @@ export default class InputIcon extends Component {
   render() {   
     return (
         <FormControlLabel
+            name={this.props.name}
             control={
             <Checkbox
                 checked={this.props.checked}
                 onChange={this.props.onChange}
-                color='primary'
+                color={this.props.color}
                 inputProps={{
                 'aria-label': 'secondary checkbox',
                 }}
             />
             }
-            label='Remember me'
+            label={this.props.label}
         />
     );
   }
 }
 
+InputIcon.defaultProps = {
+  color: 'primary',
+}

@@ -38,9 +38,24 @@ export default class Login extends Component {
         <div className='Login-wrapper'>
           <form className='Login-form' onSubmit={this.handleOnSubmit}>
             <img src={imageLogo} className='Login-logo' alt='nodepop-logo' />
-            <InputIcon value={this.state.email} onChange={this.handleInput('email')} type='email' placeholder='type your email' adornment={<AccountCircleIcon/>} />
-            <InputPassword value={this.state.password} onChange={this.handleInput('password')} placeholder='type your password' />
-            <InputCheckbox onChange={this.handleCheckbox('checkbox')} />
+            <InputIcon 
+              name='email'
+              value={this.state.email}
+              onChange={this.handleInput('email')}
+              type='email' placeholder='type your email'
+              adornment={<AccountCircleIcon/>} 
+            />
+            <InputPassword 
+              name='password'
+              value={this.state.password}
+              onChange={this.handleInput('password')}
+              placeholder='type your password' 
+            />
+            <InputCheckbox 
+              name='remember'
+              label='remember me'
+              onChange={this.handleCheckbox('checkbox')} 
+            />
             <Button className='button' type='submit' variant='contained' color='primary'> Login </Button>
           </form>
         </div>
