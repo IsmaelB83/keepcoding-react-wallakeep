@@ -23,38 +23,24 @@ export default class Footer extends Component {
         return (
             <footer className='Footer'>
                 <Container>
-                    <Grid container spacing={3}>
-                        <Grid xs={12} sm={6} lg={5} className="Footer-item mt-3 mt-lg-0">
-                            <h2 className="title">Contactar</h2>
-                            <p>Puede ponerse en contacto con Nodepop a través de los siguientes medios:</p>
-                            <div className="Footer-contact-block">
-                                <BusinessIcon />
-                                <p><span>Dirección: </span>742 Evergreen Terrace</p>
-                            </div>
-                            <div className="Footer-contact-block">
-                                <MailOutlineIcon />
-                                <p><span>E-Mail: </span><a href="mailto: homer_js@springfield.com">homer_js@springfield.com</a></p>
-                            </div>
-                            <div className="Footer-contact-block">
-                                <PhoneIcon />
-                                <p><span>Teléfono: </span><a href="tel:+(1)636555444333">(636) 555 444 333</a></p>
-                            </div>
+                    <Grid container spacing={3} className='Footer__row'>
+                        <Grid item xs={12} sm={4} lg={4} className='Footer-item mt-3 mt-lg-0'>
+                           <FooterAddress/> 
                         </Grid>
-                        <Grid xs={12} sm={6} lg={3} className="Footer-item links mt-3 mt-lg-0">
-                            <h2 className="title">Links</h2>
-                            <a className="Footer-link" href='/'>Menu 1</a>
-                            <a className="Footer-link" href='/'>Menu 2</a>
-                            <a className="Footer-link" href='/'>Menu 3</a>
-                            <a className="Footer-link" href='/'>Menu 4</a>
+                        <Grid item xs={12} sm={4} lg={4} className='Footer-item links mt-3 mt-lg-0'>
+                            <FooterLinks/>
                         </Grid>
-                        <Grid xs={12} sm={12} lg={4} className="Footer-item mt-3 mt-lg-0">
-                            <h2 className="title">Coches recientes</h2>
+                        <Grid item xs={12} sm={4} lg={4} className='Footer-item mt-3 mt-lg-0'>
+                            <FooterRecentProducts/>
                         </Grid>
-
-                        <Grid xs={12}>
-                            <p>Página web desarrollada por Ismael Bernal <a href="mailto:ismaelbernal83@gmail.com">ismaelbernal83@gmail.com</a></p>
+                    </Grid>
+                    <Grid container justify='center' className='Footer__row'>
+                        <Grid item>
+                            <p>Página web desarrollada por Ismael Bernal <a href='mailto:ismaelbernal83@gmail.com'>ismaelbernal83@gmail.com</a></p>
                         </Grid>
-                        <Grid xs={12}>
+                    </Grid>
+                    <Grid container justify='center'>
+                        <Grid item>
                             <SocialLinks />
                         </Grid>
                     </Grid>
@@ -62,4 +48,62 @@ export default class Footer extends Component {
             </footer>
         );
     }
+}
+
+/**
+ * Sección de dirección del footer
+ */
+function FooterAddress() {
+    return (
+        <div className='Footer__section'>
+            <h2 className='Footer__title'>Contactar</h2>
+            <div className='Footer__content'>
+                <p>Puede ponerse en contacto con Nodepop a través de los siguientes medios:</p>
+                <div className='Footer__block'>
+                    <BusinessIcon className='mr-1'/>
+                    <span>Dirección: </span>742 Evergreen Terrace
+                </div>
+                <div className='Footer__block'>
+                    <MailOutlineIcon className='mr-1'/>
+                    <span>E-Mail: </span><a href='mailto: homer_js@springfield.com'>homer_js@springfield.com</a>
+                </div>
+                <div className='Footer__block'>
+                    <PhoneIcon className='mr-1'/>
+                    <span>Teléfono: </span><a href='tel:+(1)636555444333'>(636) 555 444 333</a>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+/**
+ * Sección de links del footer
+ */
+function FooterLinks() {
+    return (
+        <div className='Footer__section'>
+            <h2 className='Footer__title'>Links</h2>
+            <div className='Footer__content Footer__content--center'>
+                <a className='Footer__link' href='/'>Menu 1</a>
+                <a className='Footer__link' href='/'>Menu 2</a>
+                <a className='Footer__link' href='/'>Menu 3</a>
+                <a className='Footer__link' href='/'>Menu 4</a>
+                <a className='Footer__link' href='/'>Menu 4</a>
+                <a className='Footer__link' href='/'>Menu 4</a>
+            </div>
+        </div>
+    );
+}
+
+/**
+ * Sección de links del footer
+ */
+function FooterRecentProducts() {
+    return (
+        <div className='Footer__section'>
+            <h2 className='Footer__title'>Anuncios recientes</h2>
+            <div className='Footer__content'>
+            </div>
+        </div>
+    );
 }
