@@ -24,13 +24,13 @@ export default class Footer extends Component {
             <footer className='Footer'>
                 <Container>
                     <Grid container spacing={3} className='Footer__row'>
-                        <Grid item xs={12} sm={4} lg={4} className='Footer-item mt-3 mt-lg-0'>
+                        <Grid item xs={12} sm={6} lg={4} className='Footer-item mt-3 mt-lg-0'>
                            <FooterAddress/> 
                         </Grid>
-                        <Grid item xs={12} sm={4} lg={4} className='Footer-item links mt-3 mt-lg-0'>
+                        <Grid item xs={12} sm={6} lg={4} className='Footer-item links mt-3 mt-lg-0'>
                             <FooterLinks/>
                         </Grid>
-                        <Grid item xs={12} sm={4} lg={4} className='Footer-item mt-3 mt-lg-0'>
+                        <Grid item xs={12} sm={12} lg={4} className='Footer-item mt-3 mt-lg-0'>
                             <FooterRecentProducts/>
                         </Grid>
                     </Grid>
