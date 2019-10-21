@@ -1,0 +1,42 @@
+.InputSearch {
+    width: 70%;
+    position: relative;
+}
+
+.InputSearch__Icon {
+    position: absolute;
+    top: .45rem;
+    cursor: pointer;
+    color: var(--main-white);
+}
+
+.InputSearch__Icon--start { left: 1rem; }
+.InputSearch__Icon--end   { right: .75rem; }
+
+.InputSearch__Input {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0;
+    padding-left: 3rem;
+    border: 1px solid var(--main-white);
+    border-radius: 3rem;
+    background-color: var(--light-grey);
+    color: var(--main-white);
+    outline: none;
+    height: 36px;
+}
+
+.InputSearch:active .InputSearch__Input,
+.InputSearch:focus .InputSearch__Input,
+.InputSearch:hover .InputSearch__Input {
+    background-color: white;
+    border: 1px solid var(--main-color);
+    outline: none;
+    color: black;
+}
+
+.InputSearch:active .InputSearch__Icon,
+.InputSearch:focus .InputSearch__Icon,
+.InputSearch:hover .InputSearch__Icon {
+    color: black;
+}

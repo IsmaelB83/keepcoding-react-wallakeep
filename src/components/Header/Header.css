@@ -1,0 +1,25 @@
+.Header {
+    width: 100%;
+    padding: .5rem;
+    background: linear-gradient(-45deg, var(--main-color), var(--main-color-light));
+    color: white;
+  }
+  
+  .Header__Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .Header__Brand {
+    height: 36px;
+    width: auto;
+  }
+
+  .Header__Avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  

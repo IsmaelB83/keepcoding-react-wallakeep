@@ -1,12 +1,17 @@
 /* Import node modules */
 import React, { Component } from 'react';
+/* Import material-ui */
 import Grid from '@material-ui/core/Grid';
+import HomeIcon from '@material-ui/icons/Home';
 import PhoneIcon from '@material-ui/icons/Phone';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import Container from '@material-ui/core/Container';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import BusinessIcon from '@material-ui/icons/Business';
+import InstagramIcon from '@material-ui/icons/Instagram';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 /* Import own modules */
-import SocialLinks from '../links/SocialLinks/SocialLinks';
 /* Import assets */
 /* Import css */
 import './Footer.css';
@@ -84,12 +89,11 @@ function FooterLinks() {
         <div className='Footer__section'>
             <h2 className='Footer__title'>Links</h2>
             <div className='Footer__content Footer__content--center'>
-                <a className='Footer__link' href='/'>Menu 1</a>
-                <a className='Footer__link' href='/'>Menu 2</a>
-                <a className='Footer__link' href='/'>Menu 3</a>
-                <a className='Footer__link' href='/'>Menu 4</a>
-                <a className='Footer__link' href='/'>Menu 4</a>
-                <a className='Footer__link' href='/'>Menu 4</a>
+                <a className='Footer__link' href='/register'>Register</a>
+                <a className='Footer__link' href='/'>Home</a>
+                <a className='Footer__link' href='https://www.laestanciaazul.com/'>La Estancia Azul</a>
+                <a className='Footer__link' href='https://github.com/IsmaelB83/'>GitHub Ismael</a>
+                <a className='Footer__link' href='https://keepcoding.io/es/nuestros-bootcamps/full-stack-web-bootcamp/'>Keepcoding Fullstack Bootcamp</a>
             </div>
         </div>
     );
@@ -104,6 +108,31 @@ function FooterRecentProducts() {
             <h2 className='Footer__title'>Anuncios recientes</h2>
             <div className='Footer__content'>
             </div>
+        </div>
+    );
+}
+
+/**
+ * Social Links del footer
+ */
+function SocialLinks () {
+    return (
+        <div className='SocialLinks'>
+            <a className='SocialLinks__link SocialLinks__link--facebook' href='https://laestanciaazul.com'>
+                <HomeIcon />
+            </a>
+            <a className='SocialLinks__link SocialLinks__link--github' href='https://github.com/IsmaelB83'>
+                <GitHubIcon />
+            </a>
+            <a className='SocialLinks__link SocialLinks__link--linkedin' href='https://www.linkedin.com/in/ismael-bernal-10497a51/'>
+                <LinkedInIcon />
+            </a>
+            <a className='SocialLinks__link SocialLinks__link--instagram' href='https://www.instagram.com/isma83_/'>
+                <InstagramIcon />
+            </a>
+            <a className='SocialLinks__link SocialLinks__link--twitter' href='https://twitter.com/Ismab83'>
+                <TwitterIcon />
+            </a>
         </div>
     );
 }

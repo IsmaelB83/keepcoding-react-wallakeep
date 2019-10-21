@@ -1,0 +1,46 @@
+.Register {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(-45deg, var(--main-color), var(--main-color-light));
+}
+
+.Register__Wrapper {
+    max-width: 80%;
+    padding: 3rem 2rem;
+    background-color: white;
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, .5);
+}
+
+.Register__Form {
+    display: grid;
+    grid-gap: 2rem;
+}
+
+.Register__Form .button {
+    align-self: flex-end;
+}
+
+.Register__Logo {
+    justify-self: center;
+    align-self: center;
+    max-width: 70%;
+}
+
+@media only screen and (min-width: 600px) {
+    .Register__Wrapper {
+        max-width: 400px;
+        padding: 4rem 2rem;
+    }
+}
+
+.InputIcon__Icon {
+    padding-right: 3px;
+    padding-bottom: 2px;
+}
+
+.InputIcon__Icon + input::placeholder{
+    font-size: .9rem;
+}

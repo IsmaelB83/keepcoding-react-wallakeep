@@ -1,0 +1,9 @@
+.ButtonFill {
+    border-radius: 50px !important;
+    background-color: var(--main-black) !important;
+    color: white !important;
+}
+
+.ButtonFill:hover {
+    background-color: var(--main-color-dark) !important;
+}
