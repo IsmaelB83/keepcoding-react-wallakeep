@@ -1,12 +1,12 @@
-/* Import node modules */
+/* NPM modules */
 import React, { Component } from 'react';
 /* Material UI */
 import Button from '@material-ui/core/Button';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-/* Import own modules */
-/* Import assets */
-/* Import css */
+/* Own modules */
+/* Assets */
+/* CSS */
 import './ButtonFill.css';
 
 /**

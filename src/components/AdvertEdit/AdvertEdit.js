@@ -7,22 +7,22 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 /* Assets */
 /* CSS */
-import './Home.css';
+import './AdvertEdit.css';
 
 /**
  * Main App
  */
-export default class Home extends Component {
+export default class AdvertEdit extends Component {
   /**
    * Render
    */
-  render() {   
+  render() {
     return (
       <React.Fragment>
         <Header handleSearch={this.handleSearch}/>
         <Container>
           <main className='Home__Grid'>
-            <h1>Listado de anuncios</h1>
+            <h1>{this.props.title}</h1>
           </main>
         </Container>
         <Footer/>

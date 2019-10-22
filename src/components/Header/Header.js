@@ -1,14 +1,14 @@
-// Node imports
+/* NPM modules */
 import React, { Component } from 'react';
-// Material UI
+/* Material UI */
 import Container from '@material-ui/core/Container';
-// Import own
+/* Own modules */
 import InputSearch from '../InputSearch/InputSearch';
 import ButtonFill from '../ButtonFill/ButtonFill';
-// Assets
+/* Assets */
 import imageLogo from '../../assets/images/logo2.png';
 import imageAvatar from '../../assets/images/user.png';
-// CSS imports
+/* CSS */
 import './Header.css';
 
 /**
@@ -28,7 +28,7 @@ export default class Home extends Component {
                 <a href='/' className='Header__Brand'>
                   <img src={imageLogo} alt='logo' className='Header__Brand'/>
                 </a>
-                <InputSearch/>
+                <InputSearch handleSearch={this.props.handleSearch}/>
                 <ButtonFill/>
                 <a href='/profile' className='Header__Avatar'>
                   <img src={imageAvatar} className='Header__Avatar' alt='logo'/>

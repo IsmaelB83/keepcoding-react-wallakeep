@@ -26,17 +26,13 @@
     height: 36px;
 }
 
-.InputSearch:active .InputSearch__Input,
-.InputSearch:focus .InputSearch__Input,
-.InputSearch:hover .InputSearch__Input {
+.InputSearch__Input--focus {
     background-color: white;
     border: 1px solid var(--main-color);
     outline: none;
     color: black;
 }
 
-.InputSearch:active .InputSearch__Icon,
-.InputSearch:focus .InputSearch__Icon,
-.InputSearch:hover .InputSearch__Icon {
+.InputSearch__Icon--focus {
     color: black;
 }

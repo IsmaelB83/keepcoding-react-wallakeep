@@ -1,7 +1,7 @@
-// Node modules
+/* NPM modules */
 import React, { Component } from 'react';
 import { withSnackbar } from 'notistack';
-// Material-UI
+/* Material UI */
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -12,13 +12,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
-// Own modules
+/* Own modules */
 import UserConsumer from '../../context/UserContext';
 import NodepopAPI from '../../services/NodepopAPI';
 import LocalStorage from '../../utils/Storage';
-// Assets
+/* Assets */
 import imageLogo from '../../assets/images/logo2.png';
-// CSS styles
+/* CSS */
 import './Register.css';
 
 /**

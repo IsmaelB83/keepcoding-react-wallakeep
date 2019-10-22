@@ -1,12 +1,13 @@
-// Node imports
+/* NPM modules */
 import React, { Component } from 'react';
-// Own imports
+/* Material UI */
+/* Own modules */
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-// CSS imports
-import './Error404.css';
-// Assets imports
+/* Assets */
 import image404 from '../../assets/images/404.png';
+/* CSS */
+import './Error404.css';
 
 export default class Error404 extends Component {
 

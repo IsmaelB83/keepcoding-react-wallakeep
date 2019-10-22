@@ -1,3 +1,9 @@
+/* NPM modules */
+/* Material UI */
+/* Own modules */
+/* Assets */
+/* CSS */
+
 /**
  * Modelo de anuncio en nodepop
  */
@@ -7,25 +13,12 @@ export default class Advert {
      * @param {Object} Advert 
      */    
     constructor(ad) {
-        this.adult = ad.adult;
-        this.backdrop_path = ad.backdrop_path;
-        this.genre_ids = ad.genre_ids;
-        this.id = ad.id;
-        this.original_language = ad.original_language;
-        this.original_title = ad.original_title;
-        this.overview = ad.overview;
-        this.popularity = ad.popularity;
-        this.poster_path = ad.poster_path;
-        this.release_date = ad.release_date;
-        this.title = ad.title;
-        this.video = ad.video;
-        this.vote_average = ad.vote_average;
-        this.vote_count = ad.vote_count;
-    }
-    
-    /**
-     */
-    isImportant() {
-        return this.vote_count > 25;
+        this.createdAt = ad.createdAt;
+        this.name = ad.name;
+        this.description = ad.description;
+        this.price = ad.price;
+        this.type = ad.type;
+        this.photo = ad.photo;
+        this.tags = ad.tags;
     }
 }

@@ -3,26 +3,34 @@ import React, { Component } from 'react';
 /* Material UI */
 import Container from '@material-ui/core/Container';
 /* Own modules */
+import AdvertCard from '../AdvertCard/AdvertCard';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 /* Assets */
 /* CSS */
-import './Home.css';
+import './AdvertDisplay.css';
 
 /**
  * Main App
  */
-export default class Home extends Component {
+export default class AdvertDisplay extends Component {
   /**
    * Render
    */
-  render() {   
+  render() {
     return (
       <React.Fragment>
         <Header handleSearch={this.handleSearch}/>
         <Container>
           <main className='Home__Grid'>
-            <h1>Listado de anuncios</h1>
+            <h1>Detalle de anuncio</h1>
+            <AdvertCard
+              type='buy'
+              name='PS4PRO'
+              description='Compro PS4 Pro con menos de 1 año de uso'
+              price='200.99'
+              createdAt={Date.now()}
+            />
           </main>
         </Container>
         <Footer/>

@@ -1,6 +1,6 @@
-/* Import node modules */
+/* NPM modules */
 import React, { Component } from 'react';
-/* Import material-ui */
+/* Material UI */
 import Grid from '@material-ui/core/Grid';
 import HomeIcon from '@material-ui/icons/Home';
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -11,9 +11,9 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import BusinessIcon from '@material-ui/icons/Business';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
-/* Import own modules */
-/* Import assets */
-/* Import css */
+/* Own modules */
+/* Assets */
+/* CSS */
 import './Footer.css';
 
 
@@ -91,6 +91,7 @@ function FooterLinks() {
             <div className='Footer__content Footer__content--center'>
                 <a className='Footer__link' href='/register'>Register</a>
                 <a className='Footer__link' href='/'>Home</a>
+                <a className='Footer__link' href='/advert/create'>Crear anuncio</a>
                 <a className='Footer__link' href='https://www.laestanciaazul.com/'>La Estancia Azul</a>
                 <a className='Footer__link' href='https://github.com/IsmaelB83/'>GitHub Ismael</a>
                 <a className='Footer__link' href='https://keepcoding.io/es/nuestros-bootcamps/full-stack-web-bootcamp/'>Keepcoding Fullstack Bootcamp</a>

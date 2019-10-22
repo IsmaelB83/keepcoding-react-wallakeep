@@ -1,9 +1,16 @@
-// NPM modules
+/* NPM modules */
 import React from 'react';
 import ReactDOM from 'react-dom';
-// Own modules
+import { SnackbarProvider } from 'notistack';
+/* Own modules */
 import App from './components/App/App';
-// CSS styles
+/* Material UI */
+/* Assets */
+/* CSS */
 import './index.css';
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+const app = <SnackbarProvider maxSnack={3}>
+                <App/>
+            </SnackbarProvider>
+
+ReactDOM.render(app, document.getElementById('root'));

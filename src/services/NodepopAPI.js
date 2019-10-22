@@ -1,7 +1,9 @@
-/**
- * Own modules
- */
+/* NPM modules */
+/* Material UI */
+/* Own modules */
 import Advert from '../models/Advert';
+/* Assets */
+/* CSS */
 
 /**
  * Objeto API

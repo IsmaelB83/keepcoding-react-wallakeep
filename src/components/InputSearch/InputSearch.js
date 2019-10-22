@@ -1,11 +1,11 @@
-/* Import node modules */
+/* NPM modules */
 import React, { Component } from 'react';
 /* Material UI */
 import SearchIcon from '@material-ui/icons/Search';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-/* Import own modules */
-/* Import assets */
-/* Import css */
+/* Own modules */
+/* Assets */
+/* CSS */
 import './InputSearch.css';
 
 /**
@@ -20,7 +20,8 @@ export default class InputSearch extends Component {
         super(props);
         this.state = {
             searchTerm: '',
-            showRemove: false
+            showRemove: false,
+            focus: false,
         }
     }
 
@@ -30,16 +31,29 @@ export default class InputSearch extends Component {
     render() {
         return (
             <div className='InputSearch'>
-                <SearchIcon className='InputSearch__Icon InputSearch__Icon--start'/>
+                <SearchIcon 
+                    className={`InputSearch__Icon InputSearch__Icon--start ${this.state.focus?'InputSearch__Icon--focus':''}`}
+                    onClick={this.props.handleSearch}
+                />
                 <input 
                     type='text' 
                     value={this.state.searchTerm}
-                    className='InputSearch__Input'
+                    className={`InputSearch__Input ${this.state.focus?'InputSearch__Input--focus':''}`}
                     placeholder='Buscar productos por nombre'
-                    onChange={this.handleInput} 
+                    onChange={this.handleInput}
+                    onFocus={this.handleFocus}
+                    onBlur={this.handleFocus}
+                    onKeyPress={(ev) => {
+                        if (ev.key === 'Enter') {
+                            this.props.handleSearch();
+                        }
+                    }}
                 />
                 { this.state.showRemove &&
-                    <HighlightOffIcon className='InputSearch__Icon InputSearch__Icon--end' onClick={this.removeSearch}/>
+                    <HighlightOffIcon 
+                        className={`InputSearch__Icon InputSearch__Icon--end ${this.state.focus?'InputSearch__Icon--focus':''}`}
+                        onClick={this.handleClear}
+                    />
                 }
             </div>
 
@@ -57,19 +71,27 @@ export default class InputSearch extends Component {
     }
 
     /**
-     * Removes current search
+     * Vacia el input de búsqueda
      */
-    removeSearch = () => {
+    handleClear = () => {
         this.setState({
             searchTerm: '',
-            showRemove: false
-        })
+            showRemove: false,
+            focus: false
+        });
     }
-
-        /**
-     * Removes current search
+    
+    /**
+     * Gestiona el estado de focus del input
      */
-    performSearch = () => {
-        
-    }
+    handleFocus = (ev) => {
+        // Focus activo estilo - Blur desactivo estilo
+        let state = ev.type==='focus'?true:false;
+        if (this.state.searchTerm) {
+            // En caso de que el searchterm esté relleno no "quito focus"
+            state = true;
+        }
+        // Actualizo el estado para lanzar el render
+        this.setState({focus: state})
+    }    
 }
