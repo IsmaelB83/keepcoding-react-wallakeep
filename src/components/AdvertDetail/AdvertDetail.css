@@ -1,0 +1,56 @@
+.AdvertDisplay {
+    margin: 0 auto;
+    padding: 2rem 0;
+    max-width: 640px;
+}
+
+.AdvertDisplay__Header img {
+    border-radius: 1rem;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, .4);
+}
+
+.AdvertDisplay__Middle {
+    display: flex;
+    flex-direction: column;
+}
+
+.AdvertDisplay__Price {
+    margin: .25rem 0 0 0;
+    font-size: 1.5rem;
+}
+
+.AdvertDisplay__Currency {
+    margin-left: 5px;
+    font-size: 1.25em;
+}
+
+.AdvertDisplay__Title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: .5rem 0 0 0;
+}
+
+.AdvertDisplay__Title img {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.AdvertDisplay__Icon h1 {
+    font-size: 2rem;
+}
+
+.AdvertDisplay__Content { 
+    margin-top: 0;
+}
+
+.AdvertDisplayCard__Date {
+    font-weight: 300;
+    font-size: .9rem;
+}
+
+.AdvertDisplay__Content p { 
+    margin-top: .75rem;
+}
+

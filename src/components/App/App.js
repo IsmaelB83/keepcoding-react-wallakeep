@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 /* Material UI */
 /* Own modules */
 import Home from '../Home/Home';
-import AdvertDisplay from '../AdvertDisplay/AdvertDisplay';
+import AdvertDetail from '../AdvertDetail/AdvertDetail';
 import AdvertEdit from '../AdvertEdit/AdvertEdit';
 import Error404 from '../Error404/Error404';
 import Register from '../Register/Register';
@@ -39,7 +39,7 @@ export default class App extends Component {
           <Router>
             <Switch>
                 <Route path='/register' exact component={Register} />
-                <Route path='/advert/display' exact component={AdvertDisplay} />
+                <Route path='/advert/display' exact component={AdvertDetail} />
                 <Route path='/advert/create' exact render={(props) => <AdvertEdit {...props} title='Crear anuncio' mode={'C'}/>}/>
                 <Route path='/advert/edit' exact render={(props) => <AdvertEdit {...props} title='Editar anuncio' mode={'U'}/>}/>
                 <Route path='/' exact component={Home} />

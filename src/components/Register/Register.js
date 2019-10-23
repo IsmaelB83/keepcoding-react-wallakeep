@@ -14,7 +14,6 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 /* Own modules */
 import UserConsumer from '../../context/UserContext';
-import NodepopAPI from '../../services/NodepopAPI';
 import LocalStorage from '../../utils/Storage';
 /* Assets */
 import imageLogo from '../../assets/images/logo2.png';

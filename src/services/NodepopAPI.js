@@ -1,4 +1,5 @@
 /* NPM modules */
+import axios from 'axios';
 /* Material UI */
 /* Own modules */
 import Advert from '../models/Advert';
@@ -14,49 +15,46 @@ export default class NodepopAPI {
    * Constructor
    */
   constructor() {
-    this.API_URL = 'https://api.themoviedb.org/3';
+    this.API_URL = 'http://localhost:3001/apiv1';
   }
   
-  getRequest = (url) => {
-    return fetch(url,
-      { method: 'GET' },
-      { Accept: 'application/json, text/plain, */*' }
-    ).then(res => res.json());
+  /**
+   * Obtener todos los anuncios
+   */
+  getAdverts = () => {
+    // Endpoint
+    let baseURL = `${this.API_URL}/anuncios`;
+    // Call endpoint and return
+    return axios.get(baseURL).then(res => {
+      if (res.status === 200) {
+        return res.data.results.map(advert => new Advert(advert));
+      } else {
+        return null;
+      }
+    });
   }
 
-  checkApìKey = () => {
-    try {
-      return this.getRequest(`${this.API_URL}/discover/movie?api_key=${this.API_KEY}`)
-      .then(res => {
-        return res.status_code !== 7;
-      });
-    } catch (error) {
-      return false;
-    }
-  }
-
-  discoverMovies = (year) => {
-    let baseURL = `${this.API_URL}/discover/movie?api_key=${this.API_KEY}`;
-    if (year)  { 
-      baseURL = `${baseURL}&primary_release_year=${year}`; 
-    }
-    return this.getRequest(baseURL)
-    .then(res => res.results.map(mov => new Advert(mov)))
-  }
-
-  getMovie =  (movieID) => {
-      return this.getRequest(`${this.API_URL}/movie/${movieID}?api_key=${this.API_KEY}`)
-      .then(res => {
-        return new Advert(res)
+  /**
+   * Obtener un anuncio por ID
+   */
+  getAdvert =  (advertId) => {
+      // Endpoint
+      let baseURL = `${this.API_URL}/anuncios/${advertId}`;
+      // Call endpoint and return
+      return axios.get(baseURL).then(res => {
+        return new Advert(res.results);
       });
   }
 
-  searchMovies = (query, year) => {
-    let baseURL = `${this.API_URL}/search/movie?api_key=${this.API_KEY}&query=${query}&page=1`;
-    if (year)  { 
-      baseURL = `${baseURL}&primary_release_year=${year}`; 
-    }
-    return this.getRequest(baseURL)
-    .then(res => res.results.map(mov => new Advert(mov)));
+  /**
+   * Buscar por query generica
+   */
+  searchAdvert = (query) => {
+    // Endpoint
+    let baseURL = `${this.API_URL}/anuncios?${query}`;
+    // Call endpoint and return
+    return axios.get(baseURL).then(res => {
+      return res.results.map(advert => new Advert(advert));
+    });
   }
 }

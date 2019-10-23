@@ -13,6 +13,7 @@ export default class Advert {
      * @param {Object} Advert 
      */    
     constructor(ad) {
+        this.id = ad._id;
         this.createdAt = ad.createdAt;
         this.name = ad.name;
         this.description = ad.description;

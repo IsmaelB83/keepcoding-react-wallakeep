@@ -1,0 +1,72 @@
+.AdvertCard {
+    width: 100%;
+    box-shadow: 3px 5px 8px rgba(0, 0, 0, .6) !important;
+}
+
+.AdvertCard__Header img {
+    width: 36px;
+    height: 36px;
+}
+
+.AdvertCard__Header h2 {
+    font-size: 1.25rem;
+}
+
+.AdvertCard__Header h2 {
+    font-size: 1.25rem;
+}
+
+.AdvertCard__Date {
+    font-size: .8rem;
+}
+
+.AdvertCard__Media {
+    position: relative;
+    text-align: center;
+}
+
+.AdvertCard__Media img {
+    max-height: 300px;
+    width: auto;
+}
+
+.AdvertCard__Price {
+    position: absolute;
+    padding: .5rem;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--main-color);
+    border-radius: 3px;
+    color: white;
+    box-shadow: 2px 2px 10px black;
+}
+
+.AdvertCard__Currency {
+    margin-left: 5px;
+    font-size: 1.25em;
+    font-weight: 700;
+}
+
+.AdvertCard__Content {
+    font-size: .9rem;
+    color: black;
+    letter-spacing: .75px;
+}
+
+.AdvertCard__Tags {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 1rem;
+}
+
+.AdvertCard__Tag {
+    margin-right: 5px;
+    color: white !important;
+}
+
+.AdvertCard__Tag--lifestyle { background-color: orangered !important; }
+.AdvertCard__Tag--work { background-color: purple !important; }
+.AdvertCard__Tag--mobile { background-color: green !important; }
+.AdvertCard__Tag--motor { background-color: blue !important; }

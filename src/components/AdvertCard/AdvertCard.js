@@ -8,9 +8,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import Chip from '@material-ui/core/Chip';
 /* Own modules */
 /* Assets */
 import imageBuy from '../../assets/images/buy.png';
@@ -27,39 +27,44 @@ export default class AdvertCard extends Component {
    */
   render() {
     return (
-        <Card>
-            <CardHeader
-                avatar={<img src={`${this.props.type==='buy'?imageBuy:imageSell}`} className='card-icon' alt='icon' /> }
-                title={this.props.name}
-                subheader={<Moment format="LLLL">{this.props.createdAt}</Moment>}
+        <Card className='AdvertCard'>
+            <CardHeader 
+                className='AdvertCard__Header'
+                avatar={<img src={`${this.props.type==='buy'?imageBuy:imageSell}`} alt='avatar' />}
+                title={<h2>{this.props.name}</h2>}
+                subheader={<Moment className='AdvertCard__Date' fromNow>{this.props.createdAt}</Moment>}
             />
-            <CardMedia>
-                <img src='https://media.wired.com/photos/5a99f809b4bf6c3e4d405abc/2:1/w_2500,c_limit/PS4-Pro-SOURCE-Sony.jpg' alt='image'/>
+            <CardMedia className='AdvertCard__Media'>
+                <img src={this.props.photo} alt='caption'/>
+                <p className='AdvertCard__Price'>
+                    {this.props.price} 
+                    <span className='AdvertCard__Currency'>€</span>
+                </p>
             </CardMedia>
-            <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    {this.props.description}
-                    <span className='price'>{this.props.price} €</span>
-                </Typography>
+            <CardContent className='AdvertCard__Content'>
+                {this.props.description}
+                <div className='AdvertCard__Tags'>
+                    {   this.props.tags && 
+                        this.props.tags.map((value,i) => {
+                            return  <Chip
+                                        key={i}
+                                        size="small"
+                                        label={value}
+                                        className={`AdvertCard__Tag AdvertCard__Tag--${value}`}
+                                    />
+                        })
+                    }
+                </div>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
+                <IconButton aria-label='add to favorites'>
+                    <FavoriteIcon color='secondary'/>
                 </IconButton>
-                <IconButton aria-label="share">
+                <IconButton aria-label='share'>
                     <ShareIcon />
                 </IconButton>
             </CardActions>
         </Card>
      );
   }
-}
-
-{
-    /* 
-        {   this.props.tags && this.props.tags.map((value, key) => {
-                return <span className={`badge badge-${value}`}>{value}</span>
-            })
-        }
-    */
 }
