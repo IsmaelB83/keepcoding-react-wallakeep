@@ -9,7 +9,8 @@ import App from './components/App/App';
 /* CSS */
 import './index.css';
 
-const app = <SnackbarProvider maxSnack={3}>
+// Forzar el modo producción
+const app = <SnackbarProvider maxSnack={2}>
                 <App/>
             </SnackbarProvider>
 

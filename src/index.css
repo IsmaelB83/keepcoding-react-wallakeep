@@ -46,3 +46,15 @@ img, embed, object, video {
  * Estilos margenes, etc.
  */
  .mr-1 { margin-right: 5px; }
+
+ #root {
+   min-height: 100vh;
+   display: flex;
+   flex-direction: column;
+ }
+
+ .Container__Fill {
+  flex: 1; 
+  justify-content: center;
+  align-items: center;
+ }

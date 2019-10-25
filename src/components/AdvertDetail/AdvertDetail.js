@@ -6,9 +6,13 @@ import Container from '@material-ui/core/Container';
 /* Own modules */
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import Config from '../../config';
+import UserConsumer from '../../context/UserContext';
+import NodepopAPI from '../../services/NodepopAPI';
 /* Assets */
 import imageBuy from '../../assets/images/buy.png';
 import imageSell from '../../assets/images/sell.png';
+import imageSpinner from '../../assets/images/spinner.gif';
 /* CSS */
 import './AdvertDetail.css';
 
@@ -16,20 +20,44 @@ import './AdvertDetail.css';
  * Main App
  */
 export default class AdvertDetail extends Component {
+  
+  /**
+   * Utilizar el contexto en cualquier metodo del ciclo de vida del component
+   */
+  static contextType = UserConsumer;
+  
   /**
    * Constructor
    */
   constructor(props) {
     super(props);
     this.state = {
-      type: 'buy',
-      name: 'PS4PRO',
-      description: 'Compro PS4 Pro con menos de 1 año de uso',
-      price: '200.99',
-      createdAt: Date.now(),
+      loading: true,
+      api: new NodepopAPI(),
+      advert: null
     }
   }
   
+  /**
+   * Component did mount
+   */
+  componentDidMount() {
+    // Chequeo sesion del contexto, si no existe redirijo a register
+    const session = this.context.session
+    if (!session) {
+      return this.props.history.push('/register');
+    } 
+    // Call API to get advert detail
+    const id = this.props.match.params.id;
+    this.state.api.getAdvert(id)
+      .then( res => {
+        this.setState({
+          advert: res,
+          loading: false
+        });
+      })
+  }
+
   /**
    * Render
    */
@@ -38,36 +66,34 @@ export default class AdvertDetail extends Component {
       <React.Fragment>
         <Header handleSearch={this.handleSearch}/>
         <Container>
-          <main className='AdvertDisplay'>
-            <div className='AdvertDisplay__Header'>
-              <img src='https://media.wired.com/photos/5a99f809b4bf6c3e4d405abc/2:1/w_2500,c_limit/PS4-Pro-SOURCE-Sony.jpg' alt='caption'/>
-            </div>
-            <div className='AdvertDisplay__Middle'>
-              <p className='AdvertDisplay__Price'>{this.state.price}
-                <span className='AdvertDisplay__Currency'>€</span>
-              </p>
-              <div className='AdvertDisplay__Title'>
-                <img src={`${this.state.type==='buy'?imageBuy:imageSell}`} alt='icon' /> 
-                <h1>{this.state.name}</h1>
+          { !this.state.loading && 
+            <main className='AdvertDisplay'>
+              <div className='AdvertDisplay__Header'>
+                <div className='AdvertDisplay__Title'>
+                  <img src={`${this.state.advert.type==='buy'?imageBuy:imageSell}`} alt='icon' /> 
+                  <h1>{this.state.advert.name}</h1>
+                </div>
+                <img className='Caption' src={`${Config.API_IMAGES}${this.state.advert.photo}`} alt='caption'/>
               </div>
+              <div className='AdvertDisplay__Middle'>
+                <p className='Price'>{this.state.advert.price} €</p>
+                <Moment className='Date' fromNow>{this.state.advert.createdAt}</Moment>            
+              </div>
+              <div className='AdvertDisplay__Footer'>
+                <p>{this.state.advert.description}</p>
+              </div>
+            </main>
+          }
+          {
+            this.state.loading &&
+            <div className='Home__Loading'>
+              <img src={imageSpinner} className='Home__Spinner' alt='spinner'/>
+              <h2>Fetching data from API</h2>
             </div>
-            <div className='AdvertDisplay__Content'>
-              <Moment className='AdvertDisplayCard__Date' fromNow>{this.state.createdAt}</Moment>            
-              <p>
-                {this.state.description}
-              </p>
-            </div>
-          </main>
+          }
         </Container>
         <Footer/>
       </React.Fragment>
     );
-  }
-
-  /**
-   * Ejecuta la busqueda
-   */
-  handleSearch = () => {
-    this.props.enqueueSnackbar('Realizando búsqueda');
   }
 }

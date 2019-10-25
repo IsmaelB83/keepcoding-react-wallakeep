@@ -1,25 +1,72 @@
 .Header {
-    width: 100%;
-    padding: .5rem;
-    background: linear-gradient(-45deg, var(--main-color), var(--main-color-light));
-    color: white;
-  }
-  
-  .Header__Container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  
-  .Header__Brand {
-    height: 36px;
-    width: auto;
-  }
+  width: 100%;
+  padding: .5rem;
+  background: linear-gradient(-45deg, var(--main-color), var(--main-color-light));
+  color: white;
+}
 
-  .Header__Avatar {
-    width: 36px;
-    height: 36px;
-  }
+.Header__Container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
 
-  
+.Header__Brand {
+  height: 36px;
+  width: auto;
+}
+
+.Header__Avatar {
+  width: 36px;
+  height: 36px;
+}
+
+.ButtonFill {
+  border-radius: 50px !important;
+  background-color: var(--main-black) !important;
+  color: white !important;
+}
+
+.ButtonFill:hover {
+  background-color: var(--main-color-dark) !important;
+}
+
+.InputSearch {
+  width: 70%;
+  position: relative;
+}
+
+.InputSearch__Icon {
+  position: absolute;
+  top: .45rem;
+  cursor: pointer;
+  color: var(--main-white);
+}
+
+.InputSearch__Icon--start { left: 1rem; }
+.InputSearch__Icon--end   { right: .75rem; }
+
+.InputSearch__Input {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0;
+  padding-left: 3rem;
+  border: 1px solid var(--main-white);
+  border-radius: 3rem;
+  background-color: var(--light-grey);
+  color: var(--main-white);
+  outline: none;
+  height: 36px;
+}
+
+.InputSearch__Input--focus {
+  background-color: white;
+  border: 1px solid var(--main-color);
+  outline: none;
+  color: black;
+}
+
+.InputSearch__Icon--focus {
+  color: black;
+}

@@ -1,5 +1,6 @@
 /* NPM modules */
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 /* Material UI */
 import Grid from '@material-ui/core/Grid';
 import HomeIcon from '@material-ui/icons/Home';
@@ -41,7 +42,7 @@ export default class Footer extends Component {
                     </Grid>
                     <Grid container justify='center' className='Footer__row'>
                         <Grid item>
-                            <p>Página web desarrollada por Ismael Bernal <a href='mailto:ismaelbernal83@gmail.com'>ismaelbernal83@gmail.com</a></p>
+                            <p>SPA written in React by Ismael Bernal <a href='mailto:ismaelbernal83@gmail.com'>ismaelbernal83@gmail.com</a></p>
                         </Grid>
                     </Grid>
                     <Grid container justify='center'>
@@ -89,9 +90,9 @@ function FooterLinks() {
         <div className='Footer__section'>
             <h2 className='Footer__title'>Links</h2>
             <div className='Footer__content Footer__content--center'>
-                <a className='Footer__link' href='/register'>Register</a>
-                <a className='Footer__link' href='/'>Home</a>
-                <a className='Footer__link' href='/advert/create'>Crear anuncio</a>
+                <Link className='Footer__link' to='/register'>Register</Link>
+                <Link className='Footer__link' to='/'>Home</Link>
+                <Link className='Footer__link' to='/advert/create'>Crear anuncio</Link>
                 <a className='Footer__link' href='https://www.laestanciaazul.com/'>La Estancia Azul</a>
                 <a className='Footer__link' href='https://github.com/IsmaelB83/'>GitHub Ismael</a>
                 <a className='Footer__link' href='https://keepcoding.io/es/nuestros-bootcamps/full-stack-web-bootcamp/'>Keepcoding Fullstack Bootcamp</a>
@@ -119,21 +120,11 @@ function FooterRecentProducts() {
 function SocialLinks () {
     return (
         <div className='SocialLinks'>
-            <a className='SocialLinks__link SocialLinks__link--facebook' href='https://laestanciaazul.com'>
-                <HomeIcon />
-            </a>
-            <a className='SocialLinks__link SocialLinks__link--github' href='https://github.com/IsmaelB83'>
-                <GitHubIcon />
-            </a>
-            <a className='SocialLinks__link SocialLinks__link--linkedin' href='https://www.linkedin.com/in/ismael-bernal-10497a51/'>
-                <LinkedInIcon />
-            </a>
-            <a className='SocialLinks__link SocialLinks__link--instagram' href='https://www.instagram.com/isma83_/'>
-                <InstagramIcon />
-            </a>
-            <a className='SocialLinks__link SocialLinks__link--twitter' href='https://twitter.com/Ismab83'>
-                <TwitterIcon />
-            </a>
+            <a className='SocialLinks__link SocialLinks__link--facebook' href='https://laestanciaazul.com'><HomeIcon /></a>
+            <a className='SocialLinks__link SocialLinks__link--github' href='https://github.com/IsmaelB83'><GitHubIcon /></a>
+            <a className='SocialLinks__link SocialLinks__link--linkedin' href='https://www.linkedin.com/in/ismael-bernal-10497a51/'><LinkedInIcon /></a>
+            <a className='SocialLinks__link SocialLinks__link--instagram' href='https://www.instagram.com/isma83_/'><InstagramIcon /></a>
+            <a className='SocialLinks__link SocialLinks__link--twitter' href='https://twitter.com/Ismab83'><TwitterIcon /></a>
         </div>
     );
 }

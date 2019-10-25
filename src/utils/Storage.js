@@ -12,13 +12,13 @@ const LocalStorage = {
      * Salvar sesión en local storage
      */
     saveLocalStorage: (session) => {
-        localStorage.setItem('TheMovieDB_Session', JSON.stringify(session));
+        localStorage.setItem('Nodepop_IBA', JSON.stringify(session));
     },
     /**
      * Recuperar sesión del local storage
      */
     readLocalStorage: () => {
-        const session = localStorage.getItem('TheMovieDB_Session');
+        const session = localStorage.getItem('Nodepop_IBA');
         return JSON.parse(session)
     },
     /**

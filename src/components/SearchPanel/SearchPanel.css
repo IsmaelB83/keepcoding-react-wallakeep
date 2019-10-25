@@ -1,0 +1,31 @@
+.SearchPanel {
+    background: linear-gradient(-45deg, var(--main-color), var(--main-color-light));
+    padding: 1rem;
+    border: 1px solid var(--main-color);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+
+.SearchPanel h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0,0,0,.5);
+}
+
+.SearchPanel__Filters {  
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, .9);
+    border: 1px solid var(--main-color);
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, .3);
+}
+
+@media only screen and (min-device-width : 640px){
+    .SearchPanel__Filters {
+        grid-template-columns: 1fr 1fr;
+    }
+}

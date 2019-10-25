@@ -15,6 +15,7 @@ import Input from '@material-ui/core/Input';
 /* Own modules */
 import UserConsumer from '../../context/UserContext';
 import LocalStorage from '../../utils/Storage';
+import NodepopAPI from '../../services/NodepopAPI';
 /* Assets */
 import imageLogo from '../../assets/images/logo2.png';
 /* CSS */
@@ -36,6 +37,8 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      api: new NodepopAPI(),
+      error: false,
       isRemember: false,
       name: '',
       surname: '',
@@ -135,6 +138,20 @@ class Register extends Component {
       });
     }
     // Recuperar tags de la API
+    this.state.api.getTags()
+    .then(res => {
+      this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
+      this.setState({
+        error: false,
+        tags: res,
+      })
+    })
+    .catch(() => {
+      this.props.enqueueSnackbar('Error conectando con la API', { variant: 'error', });
+      this.setState({
+        error: true,
+      });
+    });
   }
 
   /**
@@ -142,16 +159,21 @@ class Register extends Component {
    */
   handleOnSubmit = (event) => {
     event.preventDefault();
-    // Creo el objeto session desde el formulario
-    const { name, surname, tag} = {...this.state};
-    const session = { name, surname, tag};
-    // Guardo en local storage en caso de haberlo seleccionado "remember"
-    if (this.state.isRemember) {
-      LocalStorage.saveLocalStorage(session);
+    // Sólo si no hay errores de conexión
+    if (!this.state.error) {
+      // Creo el objeto session desde el formulario
+      const { name, surname, tag} = {...this.state};
+      const session = { name, surname, tag};
+      // Guardo en local storage en caso de haberlo seleccionado "remember"
+      if (this.state.isRemember) {
+        LocalStorage.saveLocalStorage(session);
+      }
+      // Actualizo el contexto y redijo el home
+      this.context.session = session;
+      this.props.history.push('/');
+    } else {
+      this.props.enqueueSnackbar('Error conectando con la API', { variant: 'error', });
     }
-    // Actualizo el contexto y redijo el home
-    this.context.session = session;
-    this.props.history.push('/');
   }
 
   /**

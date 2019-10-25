@@ -1,27 +1,54 @@
 .AdvertDisplay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     margin: 0 auto;
     padding: 2rem 0;
+    width: 100%;
     max-width: 640px;
 }
 
-.AdvertDisplay__Header img {
-    border-radius: 1rem;
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, .4);
+.AdvertDisplay__Header {
+    align-self: flex-start;
+}
+
+.AdvertDisplay__Header .AdvertDisplay__Title {
+    display: flex;
+}
+
+.AdvertDisplay__Title img {
+    width: 32px;
+    height: 32px;
+    margin-right: 1rem;
+}
+
+.AdvertDisplay__Title h1 {
+    font-size: 1.25rem;
+}
+
+.AdvertDisplay__Header .Caption {
+    max-height: 520px;
+    width: auto;
 }
 
 .AdvertDisplay__Middle {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
-.AdvertDisplay__Price {
-    margin: .25rem 0 0 0;
+.AdvertDisplay__Middle .Price {
+    display: inline-block;
     font-size: 1.5rem;
 }
 
-.AdvertDisplay__Currency {
-    margin-left: 5px;
-    font-size: 1.25em;
+.AdvertDisplay__Middle .Date {
+    align-self: flex-end;
+    font-weight: 300;
+    font-size: .9rem;
 }
 
 .AdvertDisplay__Title {
@@ -31,26 +58,16 @@
     margin: .5rem 0 0 0;
 }
 
-.AdvertDisplay__Title img {
-    width: 32px;
-    height: 32px;
-    margin-right: 10px;
+.AdvertDisplay__Footer { 
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
-.AdvertDisplay__Icon h1 {
-    font-size: 2rem;
-}
-
-.AdvertDisplay__Content { 
-    margin-top: 0;
-}
-
-.AdvertDisplayCard__Date {
-    font-weight: 300;
-    font-size: .9rem;
-}
-
-.AdvertDisplay__Content p { 
+.AdvertDisplay__Footer p { 
     margin-top: .75rem;
 }
 
+@media only screen and (min-device-width : 768px){
+
+}

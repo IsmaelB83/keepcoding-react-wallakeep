@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 /* Own modules */
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import UserConsumer from '../../context/UserContext';
 /* Assets */
 /* CSS */
 import './AdvertEdit.css';
@@ -13,6 +14,23 @@ import './AdvertEdit.css';
  * Main App
  */
 export default class AdvertEdit extends Component {
+
+  /**
+   * Utilizar el contexto en cualquier metodo del ciclo de vida del component
+   */
+  static contextType = UserConsumer;
+
+  /**
+   * Component did mount
+   */
+  componentDidMount() {
+    // Chequeo sesion del contexto, si no existe redirijo a register
+    const session = this.context.session
+    if (!session) {
+      return this.props.history.push('/register');
+    } 
+  }
+
   /**
    * Render
    */
