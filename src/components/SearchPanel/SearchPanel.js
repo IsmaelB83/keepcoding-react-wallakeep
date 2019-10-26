@@ -65,9 +65,9 @@ export default class SearchPanel extends Component {
               value={this.state.type}
               displayEmpty
             >
-              <MenuItem key='all' value='all'><Chip size='small' label='all' className='AdvertCard__Tag AdvertCard__Tag--small'/></MenuItem>
-              <MenuItem key='buy' value='buy'><Chip size='small' label='buy' className='AdvertCard__Tag AdvertCard__Tag--small AdvertCard__Tag--buy'/></MenuItem>
-              <MenuItem key='sell' value='sell'><Chip size='small' label='sell' className='AdvertCard__Tag AdvertCard__Tag--small AdvertCard__Tag--sell'/></MenuItem>
+              <MenuItem key='all' value='all'><Chip size='small' label='all' className='Ad__Tag Ad__Tag--small'/></MenuItem>
+              <MenuItem key='buy' value='buy'><Chip size='small' label='buy' className='Ad__Tag Ad__Tag--small Ad__Tag--buy'/></MenuItem>
+              <MenuItem key='sell' value='sell'><Chip size='small' label='sell' className='Ad__Tag Ad__Tag--small Ad__Tag--sell'/></MenuItem>
             </Select>
           </FormControl>
           <FormControl>
@@ -83,7 +83,7 @@ export default class SearchPanel extends Component {
                 <Chip key='todos'
                       size='small'
                       label='todos'
-                      className='AdvertCard__Tag AdvertCard__Tag--small'
+                      className='Ad__Tag Ad__Tag--small'
                 />
               </MenuItem>
               {
@@ -93,7 +93,7 @@ export default class SearchPanel extends Component {
                             <Chip key={key}
                                   size='small'
                                   label={value}
-                                  className={`AdvertCard__Tag AdvertCard__Tag--small AdvertCard__Tag--${value}`}
+                                  className={`Ad__Tag Ad__Tag--small Ad__Tag--${value}`}
                             />
                           </MenuItem>
                 })

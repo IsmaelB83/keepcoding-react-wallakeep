@@ -65,8 +65,8 @@ class Home extends Component {
                 <section className='Home__Grid'>
                   { this.state.adverts.length > 0 &&
                     this.state.adverts.slice(0, Config.MAX_ADVERTS_GRID).map((advert, index) => 
-                      <AdvertCard key={advert.id} 
-                                  id={advert.id} 
+                      <AdvertCard key={advert._id} 
+                                  id={advert._id} 
                                   name={advert.name} 
                                   description={advert.description}
                                   price={advert.price}

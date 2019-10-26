@@ -27,6 +27,7 @@ import UserConsumer from '../../context/UserContext';
 import imagePhoto from '../../assets/images/photo.png'
 /* CSS */
 import './AdvertEdit.css';
+import Advert from '../../models/Advert';
 
 /**
  * Main App
@@ -49,11 +50,12 @@ class AdvertEdit extends Component {
       api: new NodepopAPI(),
       tags: [],
       advert: {
+        name: '',
         type: '',
         tags: [],
-        photo: '',
-        name: '',
+        price: 0,
         description: '', 
+        photo: '',
       }
     }
   }
@@ -97,9 +99,19 @@ class AdvertEdit extends Component {
               <h2>{this.props.mode === 'edit' ? 'Editar anuncio' : 'Crear nuevo anuncio' }</h2>
             </div>
             <form onSubmit={this.handleSubmit} noValidate autoComplete='off' className='AdvertEdit__Form'>
-              <button className='AdvertEdit_Picture' onClick={this.handleSwitchOpen}>
+              <button type='button' className='AdvertEdit_Picture' onClick={this.handleSwitchOpen}>
                 <img src={this.state.advert.photo || imagePhoto} alt='dummy_photo'/>
               </button>
+              <FormControl fullWidth className='AdvertEdit__FormControl'>
+                <InputLabel shrink htmlFor='type'>Nombre</InputLabel>
+                <Input
+                  name='name'
+                  value={this.state.advert.name}
+                  onChange={this.handleChange('name')}
+                  type='text' 
+                  required
+                />
+              </FormControl>
               <FormControl fullWidth className='AdvertEdit__FormControl'>
                 <InputLabel shrink htmlFor='type'>Tipo</InputLabel>
                 <Select
@@ -109,8 +121,8 @@ class AdvertEdit extends Component {
                   value={this.state.advert.type}
                   displayEmpty
                 >
-                  <MenuItem key='buy' value='buy'><Chip size='small' label='buy' className='AdvertCard__Tag AdvertCard__Tag--small AdvertCard__Tag--buy'/></MenuItem>
-                  <MenuItem key='sell' value='sell'><Chip size='small' label='sell' className='AdvertCard__Tag AdvertCard__Tag--small AdvertCard__Tag--sell'/></MenuItem>                  
+                  <MenuItem key='buy' value='buy'><Chip size='small' label='buy' className='Ad__Tag Ad__Tag--small Ad__Tag--buy'/></MenuItem>
+                  <MenuItem key='sell' value='sell'><Chip size='small' label='sell' className='Ad__Tag Ad__Tag--small Ad__Tag--sell'/></MenuItem>                  
                 </Select>
               </FormControl>
               <FormControl fullWidth className='AdvertEdit__FormControl'>
@@ -120,7 +132,13 @@ class AdvertEdit extends Component {
                   name='tags'
                   value={this.state.advert.tags || ''}
                   onChange={this.handleChangeMultiple}
-                  renderValue={this.renderValue}
+                  renderValue={() =>
+                      <div> 
+                        { this.state.advert.tags.map(value => 
+                            <Chip key={value} size='small' label={value} className={`Ad__Tag Ad__Tag--small Ad__Tag--${value}`}/> 
+                        )}
+                      </div>
+                  }
                 >
                   {
                     this.state.tags && 
@@ -129,7 +147,7 @@ class AdvertEdit extends Component {
                                 <Chip key={key}
                                       size='small'
                                       label={value}
-                                      className={`AdvertCard__Tag AdvertCard__Tag--small AdvertCard__Tag--${value}`}
+                                      className={`Ad__Tag Ad__Tag--small Ad__Tag--${value}`}
                                 />
                               </MenuItem>
                     })
@@ -137,11 +155,12 @@ class AdvertEdit extends Component {
                 </Select>
               </FormControl>
               <FormControl fullWidth className='AdvertEdit__FormControl'>
-                <InputLabel htmlFor='priceFrom'>Price</InputLabel>
+                <InputLabel htmlFor='price'>Price</InputLabel>
                 <Input
                   name='price'
-                  value={parseInt(this.state.advert.price) || ''}
-                  onChange={this.handleChange('price')}
+                  type='number'
+                  value={this.state.advert.price}
+                  onChange={this.handleChangeNumber('price')}
                   endAdornment={<InputAdornment position='start'>€</InputAdornment>}
                 />
               </FormControl>
@@ -162,7 +181,7 @@ class AdvertEdit extends Component {
               <div className='AdvertEdit__Footer'>
                 <Button className='button' type='submit' variant='contained' color='primary'>Aceptar</Button>
                 <Link to='/' className='LinkBlock'>
-                  <Button className='button' variant='contained' color='secondary' onClick={this.handleReset}>Cancel</Button>
+                  <Button type='button' className='button' variant='contained' color='secondary' onClick={this.handleReset}>Cancel</Button>
                 </Link>
               </div>            
             </form>
@@ -213,6 +232,19 @@ class AdvertEdit extends Component {
   }
 
   /**
+   * Cambio en un input tipo number
+   */
+  handleChangeNumber = field => event => {
+    const aux = this.state.advert;
+    aux[field] = parseFloat(event.target.value);
+    if (aux[field]) {
+      this.setState({
+        advert: aux
+      }); 
+    }
+  }
+
+  /**
    * Selectores de tipo multiple choice
    */
   handleChangeMultiple = event => {
@@ -228,6 +260,30 @@ class AdvertEdit extends Component {
    */
   handleSubmit = (ev) => {
     ev.preventDefault();
+    // Creo un anuncio con los datos del estado si es válido
+    const advert = new Advert(this.state.advert);
+    if (advert.isValid()) {
+      if (this.props.mode === 'create') {
+        // POST
+        this.state.api.postAdvert(advert)
+        .then(() => {
+          this.props.enqueueSnackbar('OK. Anuncio creado con exito.', { variant: 'success' })
+          this.props.history.push('/');
+        })
+        .catch(() => this.props.enqueueSnackbar('Error editando anuncio.', { variant: 'error' }));
+      } else {
+        // PUT
+        this.state.api.editAdvert(advert)
+        .then(() => {
+          this.props.enqueueSnackbar('OK. Anuncio editado con exito.', { variant: 'success' })
+          this.props.history.push('/');
+        })
+        .catch(() => this.props.enqueueSnackbar('Error creando anuncio.', { variant: 'error' }));
+      }
+    } else {
+      // El anuncio no es completo. Error
+      this.props.enqueueSnackbar('Los datos del anuncio no están completos', { variant: 'error' });
+    }
   }
 
   /**
@@ -262,7 +318,7 @@ class AdvertEdit extends Component {
       return (
         <div> 
         { this.state.advert.tags.map(value => 
-          <Chip key={value} size='small' label={value} className={`AdvertCard__Tag AdvertCard__Tag--small AdvertCard__Tag--${value}`}/> 
+          <Chip key={value} size='small' label={value} className={`Ad__Tag Ad__Tag--small Ad__Tag--${value}`}/> 
         )}
         </div>
       );        

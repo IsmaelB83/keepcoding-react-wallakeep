@@ -1,5 +1,5 @@
 /* NPM modules */
-import axios from 'axios';
+import Axios from 'axios';
 /* Material UI */
 /* Own modules */
 import Config from '../config';
@@ -26,8 +26,8 @@ export default class NodepopAPI {
     // Endpoint
     let baseURL = `${this.API_URL}/tags`;
     // Call endpoint and return
-    return axios.get(baseURL)
-      .then(res => res.data.results )
+    return Axios.get(baseURL)
+      .then(res => res.data.results);
   }
 
 
@@ -38,23 +38,19 @@ export default class NodepopAPI {
     // Endpoint
     let baseURL = `${this.API_URL}/anuncios`;
     // Call endpoint and return
-    return axios.get(baseURL)
-      .then(res => 
-        res.data.results.map(advert => new Advert(advert, true))
-      );
+    return Axios.get(baseURL)
+      .then(res => res.data.results.map(advert => new Advert(advert)));
   }
 
   /**
    * Obtener un anuncio por ID
    */
   getAdvert = (advertId) => {
-      // Endpoint
-      let baseURL = `${this.API_URL}/anuncios/${advertId}`;
-      // Call endpoint and return
-      return axios.get(baseURL)
-        .then(res => 
-          new Advert(res.data.result, true)
-        );
+    // Endpoint
+    let baseURL = `${this.API_URL}/anuncios/${advertId}`;
+    // Call endpoint and return
+    return Axios.get(baseURL)
+      .then(res => new Advert(res.data.result));
   }
 
   /**
@@ -76,8 +72,31 @@ export default class NodepopAPI {
       baseURL =`${baseURL}price=${priceFrom}-${priceTo}&`;
     }
     // Call endpoint and return
-    return axios.get(baseURL).then(res => {
-      return res.data.results.map(advert => new Advert(advert, true));
-    });
+    return Axios.get(baseURL)
+      .then(res => res.data.results.map(advert => new Advert(advert)));
+  }
+
+  /**
+   * Llama a la API para crear un nuevo anuncio
+   * @param {Advert} advert 
+   */
+  postAdvert = (advert) => {
+    // Endpoint
+    const baseURL = `${this.API_URL}/anuncios`;
+    // Call endpoint and return
+    return Axios.post(baseURL, null, { data: advert })
+      .then(res => res.data.results.map(advert => new Advert(advert)));
+  }
+
+  /**
+   * Llama a la API para editar un anuncio
+   * @param {Advert} advert 
+   */
+  editAdvert = (advert) => {
+    // Endpoint
+    const baseURL = `${this.API_URL}/anuncios/${advert._id}`;
+    // Call endpoint and return
+    return Axios.put(baseURL, null, { data: advert })
+      .then(res => new Advert(res.data.result));
   }
 }

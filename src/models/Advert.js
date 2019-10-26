@@ -13,14 +13,27 @@ export default class Advert {
      * Constructor
      * @param {Object} Advert 
      */    
-    constructor(ad, apiLoad) {
-        this.id = ad._id;
+    constructor(ad) {
+        this._id = ad._id;
         this.createdAt = ad.createdAt;
         this.name = ad.name;
         this.description = ad.description;
         this.price = ad.price;
         this.type = ad.type;
-        this.photo = apiLoad?`${Config.API_IMAGES}${ad.photo}`:ad.photo;
+        this.photo = ad.photo.startsWith('/images/')?`${Config.API_IMAGES}${ad.photo}`:ad.photo;
         this.tags = ad.tags;
+    }
+
+    /**
+     * Comprueba si un objeto advert es válido. (Campos obligatorios completos)
+     */
+    isValid() {
+        return  this.name && 
+                this.description && 
+                this.price > 0 && 
+                this.type && 
+                this.photo && 
+                this.tags && 
+                this.tags.length >= 1;
     }
 }

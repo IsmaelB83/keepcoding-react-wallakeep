@@ -51,14 +51,14 @@ export default class AdvertCard extends Component {
                     </Link>
                 </div>
                 
-                <div className='AdvertCard__Tags'>
+                <div className='Ad__Tags'>
                     {   this.props.tags && 
                         this.props.tags.map((value,i) => {
                             return  <Chip
                                         key={i}
                                         size="small"
                                         label={value}
-                                        className={`AdvertCard__Tag AdvertCard__Tag--${value}`}
+                                        className={`Ad__Tag Ad__Tag--${value}`}
                                     />
                         })
                     }

@@ -40,7 +40,7 @@ class Register extends Component {
     this.state = {
       api: new NodepopAPI(),
       error: false,
-      isRemember: false,
+      isRemember: true,
       name: '',
       surname: '',
       tag: '',
@@ -105,7 +105,7 @@ class Register extends Component {
                     return  <MenuItem key={value} value={value}>
                               <Chip size='small'
                                     label={value}
-                                    className={`AdvertCard__Tag AdvertCard__Tag--small AdvertCard__Tag--${value}`}
+                                    className={`Ad__Tag Ad__Tag--small Ad__Tag--${value}`}
                               />
                             </MenuItem>
                   })

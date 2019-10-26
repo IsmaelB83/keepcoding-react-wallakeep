@@ -63,7 +63,8 @@
      }
      
     .AdvertEdit_Picture { 
-        grid-row: 1/5;
+        align-self: flex-start;
+        grid-row: 1/6;
     }
 
     .AdvertEdit__FormControl {
@@ -85,7 +86,8 @@
      }
      
     .AdvertEdit_Picture { 
-        grid-row: 1/5;
+        align-self: flex-start;
+        grid-row: 1/6;
     }
 
     .AdvertEdit__FormControl {
