@@ -59,3 +59,6 @@ typings/
 
 # next.js build output
 .next
+
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build
