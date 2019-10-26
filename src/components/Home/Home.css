@@ -26,12 +26,13 @@
     display: block;
 }
 
-.Home__Loading h2, .Home__Error h2 {
+.Home__Subtitle {
     color: var(--main-color-dark);
     letter-spacing: .35px;
     text-transform: lowercase;
     font-weight: 400;
     font-size: 1.25rem;
+    text-align: center;
 }
 
 .Home__Error h2 {

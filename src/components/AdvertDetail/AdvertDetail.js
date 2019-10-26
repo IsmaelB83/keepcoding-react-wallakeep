@@ -6,7 +6,6 @@ import Container from '@material-ui/core/Container';
 /* Own modules */
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import Config from '../../config';
 import UserConsumer from '../../context/UserContext';
 import NodepopAPI from '../../services/NodepopAPI';
 /* Assets */
@@ -66,31 +65,36 @@ export default class AdvertDetail extends Component {
       <React.Fragment>
         <Header handleSearch={this.handleSearch}/>
         <Container>
-          { !this.state.loading && 
-            <main className='AdvertDisplay'>
-              <div className='AdvertDisplay__Header'>
-                <div className='AdvertDisplay__Title'>
-                  <img src={`${this.state.advert.type==='buy'?imageBuy:imageSell}`} alt='icon' /> 
-                  <h1>{this.state.advert.name}</h1>
-                </div>
-                <img className='Caption' src={`${Config.API_IMAGES}${this.state.advert.photo}`} alt='caption'/>
-              </div>
-              <div className='AdvertDisplay__Middle'>
-                <p className='Price'>{this.state.advert.price} €</p>
-                <Moment className='Date' fromNow>{this.state.advert.createdAt}</Moment>            
-              </div>
-              <div className='AdvertDisplay__Footer'>
-                <p>{this.state.advert.description}</p>
-              </div>
-            </main>
-          }
-          {
-            this.state.loading &&
-            <div className='Home__Loading'>
-              <img src={imageSpinner} className='Home__Spinner' alt='spinner'/>
-              <h2>Fetching data from API</h2>
+          <main className='AdvertEdit'>
+            <div className='SectionTitle'>
+              <h2>Detalle del anuncio</h2>
             </div>
-          }
+            { !this.state.loading && 
+              <main className='AdvertDisplay'>
+                <div className='AdvertDisplay__Header'>
+                  <div className='AdvertDisplay__Title'>
+                    <img src={`${this.state.advert.type==='buy'?imageBuy:imageSell}`} alt='icon' /> 
+                    <h1>{this.state.advert.name}</h1>
+                  </div>
+                  <img className='Caption' src={this.state.advert.photo} alt='caption'/>
+                </div>
+                <div className='AdvertDisplay__Middle'>
+                  <p className='Price'>{this.state.advert.price} €</p>
+                  <Moment className='Date' fromNow>{this.state.advert.createdAt}</Moment>            
+                </div>
+                <div className='AdvertDisplay__Footer'>
+                  <p>{this.state.advert.description}</p>
+                </div>
+              </main>
+            }
+            {
+              this.state.loading &&
+              <div className='Home__Loading'>
+                <img src={imageSpinner} className='Home__Spinner' alt='spinner'/>
+                <h2>Fetching data from API</h2>
+              </div>
+            }
+          </main>
         </Container>
         <Footer/>
       </React.Fragment>

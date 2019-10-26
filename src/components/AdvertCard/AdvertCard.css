@@ -68,27 +68,36 @@
 
 .AdvertCard__Tag {
     margin-right: 5px;
+}
+
+.AdvertCard__Tag.AdvertCard__Tag--small {
+    height: 1rem;
+
+}
+
+.AdvertCard__Tag--buy,
+.AdvertCard__Tag--sell,
+.AdvertCard__Tag--lifestyle,
+.AdvertCard__Tag--work,
+.AdvertCard__Tag--mobile,
+.AdvertCard__Tag--motor {
     color: white !important;
 }
 
+.AdvertCard__Tag--buy { background-color: green !important; }
+.AdvertCard__Tag--sell { background-color: red !important; }
 .AdvertCard__Tag--lifestyle { background-color: orangered !important; }
 .AdvertCard__Tag--work { background-color: purple !important; }
 .AdvertCard__Tag--mobile { background-color: green !important; }
 .AdvertCard__Tag--motor { background-color: blue !important; }
 
-.AdvertCard__Link {
+.AdvertCard__FooterActions .AdvertCard__Link {
     cursor: pointer;
     transition: all .2s ease;
-    color: black;
+    padding: 6px;
 }
 
-.AdvertCard__Link:hover {
+.AdvertCard__FooterActions .AdvertCard__Link:hover {
     color: var(--main-color);
     text-decoration: underline;
-}
-
-@media only screen and (min-device-width : 640px){
-    .AdvertCard {
-        max-width: 350px;
-    }
 }

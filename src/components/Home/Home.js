@@ -37,7 +37,7 @@ class Home extends Component {
     this.state = {
       loading: true,
       error: false,
-      api: new NodepopAPI()
+      api: new NodepopAPI(),
     }
   }
 
@@ -47,32 +47,23 @@ class Home extends Component {
   render() {   
     return (
       <React.Fragment>
-        <Header handleSearch={this.handleSearch}/>
+        <Header/>
         <Container className='Container__Fill'>
           <main className='Home'>
             {
-              this.state.error && 
-              <div className='Home__Error'>
-                <img src={imageError} className='Home__Spinner' alt='spinner'/>
-                <h2>Failed to connect</h2>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  startIcon={<SettingsInputHdmiIcon />}
-                  className='Home__Reconnect'
-                  onClick={this.getAdverts}
-                >
-                  Reconnect
-                </Button>
+              this.state.loading &&
+              <div className='Home__Loading'>
+                <img src={imageSpinner} className='Home__Spinner' alt='spinner'/>
+                <h2 className='Home__Subtitle'>Fetching data from API</h2>
               </div>
             }
             {
               !this.state.loading &&
               this.state.adverts && 
-              <React.Fragment>
-                <SearchPanel />
+              <div className='Home__Results'>
+                <SearchPanel handleSearch={this.handleSearch} tags={this.state.tags} tag={this.state.tag}/>
                 <section className='Home__Grid'>
-                  {
+                  { this.state.adverts.length > 0 &&
                     this.state.adverts.slice(0, Config.MAX_ADVERTS_GRID).map((advert, index) => 
                       <AdvertCard key={advert.id} 
                                   id={advert.id} 
@@ -82,17 +73,30 @@ class Home extends Component {
                                   type={advert.type} 
                                   photo={advert.photo} 
                                   tags={advert.tags} 
+                                  createdAt={advert.createdAt}
                       />
                     )
                   }
+                  { this.state.adverts.length === 0 &&
+                    <h2 className='Home__Subtitle'>No hay anuncios que cumplan con los criterios de búsqueda</h2>
+                  }
                 </section>
-              </React.Fragment>
+              </div>
             }
             {
-              this.state.loading &&
-              <div className='Home__Loading'>
-                <img src={imageSpinner} className='Home__Spinner' alt='spinner'/>
-                <h2>Fetching data from API</h2>
+              this.state.error && 
+              <div className='Home__Error'>
+                <img src={imageError} className='Home__Spinner' alt='spinner'/>
+                <h2 className='Home__Subtitle'>Failed to connect</h2>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  startIcon={<SettingsInputHdmiIcon />}
+                  className='Home__Reconnect'
+                  onClick={this.getAdverts}
+                >
+                  Reconnect
+                </Button>
               </div>
             }
           </main>
@@ -115,8 +119,15 @@ class Home extends Component {
     if (!session) {
       return this.props.history.push('/register');
     }
-    // En caso de OK conecto a la API
-    this.getAdverts();
+    // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
+    this.state.api.getTags().then(res => this.setState({tags: res}));
+    // Obtengo los anuncios
+    if (session.tag) {
+      this.setState({tag: session.tag})
+      this.handleSearch({tag: session.tag});
+    } else {
+      this.getAdverts(); 
+    }
   }
 
   /**
@@ -141,14 +152,11 @@ class Home extends Component {
   }
 
   /**
-   * Ejecuta una busqueda sobre los anuncios
+   * Gestiona el evento de búsqueda de anuncios
    */
-  searchAdverts = (name, query) => {
-    if (!name) {
-      return this.getAdverts();
-    }
-
-    this.state.api.searchAdvert(`name=${name}`)
+  handleSearch = (filters) => {
+    // Llamo a la API con los filtros recibido
+    this.state.api.searchAdvert(filters)
     .then(res => {
       this.setState({
         error: false,
@@ -156,8 +164,8 @@ class Home extends Component {
         adverts: res
       })
     })
-    .catch(error => {
-      this.props.enqueueSnackbar('Error conectando con la API', { variant: 'error', });
+    .catch(() => {
+      this.props.enqueueSnackbar('Error conectando con la API', { variant: 'error' });
       this.setState({
         error: true,
         loading: false
@@ -165,12 +173,6 @@ class Home extends Component {
     });
   }
 
-  /**
-   * Ejecuta la busqueda
-   */
-  handleSearch = (name) => {
-    this.searchAdverts(name)
-  }
 }
 
 export default withSnackbar(Home);

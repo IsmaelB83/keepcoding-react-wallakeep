@@ -40,7 +40,7 @@ export default class NodepopAPI {
     // Call endpoint and return
     return axios.get(baseURL)
       .then(res => 
-        res.data.results.map(advert => new Advert(advert))
+        res.data.results.map(advert => new Advert(advert, true))
       );
   }
 
@@ -53,19 +53,31 @@ export default class NodepopAPI {
       // Call endpoint and return
       return axios.get(baseURL)
         .then(res => 
-          new Advert(res.data.result)
+          new Advert(res.data.result, true)
         );
   }
 
   /**
    * Buscar por query generica
    */
-  searchAdvert = (query) => {
+  searchAdvert = (filters) => {
     // Endpoint
-    let baseURL = `${this.API_URL}/anuncios?${query}`;
+    let baseURL = `${this.API_URL}/anuncios?`;
+    if (filters.name) baseURL =`${baseURL}name=${filters.name}&`;
+    if (filters.type && filters.type !== 'all') baseURL =`${baseURL}venta=${filters.type==='sell'?true:false}&`;
+    if (filters.tag && filters.tag !== 'all') baseURL =`${baseURL}tag=${filters.tag}&`;
+    const priceFrom = parseInt(filters.priceFrom);
+    const priceTo = parseInt(filters.priceTo);
+    if (priceFrom && !priceTo) {
+      baseURL =`${baseURL}price=${priceFrom}-`;
+    } else if (!priceFrom && priceTo) {
+      baseURL =`${baseURL}price=-${priceTo}&`;
+    } else if (priceFrom && priceTo) {
+      baseURL =`${baseURL}price=${priceFrom}-${priceTo}&`;
+    }
     // Call endpoint and return
     return axios.get(baseURL).then(res => {
-      return res.data.results.map(advert => new Advert(advert));
+      return res.data.results.map(advert => new Advert(advert, true));
     });
   }
 }

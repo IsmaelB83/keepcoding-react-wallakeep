@@ -1,15 +1,15 @@
 /* NPM modules */
 import React, { Component } from 'react';
-import 'date-fns';
 /* Material UI */
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import DateFnsUtils from '@date-io/date-fns';
 import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import Button from '@material-ui/core/Button';
+import SearchIcon from '@material-ui/icons/Search';
+import Chip from '@material-ui/core/Chip';
 /* Own modules */
 /* Assets */
 /* CSS */
@@ -26,12 +26,11 @@ export default class SearchPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: 'buy',
-      tag: '',
-      createdFrom: new Date('01/01/1900'),
-      createdTo: Date.now(),
-      priceFrom: 0,
-      priceTo: 999999999,
+      name: '',
+      type: 'all',
+      tag: props.tag,
+      priceFrom: null,
+      priceTo: null,  
     }
   }
 
@@ -40,88 +39,131 @@ export default class SearchPanel extends Component {
    */
   render() {   
     return (
-      <div className='SearchPanel'>
+      <form className='SearchPanel' onSubmit={this.handleSubmit}>
         <h2>Criterios de búsqueda</h2>
+        <div className='InputSearch'>
+            <SearchIcon className={`InputSearch__Icon InputSearch__Icon--start ${this.state.focus?'InputSearch__Icon--focus':''}`}/>
+            <input 
+                id='filter_name'
+                name='name'
+                type='text' 
+                value={this.state.name}
+                onChange={this.handleChange('name')}
+                className='InputSearch__Input'
+                autoComplete='off'
+                placeholder='Buscar productos por nombre'
+            />
+        </div>   
         <div className='SearchPanel__Filters'>
           <FormControl>
-            <InputLabel shrink htmlFor="type">Tipo</InputLabel>
+            <InputLabel shrink htmlFor='type'>Tipo</InputLabel>
             <Select
-              id='type'
+              id='filter_type'
               name= 'type'
-              onChange={this.handleChange('')}
+              onChange={this.handleChange('type')}
               className='SearchPanel__Type'
               value={this.state.type}
               displayEmpty
             >
-              <MenuItem key='buy' value='buy' default>Compra</MenuItem>
-              <MenuItem key='sell' value='sell'>Venta</MenuItem>
+              <MenuItem key='all' value='all'><Chip size='small' label='all' className='AdvertCard__Tag AdvertCard__Tag--small'/></MenuItem>
+              <MenuItem key='buy' value='buy'><Chip size='small' label='buy' className='AdvertCard__Tag AdvertCard__Tag--small AdvertCard__Tag--buy'/></MenuItem>
+              <MenuItem key='sell' value='sell'><Chip size='small' label='sell' className='AdvertCard__Tag AdvertCard__Tag--small AdvertCard__Tag--sell'/></MenuItem>
             </Select>
           </FormControl>
           <FormControl>
-            <InputLabel shrink htmlFor="tag">Tag</InputLabel>
+            <InputLabel shrink htmlFor='tag'>Tag</InputLabel>
             <Select
-              id='tag'
+              id='filter_tag'
               name='tag'
               value={this.state.tag}
-              onChange={this.handleChange('')}
+              onChange={this.handleChange('tag')}
               displayEmpty
             >
-              <MenuItem value='' disabled>Tag</MenuItem>
+              <MenuItem key='all' value='all'>
+                <Chip key='todos'
+                      size='small'
+                      label='todos'
+                      className='AdvertCard__Tag AdvertCard__Tag--small'
+                />
+              </MenuItem>
               {
                 this.props.tags && 
                 this.props.tags.map((value, key) => {
-                  return <MenuItem key={key} value={key}>{value}</MenuItem>
+                  return  <MenuItem key={key} value={value}>
+                            <Chip key={key}
+                                  size='small'
+                                  label={value}
+                                  className={`AdvertCard__Tag AdvertCard__Tag--small AdvertCard__Tag--${value}`}
+                            />
+                          </MenuItem>
                 })
               }
             </Select>
           </FormControl>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              id="createdFrom"
-              name="createdFrom"
-              label="Creado desde"
-              format="MM/dd/yyyy"
-              value={this.state.createdFrom}
-              onChange={this.handleChange('')}
-            />
-            <KeyboardDatePicker
-              id="createdTo"
-              name="createdTo"
-              label="Creado hasta"
-              format="MM/dd/yyyy"
-              value={this.state.createdTo}
-              onChange={this.handleChange('')}
-            />
-          </MuiPickersUtilsProvider>
           <FormControl>
-            <InputLabel htmlFor="priceFrom">Precio desde</InputLabel>
+            <InputLabel htmlFor='priceFrom'>Precio desde</InputLabel>
             <Input
-              id="priceFrom"
-              name="priceFrom"
-              value={parseInt(this.state.priceFrom)}
-              onChange={this.handleChange('')}
-              endAdornment={<InputAdornment position="start">€</InputAdornment>}
+              id='filter_priceFrom'
+              name='priceFrom'
+              value={parseInt(this.state.priceFrom) || ''}
+              onChange={this.handleChange('priceFrom')}
+              endAdornment={<InputAdornment position='start'>€</InputAdornment>}
             />
           </FormControl>
           <FormControl>
-            <InputLabel htmlFor="priceTo">Precio hasta</InputLabel>
+            <InputLabel htmlFor='priceTo'>Precio hasta</InputLabel>
             <Input
-              id="priceTo"
-              name="priceTo"
-              value={parseInt(this.state.priceTo)}
+              id='filter_priceTo'
+              name='priceTo'
+              value={parseInt(this.state.priceTo) || ''}
               onChange={this.handleChange('priceTo')}
-              endAdornment={<InputAdornment position="start">€</InputAdornment>}
+              endAdornment={<InputAdornment position='start'>€</InputAdornment>}
             />
           </FormControl>
-        </div>        
-      </div>
+        </div> 
+        <div className='SearchPanel__Footer'>
+          <Button className='button' type='submit' variant='contained' color='primary'> Search </Button>
+          <Button className='button' variant='contained' color='secondary' onClick={this.handleReset}> Reset </Button>
+        </div>       
+      </form>
     );
   }
 
-  handleChange = (field) => (valor) => {
-    debugger;
+  /**
+   * Cambio en alguno de los campo del formulario
+   */
+  handleChange = name => event => {
     this.setState({
-      [field]: valor
+      [name]: event.target.value
+    }, () => {
+      // Los campos numérico NO quiero que lancen busqueda automática (salvo que estén en blanco).
+      // Para el resto de campos la búsqueda se activa en cuanto el usuario modifica el formulario (mejor UX)
+      if  ( !name.startsWith('price') || (name.startsWith('price') && this.state[name] === '') ) {
+        this.props.handleSearch(this.state);
+      }
     });
+  }
+
+  /**
+   * Reseteo el estado a los valores originales de búsqueda
+   */
+  handleReset = () => {
+    this.setState({
+      type: 'all',
+      tag: 'all',
+      priceFrom: null,
+      priceTo: null,
+    }, () => {
+      // Llamo a realizar la busqueda
+      this.props.handleSearch(this.state);
+    });
+  }
+  
+  /**
+   * Reseteo el estado a los valores originales de búsqueda
+   */
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+    this.props.handleSearch(this.state);
   }
 }

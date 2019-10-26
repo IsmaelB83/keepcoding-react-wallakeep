@@ -4,12 +4,10 @@ import { Link } from "react-router-dom";
 /* Material UI */
 import Grid from '@material-ui/core/Grid';
 import HomeIcon from '@material-ui/icons/Home';
-import PhoneIcon from '@material-ui/icons/Phone';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import Container from '@material-ui/core/Container';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import BusinessIcon from '@material-ui/icons/Business';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 /* Own modules */
@@ -40,16 +38,6 @@ export default class Footer extends Component {
                             <FooterRecentProducts/>
                         </Grid>
                     </Grid>
-                    <Grid container justify='center' className='Footer__row'>
-                        <Grid item>
-                            <p>SPA written in React by Ismael Bernal <a href='mailto:ismaelbernal83@gmail.com'>ismaelbernal83@gmail.com</a></p>
-                        </Grid>
-                    </Grid>
-                    <Grid container justify='center'>
-                        <Grid item>
-                            <SocialLinks />
-                        </Grid>
-                    </Grid>
                 </Container>
             </footer>
         );
@@ -64,18 +52,18 @@ function FooterAddress() {
         <div className='Footer__section'>
             <h2 className='Footer__title'>Contactar</h2>
             <div className='Footer__content'>
-                <p>Puede ponerse en contacto con Nodepop a través de los siguientes medios:</p>
+                <p>Contacta conmigo en el siguiente e-mail:</p>
                 <div className='Footer__block'>
-                    <BusinessIcon className='mr-1'/>
-                    <span>Dirección: </span>742 Evergreen Terrace
+                    <MailOutlineIcon className='Mail__Icon'/>
+                    <span></span><a href='mailto: ismaelbernal83@gmail.com'>ismaelbernal83@gmail.com</a>
                 </div>
-                <div className='Footer__block'>
-                    <MailOutlineIcon className='mr-1'/>
-                    <span>E-Mail: </span><a href='mailto: homer_js@springfield.com'>homer_js@springfield.com</a>
-                </div>
-                <div className='Footer__block'>
-                    <PhoneIcon className='mr-1'/>
-                    <span>Teléfono: </span><a href='tel:+(1)636555444333'>(636) 555 444 333</a>
+                <p>O través de redes sociales:</p>
+                <div className='SocialLinks'>
+                    <a className='SocialLinks__link SocialLinks__link--facebook' href='https://laestanciaazul.com'><HomeIcon /></a>
+                    <a className='SocialLinks__link SocialLinks__link--github' href='https://github.com/IsmaelB83'><GitHubIcon /></a>
+                    <a className='SocialLinks__link SocialLinks__link--linkedin' href='https://www.linkedin.com/in/ismael-bernal-10497a51/'><LinkedInIcon /></a>
+                    <a className='SocialLinks__link SocialLinks__link--instagram' href='https://www.instagram.com/isma83_/'><InstagramIcon /></a>
+                    <a className='SocialLinks__link SocialLinks__link--twitter' href='https://twitter.com/Ismab83'><TwitterIcon /></a>
                 </div>
             </div>
         </div>
@@ -110,21 +98,6 @@ function FooterRecentProducts() {
             <h2 className='Footer__title'>Anuncios recientes</h2>
             <div className='Footer__content'>
             </div>
-        </div>
-    );
-}
-
-/**
- * Social Links del footer
- */
-function SocialLinks () {
-    return (
-        <div className='SocialLinks'>
-            <a className='SocialLinks__link SocialLinks__link--facebook' href='https://laestanciaazul.com'><HomeIcon /></a>
-            <a className='SocialLinks__link SocialLinks__link--github' href='https://github.com/IsmaelB83'><GitHubIcon /></a>
-            <a className='SocialLinks__link SocialLinks__link--linkedin' href='https://www.linkedin.com/in/ismael-bernal-10497a51/'><LinkedInIcon /></a>
-            <a className='SocialLinks__link SocialLinks__link--instagram' href='https://www.instagram.com/isma83_/'><InstagramIcon /></a>
-            <a className='SocialLinks__link SocialLinks__link--twitter' href='https://twitter.com/Ismab83'><TwitterIcon /></a>
         </div>
     );
 }

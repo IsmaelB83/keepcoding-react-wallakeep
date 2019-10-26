@@ -12,6 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
+import Chip from '@material-ui/core/Chip';
 /* Own modules */
 import UserConsumer from '../../context/UserContext';
 import LocalStorage from '../../utils/Storage';
@@ -70,7 +71,7 @@ class Register extends Component {
                   </InputAdornment>
                 }
                 endAdornment={this.props.endAdornment}
-                required={this.props.required}
+                required
               />
             </FormControl>
             <FormControl>
@@ -86,21 +87,27 @@ class Register extends Component {
                   </InputAdornment>
                 }
                 endAdornment={this.props.endAdornment}
-                required={this.props.required}
+                required
               />
             </FormControl>
             <FormControl>
               <Select
-                value={this.state.tag || ''}
+                value={this.state.tag}
                 onChange={this.handleInput('tag')}
                 name='tag'
                 displayEmpty
+                required
               >
                 <MenuItem value='' disabled>Filter by tag</MenuItem>
                 {
                   this.state.tags && 
-                  this.state.tags.map((value, key) => {
-                    return <MenuItem key={key} value={key}>{value}</MenuItem>
+                  this.state.tags.map((value) => {
+                    return  <MenuItem key={value} value={value}>
+                              <Chip size='small'
+                                    label={value}
+                                    className={`AdvertCard__Tag AdvertCard__Tag--small AdvertCard__Tag--${value}`}
+                              />
+                            </MenuItem>
                   })
                 }
               </Select>
@@ -161,10 +168,15 @@ class Register extends Component {
     event.preventDefault();
     // Sólo si no hay errores de conexión
     if (!this.state.error) {
-      // Creo el objeto session desde el formulario
+      // Campos relevantes para generar el objeto sesión
       const { name, surname, tag} = {...this.state};
+      // Son todos obligatorios, en caso de no estar no permito continuar
+      if (!name || !surname || !tag) {
+        this.props.enqueueSnackbar('Rellene todos los campos del formulario', { variant: 'error', });
+        return;
+      }
+      // Genero sesión y la guardo en LS si ha seleccionado "remember"
       const session = { name, surname, tag};
-      // Guardo en local storage en caso de haberlo seleccionado "remember"
       if (this.state.isRemember) {
         LocalStorage.saveLocalStorage(session);
       }
