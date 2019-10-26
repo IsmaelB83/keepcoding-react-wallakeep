@@ -29,8 +29,8 @@ export default class SearchPanel extends Component {
       name: '',
       type: 'all',
       tag: props.tag,
-      priceFrom: null,
-      priceTo: null,  
+      priceFrom: 0,
+      priceTo: 0,  
     }
   }
 
@@ -105,7 +105,8 @@ export default class SearchPanel extends Component {
             <Input
               id='filter_priceFrom'
               name='priceFrom'
-              value={parseInt(this.state.priceFrom) || ''}
+              type='number'
+              value={parseInt(this.state.priceFrom) || 0}
               onChange={this.handleChange('priceFrom')}
               endAdornment={<InputAdornment position='start'>€</InputAdornment>}
             />
@@ -115,7 +116,8 @@ export default class SearchPanel extends Component {
             <Input
               id='filter_priceTo'
               name='priceTo'
-              value={parseInt(this.state.priceTo) || ''}
+              type='number'
+              value={parseInt(this.state.priceTo) || 0}
               onChange={this.handleChange('priceTo')}
               endAdornment={<InputAdornment position='start'>€</InputAdornment>}
             />

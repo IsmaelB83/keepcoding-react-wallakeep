@@ -82,7 +82,7 @@ function FooterLinks() {
                 <Link className='Footer__link' to='/'>Home</Link>
                 <Link className='Footer__link' to='/advert/create'>Crear anuncio</Link>
                 <a className='Footer__link' href='https://www.laestanciaazul.com/'>La Estancia Azul</a>
-                <a className='Footer__link' href='https://github.com/IsmaelB83/'>GitHub Ismael</a>
+                <a className='Footer__link' href='https://github.com/IsmaelB83/keepcoding-react-wallakeep'>Repositorio</a>
                 <a className='Footer__link' href='https://keepcoding.io/es/nuestros-bootcamps/full-stack-web-bootcamp/'>Keepcoding Fullstack Bootcamp</a>
             </div>
         </div>

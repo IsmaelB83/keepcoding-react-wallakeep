@@ -1,35 +1,50 @@
 .AdvertCard {
     width: 100%;
     border: 1px solid rgba(0, 0, 0, .2);
-    box-shadow: 3px 5px 8px rgba(0, 0, 0, .6) !important;
+    box-shadow: 2px 3px 6px rgba(0, 0, 0, .3);
+    display: flex;
+    flex-direction: column;
 }
 
 .AdvertCard__Header {
-    word-wrap: break-word;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: .8rem .8rem 0 .8rem;
+    height: 70px;
+}
+
+.AdvertCard__HeaderTitle {
+    height: 100%;
 }
 
 .AdvertCard__Header img {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
+    margin-right: .6rem;
 }
 
-.AdvertCard__Header h2 { 
-    font-size: 1rem; 
-    line-height: 1.1rem;
+.AdvertCard__Header h2 {
+    text-transform: uppercase;
+    font-size: 1.1rem; 
+    line-height: 1.2rem;
 }
 
 .AdvertCard__Date { 
-    font-size: .8rem; 
+    color: rgba(0, 0, 0, 0.75);
+    font-size: .7rem; 
     line-height: .85rem;
 }
 
 .AdvertCard__Media {
     position: relative;
     text-align: center;
+    height: 200px;
 }
 
 .AdvertCard__Media img {
-    height: 150px;
+    height: 90%;
     width: auto;
 }
 
@@ -52,27 +67,30 @@
 }
 
 .AdvertCard__Footer {
-    padding: 1rem;
+    padding: .8rem;
+    padding-bottom: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
 }
 
-.Ad__Tags {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    margin: .5rem;
-}
-
+.AdvertCard__Header .AdvertCard__Link,
 .AdvertCard__FooterActions .AdvertCard__Link {
+    color: rgba(0, 0, 0, 0.65);
     cursor: pointer;
     transition: all .2s ease;
-    padding: 6px;
 }
 
+.AdvertCard__Header .AdvertCard__Link:hover,
 .AdvertCard__FooterActions .AdvertCard__Link:hover {
     color: var(--main-color);
-    text-decoration: underline;
+}
+
+.AdvertCard__FooterActions .AdvertCard__Link:first-child {
+    margin-right: 10px;
+}
+
+.Ad__Tags .Ad__Tag:last-child {
+    margin-right: 0;
 }

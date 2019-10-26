@@ -92,7 +92,7 @@ class AdvertEdit extends Component {
   render() {
     return (
       <React.Fragment>
-        <Header handleSearch={this.handleSearch}/>
+        <Header name={this.context.session.name}/>
         <Container>
           <main className='AdvertEdit'>
             <div className='SectionTitle'>

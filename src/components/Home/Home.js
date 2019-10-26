@@ -47,7 +47,7 @@ class Home extends Component {
   render() {   
     return (
       <React.Fragment>
-        <Header/>
+        <Header name={this.context.session.name}/>
         <Container className='Container__Fill'>
           <main className='Home'>
             {

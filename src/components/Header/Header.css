@@ -1,33 +1,55 @@
-.Header {
+.AppBar {
   width: 100%;
-  padding: .5rem;
   background: linear-gradient(-45deg, var(--main-color), var(--main-color-light));
   color: white;
 }
 
-.Header__Container {
+.AppBar__Toolbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
+  padding: 0 !important;
 }
 
-.Header__Brand {
-  height: 36px;
+.AppBar__Brand {
+  height: 40px;
   width: auto;
 }
 
-.Header__Avatar {
+.AppBar__Toolbar .AppBar__Avatar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px 10px;
+  transition: .2s all ease;
+}
+
+.AppBar__Toolbar .AppBar__Avatar img {
+  border-radius: 50%;
   width: 36px;
   height: 36px;
+  margin-right: 5px;
 }
 
-.ButtonFill {
-  border-radius: 50px !important;
-  background-color: var(--main-black) !important;
-  color: white !important;
+.AppBar__Avatar--hiddenXS {
+  display: none;
 }
 
-.ButtonFill:hover {
-  background-color: var(--main-color-dark) !important;
+@media only screen and (min-device-width : 768px){
+  .AppBar__Avatar--hiddenXS {
+    display: block;
+  }
+  
+}
+
+.UserActions {
+  padding: 20px;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  text-align: left;
+  background: green;
+  z-index: 10;
+  border-radius: 5px;
+  width: 240px;
 }
