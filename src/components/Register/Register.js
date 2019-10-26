@@ -44,7 +44,7 @@ class Register extends Component {
       name: '',
       surname: '',
       tag: '',
-      tags: null
+      tags: null,
     }
   }
 
@@ -144,21 +144,7 @@ class Register extends Component {
         tag: session.tag,
       });
     }
-    // Recuperar tags de la API
-    this.state.api.getTags()
-    .then(res => {
-      this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
-      this.setState({
-        error: false,
-        tags: res,
-      })
-    })
-    .catch(() => {
-      this.props.enqueueSnackbar('Error conectando con la API', { variant: 'error', });
-      this.setState({
-        error: true,
-      });
-    });
+    this.getTags();
   }
 
   /**
@@ -203,6 +189,27 @@ class Register extends Component {
   handleInput = (field) => (event) => {
     this.setState({
       [field]: event.target.value 
+    });
+  }
+
+  /**
+   * Obtener tags de la API
+   */
+  getTags = () => {
+    // Recuperar tags de la API
+    this.state.api.getTags()
+    .then(res => {
+      this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
+      this.setState({
+        error: false,
+        tags: res,
+      })
+    })
+    .catch(() => {
+      this.props.enqueueSnackbar('Error conectando con la API', { variant: 'error', });
+      this.setState({
+        error: true,
+      });
     });
   }
 }
