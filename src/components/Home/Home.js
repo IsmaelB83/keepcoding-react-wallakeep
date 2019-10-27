@@ -10,9 +10,10 @@ import SearchPanel from '../SearchPanel/SearchPanel';
 import UserConsumer from '../../context/UserContext';
 import NodepopAPI from '../../services/NodepopAPI';
 import AdvertCard from '../AdvertCard/AdvertCard';
-import Config from '../../config';
+import Paginator from '../Paginator/Paginator';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
+import Config from '../../config';
 /* Assets */
 import imageError from '../../assets/images/error.png';
 import imageSpinner from '../../assets/images/spinner.gif';
@@ -38,6 +39,8 @@ class Home extends Component {
       loading: true,
       error: false,
       api: new NodepopAPI(),
+      numPages: 0,
+      currentPage: 0,
     }
   }
 
@@ -45,6 +48,11 @@ class Home extends Component {
    * Render
    */
   render() {   
+    // Variables para el paginado
+    const { numPages, currentPage } = this.state;
+    const minAdvert = this.state.currentPage * Config.MAX_ADVERTS_GRID;
+    const maxAdvert = this.state.currentPage * Config.MAX_ADVERTS_GRID + Config.MAX_ADVERTS_GRID
+    // Render
     return (
       <React.Fragment>
         <header>
@@ -64,9 +72,10 @@ class Home extends Component {
               this.state.adverts && 
               <div className='Home__Results'>
                 <SearchPanel handleSearch={this.handleSearch} tags={this.state.tags} tag={this.state.tag}/>
+                <Paginator numPages={numPages} currentPage={currentPage} handleMovePaginator={this.handleMovePaginator}/>
                 <section className='Home__Grid'>
                   { this.state.adverts.length > 0 &&
-                    this.state.adverts.slice(0, Config.MAX_ADVERTS_GRID).map((advert, index) => 
+                    this.state.adverts.slice(minAdvert, maxAdvert).map((advert, index) => 
                       <AdvertCard key={advert._id} 
                                   id={advert._id} 
                                   name={advert.name} 
@@ -83,6 +92,7 @@ class Home extends Component {
                     <h2 className='Home__Subtitle'>No hay anuncios que cumplan con los criterios de búsqueda</h2>
                   }
                 </section>
+                <Paginator numPages={numPages} currentPage={currentPage} handleMovePaginator={this.handleMovePaginator}/>
               </div>
             }
             {
@@ -106,10 +116,6 @@ class Home extends Component {
         <Footer/>
       </React.Fragment>
     );
-  }
-
-  test = () => {
-    return 
   }
 
   /**
@@ -138,10 +144,13 @@ class Home extends Component {
   getAdverts = () => {
     this.state.api.getAdverts()
     .then(res => {
+      const numPages = Math.ceil(res.length/Config.MAX_ADVERTS_GRID);
       this.setState({
         error: false,
         loading: false,
-        adverts: res
+        adverts: res,
+        currentPage: 0,
+        numPages: numPages,
       })
     })
     .catch(() => {
@@ -160,10 +169,13 @@ class Home extends Component {
     // Llamo a la API con los filtros recibido
     this.state.api.searchAdvert(filters)
     .then(res => {
-      this.setState({
+      const numPages = Math.ceil(res.length/Config.MAX_ADVERTS_GRID);
+      this.setState({       
         error: false,
         loading: false,
-        adverts: res
+        adverts: res,
+        currentPage: 0,
+        numPages: numPages,
       })
     })
     .catch(() => {
@@ -175,6 +187,20 @@ class Home extends Component {
     });
   }
 
+  /**
+   * Retrocede una página
+   */
+  handleMovePaginator = increment => {
+    // Actualizo la pagina actual
+    let { currentPage, numPages } = this.state;
+    currentPage += increment;
+    // Actualizo el state sólo si sigue dentro de los limites (realmente este chequeo también lo hace el componete paginator)
+    if (currentPage >= 0 && currentPage < numPages) {
+        this.setState({
+          currentPage: currentPage
+        });   
+    }
+  }
 }
 
 export default withSnackbar(Home);

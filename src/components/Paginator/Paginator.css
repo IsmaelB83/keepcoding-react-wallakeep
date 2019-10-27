@@ -1,0 +1,18 @@
+.Paginator .Paginator__Button {
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
+}
+
+.Paginator .Paginator__Button:hover {
+    background-color: var(--main-color-dark);
+    border: 1px solid var(--main-color);
+}
+
+.Paginator .Paginator__Button:disabled {
+    color: white !important;
+    background-color: grey !important;
+    border: 1px solid lightgray !important;
+}

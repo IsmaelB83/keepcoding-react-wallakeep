@@ -77,6 +77,8 @@ La pantalla principal permite realizar diversos filtrados de búsqueda: nombre (
 
 La búsqueda se realiza en tiempo real, a medida que el usuario modifica los parámetros de busqueda (nombre, etc.). La única excepción a esto son los campos de precio. En ese caso, sólo cuando el usuario pulse en el botón de buscar (SEARCH) se ejeutará la búsqueda. O bien cuando el campo precio pase a tener un valor en blanco (en ese momento la búsqueda se dispara de forma automática para excluir el filtrado por precio).
 
+**Nota sobre la paginación:** la app proporciona funcionalidad de paginación, pero realmente dado que la API no presenta paginación de forma nativa. En cada llamada a la API se están trayendo todos los anuncios. Lo cual no es eficiente.
+
 ![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/home_1.jpg).
 
 Además podemos acceder al detalle de cada uno de los anuncios concretos pulsando sobre el nombre del anuncio, sobre el icono del "ojo" o sobre el icono del "lapicero" (modo editar). De esta forma accederemos a las vistas encargadas de mostrarnos el detalle de un anuncio conreto:
