@@ -13,6 +13,8 @@ Wallakeep - React Frontend for the Nodepop API (https://github.com/IsmaelB83/kee
   - [Home](#Home)
   - [Create Advert](#Create-Advert)
   - [Edit Advert](#Edit-Advert)
+  - [Perfil de Usuario](#Perfil-de-Usuario)
+
 
 ### INTRODUCCION
 
@@ -74,9 +76,9 @@ Al arrancar la aplicación lo primero que se observa es una pantalla de registro
 
 Por último pulsamos en el botón de "LOGIN" para acceder a la APP. 
 
-Si el componente detecta que no hay conectividad con la API nos mostrará un mensaje de error, y no será posible continuar.
-
 ![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/register.jpg).
+
+Si el componente detecta que no hay conectividad con la API nos mostrará un mensaje de error, y no será posible continuar. Se ha añadido un cuarto campo, para poder indicar antes del login, en que **URL se encuentra a la escucha la API de nodepop**. Esto no tendría mucho sentido en una aplicación productiva, pero se ha habilitado en esta aplicación, para poder probarla bien desde heroku (contra APIs que puedan estar corriendo en otros servidores):
 
 ## Home
 
@@ -119,3 +121,13 @@ Para acceder a la opción de editar un nuevo anuncio, debemos pulsar en el botó
 ![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/home_2.jpg).
 
 La app nos llevará al componente de edición, que funciona de forma similar a lo vist en el punto anterior de creación
+
+## Perfil de Usuario
+
+Una vez logueado en la aplicación, es posible modificar la configuración de sesión: **nombre**, **apellido**, **tag** por defecto, así como la **URL de Nodepop (API)** y  el número de **anuncios máximo** que queremos ver por página en el home. Para acceder al perfil del usuario hay que hacer click en la opcion del menú de usuario que indica "Perfil":
+
+![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/usermenu_3.jpg).
+
+El formulario para modificar el perfil de usuario es el siguiente. Desde aquí también podemos hacer un reset completo de nuestra sesión tanto en el contexto, como en el local storage:
+
+![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/profile.jpg).

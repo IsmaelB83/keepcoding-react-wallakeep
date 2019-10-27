@@ -17,7 +17,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText'
 /* Own modules */
 import UserContext from '../../context/UserContext';
-import Session from '../../models/Session';
 /* Assets */
 import imageLogo from '../../assets/images/logo2.png';
 import imageAvatar from '../../assets/images/user.png';
@@ -85,7 +84,7 @@ export default class NavBar extends Component {
                 </ListItemIcon>
                 <ListItemText className='NavBar__MenuItemText' primary="Perfil" />
               </MenuItem>
-              <MenuItem className='NavBar__MenuItem' component={Link} to='/register' onClick={this.handleDisconnect}>
+              <MenuItem className='NavBar__MenuItem' component={Link} to='/register'>
                 <ListItemIcon className='NavBar__MenuItemIcon'>
                   <ExitToAppIcon fontSize="small" />
                 </ListItemIcon>
@@ -105,13 +104,6 @@ export default class NavBar extends Component {
         </Container>
       </AppBar>
     );
-  }
-
-  /**
-   * Cierra el submenu
-   */
-  handleDisconnect = () => {
-    this.context.session = new Session();
   }
 
   /**

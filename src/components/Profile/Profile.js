@@ -59,14 +59,22 @@ class Profile extends Component {
     if (!session.name) {
       return this.props.history.push('/register');
     }
-    // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
-    const { getTags } = NodepopAPI(this.context.session.apiUrl);
-    getTags().then(res => {
-      this.setState({
-        ...session,
-        tags: res
-      })
-    });
+    // Actualizo la sesión (excepto el tags que dependo de cargar primero los tags)
+    this.setState({
+      name: session.name,
+      surname: session.surname, 
+      apiUrl: session.apiUrl,
+      maxAdverts: session.maxAdverts
+    }, () => {
+      // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
+      const { getTags } = NodepopAPI(this.context.session.apiUrl);
+      getTags().then(res => {
+        this.setState({
+          tag: session.tag,
+          tags: res
+        })
+      });
+    })
   }
 
   /**

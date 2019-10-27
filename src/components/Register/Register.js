@@ -45,6 +45,7 @@ class Register extends Component {
       surname: '',
       tag: '',
       tags: null,
+      apiUrl: ''
     }
   }
 
@@ -60,7 +61,7 @@ class Register extends Component {
             <FormControl>
               <Input
                 name='name'
-                value={this.state.name}
+                value={this.state.name || ''}
                 onChange={this.handleInput('name')}
                 type='text' 
                 placeholder='type your name'
@@ -77,7 +78,7 @@ class Register extends Component {
             <FormControl>
               <Input
                 name='surname'
-                value={this.state.surname}
+                value={this.state.surname || ''}
                 onChange={this.handleInput('surname')}
                 type='text' 
                 placeholder='type your surname'
@@ -92,7 +93,7 @@ class Register extends Component {
             </FormControl>
             <FormControl>
               <Select
-                value={this.state.tag}
+                value={this.state.tag || ''}
                 onChange={this.handleInput('tag')}
                 name='tag'
                 displayEmpty
@@ -112,6 +113,16 @@ class Register extends Component {
                 }
               </Select>
               <FormHelperText>Select a tag as the initial filter</FormHelperText>
+            </FormControl>
+            <FormControl>
+              <Input
+                name='apiUrl'
+                value={this.state.apiUrl || ''}
+                onChange={this.handleInput('apiUrl')}
+                type='text' 
+                required
+              />
+              <FormHelperText>URL y puerto donde conectar a Nodepop</FormHelperText>
             </FormControl>
             <FormControlLabel
               name='isRemember'
@@ -137,59 +148,65 @@ class Register extends Component {
   componentDidMount() {
     // Restaurar datos de sesion del contexto
     const session = this.context.session;
-    // Recuperar tags de la API
-    const { getTags } = NodepopAPI(session.apiUrl);
-    getTags()
-    .then(res => {
-      // Conectado OK a la API
-      this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
-      this.setState({
-        error: false,
-        tags: res,
-      }, () => {
-
-        if (session) {
-          this.setState({
-            name: session.name,
-            surname: session.surname,
-            tag: session.tag,
-
-          });
-        }
+    this.setState({
+      name: session.name,
+      surname: session.surname,
+      apiUrl: session.apiUrl
+    }, () => {
+      // Recuperar tags de la API
+      const { getTags } = NodepopAPI(session.apiUrl);
+      getTags()
+      .then(res => {
+        // Conectado OK a la API
+        this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
+        this.setState({
+          error: false,
+          tags: res,
+          tag: session.tag,
+        });
+      })
+      .catch(() => {
+        this.props.enqueueSnackbar('Error conectando con la API. Revise la URL.', { variant: 'error', });
+        this.setState({
+          error: true,
+        });
       });
-    })
-    .catch(() => {
-      this.props.enqueueSnackbar('Error conectando con la API', { variant: 'error', });
-      this.setState({
-        error: true,
-      });
-    });
+    });  
   }
 
   /**
    * Handle onSubmit event
    */
-  handleOnSubmit = (event) => {
+  handleOnSubmit = async (event) => {
     event.preventDefault();
     // Sólo si no hay errores de conexión
     if (!this.state.error) {
       // Campos relevantes para generar el objeto sesión
-      const { name, surname, tag } = {...this.state};
+      const { name, surname, tag, apiUrl } = {...this.state};
       // Son todos obligatorios, en caso de no estar no permito continuar
-      if (!name || !surname || !tag) {
+      if (!name || !surname || !tag || !apiUrl) {
         this.props.enqueueSnackbar('Rellene todos los campos del formulario', { variant: 'error', });
         return;
       }
-      // Genero sesión y la guardo en LS si ha seleccionado "remember"
-      const session = new Session (name, surname, tag, this.context.session.apiUrl, this.context.session.maxAdverts);
-      if (this.state.isRemember) {
-        LocalStorage.saveLocalStorage(session);
+      // Compruebo que la API indicada es buena
+      try {
+        const { getTags } = NodepopAPI(apiUrl);
+        const res = await getTags();
+        if (res) {
+          // Genero sesión y la guardo en LS si ha seleccionado "remember"
+          const session = new Session (name, surname, tag, apiUrl, this.context.session.maxAdverts);
+          if (this.state.isRemember) {
+            LocalStorage.saveLocalStorage(session);
+          }
+          // Actualizo el contexto y redijo el home
+          this.context.session = session;
+          this.props.history.push('/');
+        }
+      } catch (error) {
+        this.props.enqueueSnackbar('Error conectando con la API. Revise la URL.', { variant: 'error', });        
       }
-      // Actualizo el contexto y redijo el home
-      this.context.session = session;
-      this.props.history.push('/');
     } else {
-      this.props.enqueueSnackbar('Error conectando con la API', { variant: 'error', });
+      this.props.enqueueSnackbar('Error conectando con la API. Revise la URL.', { variant: 'error', });
     }
   }
 
