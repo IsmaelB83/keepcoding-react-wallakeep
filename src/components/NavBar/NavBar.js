@@ -17,10 +17,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText'
 /* Own modules */
 import UserContext from '../../context/UserContext';
-import LocalStorage from '../../utils/Storage';
+import Session from '../../models/Session';
 /* Assets */
 import imageLogo from '../../assets/images/logo2.png';
-import imageAvatar from '../../assets/images/user.jpg';
+import imageAvatar from '../../assets/images/user.png';
 /* CSS */
 import './NavBar.css';
 
@@ -51,7 +51,7 @@ export default class NavBar extends Component {
           <Link to='/' className='NavBar__Brand'>
             <img src={imageLogo} alt='logo' className='NavBar__Brand'/>
           </Link>
-          { session &&
+          { session.name &&
           <div>
             <IconButton
               aria-label='account of current user'
@@ -69,15 +69,7 @@ export default class NavBar extends Component {
               className='NavBar__Menu'
               id='menu-navbar'
               anchorEl={this.state.anchorUserMenu}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
               keepMounted
-              transformOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
               open={this.state.anchorUserMenu?true:false}
               onClose={this.handleClose}
             >
@@ -115,6 +107,12 @@ export default class NavBar extends Component {
     );
   }
 
+  /**
+   * Cierra el submenu
+   */
+  handleDisconnect = () => {
+    this.context.session = new Session();
+  }
 
   /**
    * Cierra el submenu
@@ -128,14 +126,6 @@ export default class NavBar extends Component {
    */
   handleMenu = event => {
     this.setState({anchorUserMenu: event.currentTarget});
-  }
-
-  /**
-   * Antes de desconectar vacio el local storage
-   */
-  handleDisconnect = () => {
-    this.handleClose();
-    LocalStorage.cleanLocalStorage();
   }
 }
 

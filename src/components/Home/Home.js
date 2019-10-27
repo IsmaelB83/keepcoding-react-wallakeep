@@ -13,7 +13,6 @@ import AdvertCard from '../AdvertCard/AdvertCard';
 import Paginator from '../Paginator/Paginator';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
-import Config from '../../config';
 /* Assets */
 import imageError from '../../assets/images/error.png';
 import imageSpinner from '../../assets/images/spinner.gif';
@@ -38,7 +37,6 @@ class Home extends Component {
     this.state = {
       loading: true,
       error: false,
-      api: new NodepopAPI(),
       numPages: 0,
       currentPage: 0,
     }
@@ -50,8 +48,8 @@ class Home extends Component {
   render() {   
     // Variables para el paginado
     const { numPages, currentPage } = this.state;
-    const minAdvert = this.state.currentPage * Config.MAX_ADVERTS_GRID;
-    const maxAdvert = this.state.currentPage * Config.MAX_ADVERTS_GRID + Config.MAX_ADVERTS_GRID
+    const minAdvert = this.state.currentPage * this.context.session.maxAdverts;
+    const maxAdvert = this.state.currentPage * this.context.session.maxAdverts + this.context.session.maxAdverts
     // Render
     return (
       <React.Fragment>
@@ -124,11 +122,12 @@ class Home extends Component {
   componentDidMount() {
     // Chequeo sesion del contexto, si no existe redirijo a register
     const session = this.context.session
-    if (!session) {
+    if (!session.name) {
       return this.props.history.push('/register');
     }
     // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
-    this.state.api.getTags().then(res => this.setState({tags: res}));
+    const { getTags } = NodepopAPI(session.apiUrl);
+    getTags().then(res => this.setState({tags: res}));
     // Obtengo los anuncios
     if (session.tag) {
       this.setState({tag: session.tag})
@@ -142,9 +141,10 @@ class Home extends Component {
    * Try to connect to the backend API
    */
   getAdverts = () => {
-    this.state.api.getAdverts()
+    const { getAdverts } = NodepopAPI(this.context.session.apiUrl);
+    getAdverts()
     .then(res => {
-      const numPages = Math.ceil(res.length/Config.MAX_ADVERTS_GRID);
+      const numPages = Math.ceil(res.length/this.context.session.maxAdverts);
       this.setState({
         error: false,
         loading: false,
@@ -167,9 +167,10 @@ class Home extends Component {
    */
   handleSearch = (filters) => {
     // Llamo a la API con los filtros recibido
-    this.state.api.searchAdvert(filters)
+    const { searchAdvert } = NodepopAPI(this.context.session.apiUrl);
+    searchAdvert(filters)
     .then(res => {
-      const numPages = Math.ceil(res.length/Config.MAX_ADVERTS_GRID);
+      const numPages = Math.ceil(res.length/this.context.session.maxAdverts);
       this.setState({       
         error: false,
         loading: false,

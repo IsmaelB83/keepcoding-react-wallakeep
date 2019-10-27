@@ -50,14 +50,21 @@ Para arrancar la aplicación react utilizaremos npm start (esta aplicación util
 
 ## Configuración
 
-En el fichero ubicado en /src/config.js puedes configurar varios parámetros importantes para la aplicación, como son la **url de la API de Nodepop** a la que va a puntar el frontal (por defecto espera que esté a la escucha en el localhost puerto 3001), la url base donde sirve esa API las **imagenes**, y el **número máximo de anuncios** que queremos ver en el grid de anuncios del home (por pagina). Todo esto debería ser configurable a nivel de usuario en una futura versión.
+En el fichero ubicado en /src/config.js puedes configurar varios parámetros importantes para la aplicación, como son la **url de la API de Nodepop** a la que va a puntar el frontal (por defecto espera que esté a la escucha en el localhost puerto 3001), y el **número máximo de anuncios** que queremos ver en el grid de anuncios del home (por pagina).
 ```js
 const config = {
     API_URL: 'http://localhost:3001/apiv1',
-    API_IMAGES: 'http://localhost:3001/',
     MAX_ADVERTS_GRID: 20
 }
 ```
+
+De todas formas esos dos parámetros hardcodeados en el fichero Config.js, son sólo importantes para la primera ejecución de un usuario. Una vez logueado en la aplicación, es posible modificar estos parámetros (así como el nombre, apellido y tag por defecto), en el perfil del usuario. Para acceder al perfil del usuario hay que hacer click en la opcion del menú de usuario que indica "Perfil":
+
+![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/usermenu_3.jpg).
+
+El formulario para modificar el perfil de usuario es el siguiente. Desde aquí también podemos hacer un reset completo de nuestra sesión tanto en el contexto, como en el local storage:
+
+![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/profile.jpg).
 
 ### GUÍA DE USO
 

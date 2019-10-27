@@ -12,13 +12,13 @@ const LocalStorage = {
      * Salvar sesión en local storage
      */
     saveLocalStorage: (session) => {
-        localStorage.setItem('Nodepop_IBA', JSON.stringify(session));
+        localStorage.setItem('Wallakeep_IBA', JSON.stringify(session));
     },
     /**
      * Recuperar sesión del local storage
      */
     readLocalStorage: () => {
-        const session = localStorage.getItem('Nodepop_IBA');
+        const session = localStorage.getItem('Wallakeep_IBA');
         return JSON.parse(session)
     },
     /**

@@ -18,6 +18,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import SaveIcon from '@material-ui/icons/Save';
+import CheckIcon from '@material-ui/icons/Check';
+import CancelIcon from '@material-ui/icons/Cancel';
 /* Own modules */
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
@@ -47,7 +50,6 @@ class AdvertEdit extends Component {
     this.state = {
       photoTemp: '',
       openModal: false,
-      api: new NodepopAPI(),
       tags: [],
       advert: {
         name: '',
@@ -66,17 +68,18 @@ class AdvertEdit extends Component {
   componentDidMount() {
     // Chequeo sesion del contexto, si no existe redirijo a register
     const session = this.context.session
-    if (!session) {
+    if (!session.name) {
       return this.props.history.push('/register');
     } 
     // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
-    this.state.api.getTags().then(res => {
+    const { getTags, getAdvert } = NodepopAPI(session.apiUrl);
+    getTags().then(res => {
       this.setState({tags: res})
     });
     // En caso de ser una modificación cargo el anuncio a editar
     if (this.props.mode === 'edit' && this.props.match.params) {
       const id = this.props.match.params.id;
-      this.state.api.getAdvert(id)
+      getAdvert(id)
         .then( res => {
           this.setState({
             advert: res,
@@ -181,10 +184,12 @@ class AdvertEdit extends Component {
                 />
               </FormControl> 
               <div className='AdvertEdit__Footer'>
-                <Button className='button' type='submit' variant='contained' color='primary'>Aceptar</Button>
-                <Link to='/' className='LinkBlock'>
-                  <Button type='button' className='button' variant='contained' color='secondary' onClick={this.handleReset}>Cancel</Button>
-                </Link>
+                <Button type='submit' variant='contained' startIcon={<SaveIcon />} className='ButtonWallakeep ButtonWallakeep__Green'>
+                  Guardar
+                </Button>
+                <Button type='button' variant='contained' color='secondary' startIcon={<CancelIcon />} onClick={this.handleReset} component={Link} to='/'>
+                  Cancel
+                </Button>
               </div>            
             </form>
           </main>
@@ -208,11 +213,11 @@ class AdvertEdit extends Component {
               />
             </DialogContent>
             <DialogActions className='Modal__Actions'>
-              <Button onClick={this.handleChangePhoto} variant='contained'  color='primary'>
+              <Button onClick={this.handleChangePhoto} variant='contained' startIcon={<CheckIcon />} className='ButtonWallakeep ButtonWallakeep__Green'>
                 Aceptar
               </Button>
-              <Button onClick={this.handleSwitchOpen} variant='contained' color='secondary'>
-                Cancel
+              <Button onClick={this.handleSwitchOpen} variant='contained' startIcon={<CancelIcon />} color='secondary'>
+                Cancelar
               </Button>
             </DialogActions>
           </Dialog>
@@ -262,25 +267,29 @@ class AdvertEdit extends Component {
    */
   handleSubmit = (ev) => {
     ev.preventDefault();
+    const { postAdvert, editAdvert } = NodepopAPI(this.context.session.apiUrl);
     // Creo un anuncio con los datos del estado si es válido
     const advert = new Advert(this.state.advert);
     if (advert.isValid()) {
       if (this.props.mode === 'create') {
         // POST
-        this.state.api.postAdvert(advert)
-        .then(() => {
+        postAdvert(advert)
+        .then(res => {
           this.props.enqueueSnackbar('OK. Anuncio creado con exito.', { variant: 'success' })
           this.props.history.push('/');
         })
-        .catch(() => this.props.enqueueSnackbar('Error editando anuncio.', { variant: 'error' }));
+        .catch(error => {
+          this.props.enqueueSnackbar('Error creando anuncio.', { variant: 'error' })
+        });
       } else {
         // PUT
-        this.state.api.editAdvert(advert)
-        .then(() => {
+
+        editAdvert(advert)
+        .then(res => {
           this.props.enqueueSnackbar('OK. Anuncio editado con exito.', { variant: 'success' })
           this.props.history.push('/');
         })
-        .catch(() => this.props.enqueueSnackbar('Error creando anuncio.', { variant: 'error' }));
+        .catch(error => this.props.enqueueSnackbar('Error editando anuncio.', { variant: 'error' }));
       }
     } else {
       // El anuncio no es completo. Error

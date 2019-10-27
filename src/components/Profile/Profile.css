@@ -1,20 +1,20 @@
-.AdvertEdit {
+.Profile {
     padding: 1rem;
 }
 
-.AdvertEdit__Form {
+.Profile__Form {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 1rem;
 }
 
-.AdvertEdit__Form .AdvertEdit__Footer {
+.Profile__Form .Profile__Footer {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: .5rem;
 }
 
-.AdvertEdit_Picture {
+.Profile_Picture {
     margin: 1rem 0 .5rem 0;
     border-radius: 1rem;
     cursor: pointer;
@@ -28,69 +28,52 @@
     outline: none;
 }
 
-.AdvertEdit_Picture img {
+.Profile_Picture img {
     width: 100%;
     height: 100%;;
 }
 
-.AdvertEdit_Picture:hover, 
-.AdvertEdit_Picture:focus,
-.AdvertEdit_Picture:active,
-.AdvertEdit_Picture:active {
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, .3);   
-}
-
-.AdvertEdit__Modal .Modal__Title {
-    padding: 0 !important;
-    margin: 0 !important;    
-}
-
-.AdvertEdit__Modal .Modal__Content,
-.AdvertEdit__Modal .Modal__Actions {
-    padding: 1rem 1.25rem;
-}
-
 @media only screen and (min-device-width : 700px) {
     
-    .AdvertEdit__Form { 
+    .Profile__Form { 
         grid-template-columns: 1fr 1fr;
         grid-gap: 2rem;
         align-items: center;
      }
      
-    .AdvertEdit_Picture { 
+    .Profile_Picture { 
         align-self: flex-start;
         grid-row: 1/6;
     }
 
-    .AdvertEdit__FormControl {
+    .Profile__FormControl {
         grid-column: 2;
     }
 
-    .AdvertEdit__Footer {
+    .Profile__Footer {
         grid-column: span 2;
     }
 }
 
 @media only screen and (min-device-width : 900px) {
 
-    .AdvertEdit__Form { 
+    .Profile__Form { 
         grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 2rem;
         align-items: center;
         margin: 1rem 0 0 0;
      }
      
-    .AdvertEdit_Picture { 
+    .Profile_Picture { 
         align-self: flex-start;
         grid-row: 1/6;
     }
 
-    .AdvertEdit__FormControl {
+    .Profile__FormControl {
         grid-column: span 2;
     }
 
-    .AdvertEdit__Footer {
+    .Profile__Footer {
         grid-column: span 3;
     }
 }

@@ -3,8 +3,7 @@
  * Fichero de configuración
  */
 const config = {
-    API_URL: 'http://192.168.1.33:3001/apiv1',
-    API_IMAGES: 'http://192.168.1.33:3001/',
+    API_URL: 'http://localhost:3001/apiv1',
     MAX_ADVERTS_GRID: 4
 }
 

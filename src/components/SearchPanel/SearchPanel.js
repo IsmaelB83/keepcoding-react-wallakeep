@@ -124,8 +124,8 @@ export default class SearchPanel extends Component {
           </FormControl>
         </div> 
         <div className='SearchPanel__Footer'>
-          <Button className='button' type='submit' variant='contained' color='primary'> Search </Button>
-          <Button className='button' variant='contained' color='secondary' onClick={this.handleReset}> Reset </Button>
+          <Button type='submit' variant='contained' color='primary'> Search </Button>
+          <Button variant='contained' color='secondary' onClick={this.handleReset}> Reset </Button>
         </div>       
       </form>
     );

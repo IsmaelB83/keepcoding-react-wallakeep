@@ -1,7 +1,6 @@
 /* NPM modules */
 /* Material UI */
 /* Own modules */
-import Config from '../config';
 /* Assets */
 /* CSS */
 
@@ -13,14 +12,14 @@ export default class Advert {
      * Constructor
      * @param {Object} Advert 
      */    
-    constructor(ad) {
+    constructor(ad, apiUrl) {
         this._id = ad._id;
         this.createdAt = ad.createdAt;
         this.name = ad.name;
         this.description = ad.description;
         this.price = ad.price;
         this.type = ad.type;
-        this.photo = ad.photo.startsWith('/images/')?`${Config.API_IMAGES}${ad.photo}`:ad.photo;
+        this.photo = ad.photo.startsWith('/images/')?`${apiUrl.replace('apiv1','')}${ad.photo}`:ad.photo;
         this.tags = ad.tags;
     }
 

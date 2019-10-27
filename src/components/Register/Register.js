@@ -17,6 +17,7 @@ import Chip from '@material-ui/core/Chip';
 import UserConsumer from '../../context/UserContext';
 import LocalStorage from '../../utils/Storage';
 import NodepopAPI from '../../services/NodepopAPI';
+import Session from '../../models/Session';
 /* Assets */
 import imageLogo from '../../assets/images/logo2.png';
 /* CSS */
@@ -38,7 +39,6 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      api: new NodepopAPI(),
       error: false,
       isRemember: true,
       name: '',
@@ -137,14 +137,33 @@ class Register extends Component {
   componentDidMount() {
     // Restaurar datos de sesion del contexto
     const session = this.context.session;
-    if (session) {
+    // Recuperar tags de la API
+    const { getTags } = NodepopAPI(session.apiUrl);
+    getTags()
+    .then(res => {
+      // Conectado OK a la API
+      this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
       this.setState({
-        name: session.name,
-        surname: session.surname,
-        tag: session.tag,
+        error: false,
+        tags: res,
+      }, () => {
+
+        if (session) {
+          this.setState({
+            name: session.name,
+            surname: session.surname,
+            tag: session.tag,
+
+          });
+        }
       });
-    }
-    this.getTags();
+    })
+    .catch(() => {
+      this.props.enqueueSnackbar('Error conectando con la API', { variant: 'error', });
+      this.setState({
+        error: true,
+      });
+    });
   }
 
   /**
@@ -155,14 +174,14 @@ class Register extends Component {
     // Sólo si no hay errores de conexión
     if (!this.state.error) {
       // Campos relevantes para generar el objeto sesión
-      const { name, surname, tag} = {...this.state};
+      const { name, surname, tag } = {...this.state};
       // Son todos obligatorios, en caso de no estar no permito continuar
       if (!name || !surname || !tag) {
         this.props.enqueueSnackbar('Rellene todos los campos del formulario', { variant: 'error', });
         return;
       }
       // Genero sesión y la guardo en LS si ha seleccionado "remember"
-      const session = { name, surname, tag};
+      const session = new Session (name, surname, tag, this.context.session.apiUrl, this.context.session.maxAdverts);
       if (this.state.isRemember) {
         LocalStorage.saveLocalStorage(session);
       }
@@ -189,27 +208,6 @@ class Register extends Component {
   handleInput = (field) => (event) => {
     this.setState({
       [field]: event.target.value 
-    });
-  }
-
-  /**
-   * Obtener tags de la API
-   */
-  getTags = () => {
-    // Recuperar tags de la API
-    this.state.api.getTags()
-    .then(res => {
-      this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
-      this.setState({
-        error: false,
-        tags: res,
-      })
-    })
-    .catch(() => {
-      this.props.enqueueSnackbar('Error conectando con la API', { variant: 'error', });
-      this.setState({
-        error: true,
-      });
     });
   }
 }

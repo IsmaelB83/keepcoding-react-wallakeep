@@ -8,7 +8,6 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 /* Own modules */
 /* Assets */
 /* CSS */
-import './Paginator.css';
 
 /**
 * Main App
@@ -27,13 +26,13 @@ export default class Paginator extends Component {
                 position="static"
                 activeStep={this.props.currentPage}
                 backButton={
-                    <Button size="small" onClick={this.handleBack} disabled={this.props.currentPage === 0} className='Paginator__Button'>
+                    <Button size="small" onClick={this.handleBack} disabled={this.props.currentPage === 0} className='ButtonWallakeep ButtonWallakeep__Green'>
                     <KeyboardArrowLeft />
                     Back
                     </Button>
                 }
                 nextButton={
-                    <Button size="small" onClick={this.handleNext} disabled={this.props.currentPage === this.props.numPages - 1 } className='Paginator__Button'>
+                    <Button size="small" onClick={this.handleNext} disabled={this.props.currentPage === this.props.numPages - 1 } className='ButtonWallakeep ButtonWallakeep__Green'>
                     Next
                     <KeyboardArrowRight />
                     </Button>

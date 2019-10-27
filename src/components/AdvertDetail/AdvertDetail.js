@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 /* Material UI */
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText'
 import Container from '@material-ui/core/Container';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
@@ -37,7 +35,6 @@ export default class AdvertDetail extends Component {
     super(props);
     this.state = {
       loading: true,
-      api: new NodepopAPI(),
       advert: null
     }
   }
@@ -48,12 +45,13 @@ export default class AdvertDetail extends Component {
   componentDidMount() {
     // Chequeo sesion del contexto, si no existe redirijo a register
     const session = this.context.session
-    if (!session) {
+    if (!session.name) {
       return this.props.history.push('/register');
     } 
     // Call API to get advert detail
     const id = this.props.match.params.id;
-    this.state.api.getAdvert(id)
+    const { getAdvert } = NodepopAPI(session.apiUrl);
+    getAdvert(id)
       .then( res => {
         this.setState({
           advert: res,
@@ -105,10 +103,9 @@ export default class AdvertDetail extends Component {
                     }
                     </div>
                     <div className='AdvertDetail__Actions'>
-                      <Button component={Link} to={`/advert/edit/${this.state.advert._id}`} className='AdvertDetail__Button'>
-                        <ListItemIcon className='Icon'><EditIcon/></ListItemIcon>
-                        <ListItemText className='Text' primary="Editar"/>
-                      </Button>
+                      <Link to={`/advert/edit/${this.state.advert._id}`}>
+                        <Button type='button' variant='contained' color='secondary' startIcon={<EditIcon />} onClick={this.handleReset} className='ButtonWallakeep ButtonWallakeep__Green'>Editar</Button>
+                      </Link>
                     </div>
                     
                   </div>
