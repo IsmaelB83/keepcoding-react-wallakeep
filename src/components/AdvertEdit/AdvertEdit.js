@@ -96,8 +96,8 @@ class AdvertEdit extends Component {
           <NavBar/>
         </header>
         <Container>
-          <main className='AdvertEdit'>
-            <div className='SectionTitle'>
+          <main className='Main__Section'>
+            <div className='Section__Title'>
               <h2>{this.props.mode === 'edit' ? 'Editar anuncio' : 'Crear nuevo anuncio' }</h2>
             </div>
             <form onSubmit={this.handleSubmit} noValidate autoComplete='off' className='AdvertEdit__Form'>

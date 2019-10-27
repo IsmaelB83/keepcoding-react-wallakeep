@@ -51,7 +51,7 @@ class Home extends Component {
           <NavBar/>
         </header>
         <Container className='Container__Fill'>
-          <main className='Home'>
+          <main className='Main__Section'>
             {
               this.state.loading &&
               <div className='Home__Loading'>

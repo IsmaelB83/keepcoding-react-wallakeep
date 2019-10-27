@@ -43,35 +43,41 @@ img, embed, object, video {
 }
 
 /**
- * Estilos margenes, etc.
- */
- .mr-1 { margin-right: 5px; }
+* Estilos margenes, etc.
+*/
+.mr-1 { margin-right: 5px; }
 
- #root {
-   min-height: 100vh;
-   display: flex;
-   flex-direction: column;
- }
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
- .Container__Fill {
+.Container__Fill {
   flex: 1; 
   justify-content: center;
   align-items: center;
- }
+}
 
- .LinkBlock {
-   display: inline-block;
-   width: 100%;
- }
+.LinkBlock {
+  display: inline-block;
+  width: 100%;
+}
 
- .LinkBlock button {
-   width: 100%;
- }
+.LinkBlock button {
+  width: 100%;
+}
 
- /**
-  * Section de titulo de página
-  */
- .SectionTitle {
+/**
+* Section de titulo de página
+*/
+.Main__Section {
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.Section__Title {
   background: linear-gradient(-45deg, var(--main-color), var(--main-color-light));
   padding: 1rem;
   border: 1px solid var(--main-color);
@@ -79,7 +85,7 @@ img, embed, object, video {
   box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
 }
 
-.SectionTitle h2 {
+.Section__Title h2 {
   text-align: center;
   text-transform: uppercase;
   font-size: 1.25rem;
@@ -87,26 +93,19 @@ img, embed, object, video {
   text-shadow: 2px 2px 2px rgba(0,0,0,.5);
 }
 
-.Ad__Tag {
-  margin-right: 5px;
-}
 
-.Ad__Tag.Ad__Tag--small {
-  height: 1rem;
+/**
+* Formato de los tags
+*/
+.Ad__Tag { margin-right: 5px; }
+.Ad__Tag.Ad__Tag--small { height: 1rem; }
 
-}
-
- /**
-  * Formato de los chips
-  */
 .Ad__Tag--buy,
 .Ad__Tag--sell,
 .Ad__Tag--lifestyle,
 .Ad__Tag--work,
 .Ad__Tag--mobile,
-.Ad__Tag--motor {
-  color: white !important;
-}
+.Ad__Tag--motor { color: white !important; }
 
 .Ad__Tag--buy { background-color: green !important; }
 .Ad__Tag--sell { background-color: red !important; }

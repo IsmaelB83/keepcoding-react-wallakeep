@@ -22,14 +22,14 @@ export default class AdvertCard extends Component {
    */
   render() {
     return (
-        <div className='AdvertCard'>
-            <div className='AdvertCard__Header'>
+        <article className='AdvertCard'>
+            <header className='AdvertCard__Header'>
                 <img src={`${this.props.type==='buy'?imageBuy:imageSell}`} alt='avatar' />
                 <div className='AdvertCard__HeaderTitle'>
                     <Link to={`/advert/display/${this.props.id}`} className='AdvertCard__Link'><h2>{this.props.name}</h2></Link>
                     <Moment className='AdvertCard__Date' fromNow>{this.props.createdAt}</Moment>
                 </div>
-            </div>
+            </header>
             <div className='AdvertCard__Media'>
                 <img src={this.props.photo} alt='caption'/>
                 <p className='AdvertCard__Price'>
@@ -55,7 +55,7 @@ export default class AdvertCard extends Component {
                     }
                 </div>
             </div>
-        </div>
+        </article>
      );
   }
 }
