@@ -60,13 +60,7 @@ const config = {
 }
 ```
 
-De todas formas esos dos parámetros hardcodeados en el fichero Config.js, son sólo importantes para la primera ejecución de un usuario. Una vez logueado en la aplicación, es posible modificar estos parámetros (así como el nombre, apellido y tag por defecto), en el perfil del usuario. Para acceder al perfil del usuario hay que hacer click en la opcion del menú de usuario que indica "Perfil":
-
-![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/usermenu_3.jpg).
-
-El formulario para modificar el perfil de usuario es el siguiente. Desde aquí también podemos hacer un reset completo de nuestra sesión tanto en el contexto, como en el local storage:
-
-![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/profile.jpg).
+De todas formas esos dos parámetros hardcodeados en el fichero Config.js, son sólo importantes para la primera ejecución de un usuario. Una vez logueado en la aplicación, es posible modificar estos parámetros (así como el nombre, apellido y tag por defecto), en el perfil del usuario. [Perfil de Usuario](#Perfil-de-Usuario).
 
 ### GUÍA DE USO
 
