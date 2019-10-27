@@ -72,7 +72,9 @@ Por último pulsamos en el botón de "LOGIN" para acceder a la APP.
 
 ![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/register.jpg).
 
-Si el componente detecta que no hay conectividad con la API nos mostrará un mensaje de error, y no será posible continuar. Se ha añadido un cuarto campo, para poder indicar antes del login, en que **URL se encuentra a la escucha la API de nodepop**. Esto no tendría mucho sentido en una aplicación productiva, pero se ha habilitado en esta aplicación, para poder probarla bien desde heroku (contra APIs que puedan estar corriendo en otros servidores):
+Si el componente detecta que no hay conectividad con la API nos mostrará un mensaje de error, y no será posible continuar. Se ha añadido un cuarto campo, para poder indicar antes del login, en que **URL se encuentra a la escucha la API de nodepop**. Esto no tendría mucho sentido en una aplicación productiva. Pero se ha habilitado en esta aplicación para poder probarla bien desde heroku.
+
+En caso de querer conectar contra otra url API, una vez indicada la nueva URL hay que pulsar en el botón "TEST API" para reconectar, y así obtener el listado de tags para poder continuar con el registro.
 
 ## Home
 
