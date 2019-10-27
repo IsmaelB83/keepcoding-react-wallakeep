@@ -7,6 +7,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
@@ -114,16 +115,21 @@ class Register extends Component {
               </Select>
               <FormHelperText>Select a tag as the initial filter</FormHelperText>
             </FormControl>
-            <FormControl>
-              <Input
-                name='apiUrl'
-                value={this.state.apiUrl || ''}
-                onChange={this.handleInput('apiUrl')}
-                type='text' 
-                required
-              />
-              <FormHelperText>URL y puerto donde conectar a Nodepop</FormHelperText>
-            </FormControl>
+            <div className='Register__API'>
+              <FormControl fullWidth>
+                <Input
+                  name='apiUrl'
+                  value={this.state.apiUrl || ''}
+                  onChange={this.handleInput('apiUrl')}
+                  type='text' 
+                  required
+                />
+                <FormHelperText>URL y puerto donde conectar a Nodepop</FormHelperText>
+              </FormControl>  
+              <Button className='button' type='submit' variant='contained' color='primary' onClick={this.handleReconnect}> 
+                <RefreshIcon/> Test API
+              </Button>
+            </div>
             <FormControlLabel
               name='isRemember'
               label='remember me'
@@ -225,6 +231,29 @@ class Register extends Component {
   handleInput = (field) => (event) => {
     this.setState({
       [field]: event.target.value 
+    });
+  }
+
+  /**
+   * Reconecta a una API si se cambia la URL
+   */
+  handleReconnect = async () => {
+    // Recuperar tags de la API
+    const { getTags } = NodepopAPI(this.state.apiUrl);
+    getTags()
+    .then(res => {
+      // Conectado OK a la API
+      this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
+      this.setState({
+        error: false,
+        tags: res,
+      });
+    })
+    .catch(() => {
+      this.props.enqueueSnackbar('Error conectando con la API. Revise la URL.', { variant: 'error', });
+      this.setState({
+        error: true,
+      });
     });
   }
 }

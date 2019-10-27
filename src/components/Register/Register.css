@@ -9,14 +9,14 @@
 
 .Register__Wrapper {
     max-width: 80%;
-    padding: 3rem 2rem;
+    padding: 2.5rem 2rem;
     background-color: white;
     box-shadow: 3px 3px 7px rgba(0, 0, 0, .5);
 }
 
 .Register__Form {
     display: grid;
-    grid-gap: 2rem;
+    grid-gap: 1.75rem;
 }
 
 .Register__Form .button {
@@ -43,4 +43,24 @@
 
 .InputIcon__Icon + input::placeholder{
     font-size: .9rem;
+}
+
+.Register__API {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.Register__API button {
+    margin-top: 1rem;
+    height: 100%;
+    background-color: green;
+}
+
+.Register__API button:hover {
+    background-color: rgb(13, 172, 13);
+}
+
+.Register__API button svg {
+    margin-right: .5rem;
 }
