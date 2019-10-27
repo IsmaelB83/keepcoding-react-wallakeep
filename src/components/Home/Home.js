@@ -11,7 +11,7 @@ import UserConsumer from '../../context/UserContext';
 import NodepopAPI from '../../services/NodepopAPI';
 import AdvertCard from '../AdvertCard/AdvertCard';
 import Config from '../../config';
-import Header from '../Header/Header';
+import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 /* Assets */
 import imageError from '../../assets/images/error.png';
@@ -47,7 +47,9 @@ class Home extends Component {
   render() {   
     return (
       <React.Fragment>
-        <Header name={this.context.session.name}/>
+        <header>
+          <NavBar/>
+        </header>
         <Container className='Container__Fill'>
           <main className='Home'>
             {

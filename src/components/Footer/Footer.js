@@ -28,14 +28,11 @@ export default class Footer extends Component {
             <footer className='Footer'>
                 <Container>
                     <Grid container spacing={3} className='Footer__row'>
-                        <Grid item xs={12} sm={6} lg={4} className='Footer-item mt-3 mt-lg-0'>
+                        <Grid item xs={12} sm={6} className='Footer-item mt-3 mt-lg-0'>
                            <FooterAddress/> 
                         </Grid>
-                        <Grid item xs={12} sm={6} lg={4} className='Footer-item links mt-3 mt-lg-0'>
+                        <Grid item xs={12} sm={6} className='Footer-item links mt-3 mt-lg-0'>
                             <FooterLinks/>
-                        </Grid>
-                        <Grid item xs={12} sm={12} lg={4} className='Footer-item mt-3 mt-lg-0'>
-                            <FooterRecentProducts/>
                         </Grid>
                     </Grid>
                 </Container>
@@ -84,19 +81,6 @@ function FooterLinks() {
                 <a className='Footer__link' href='https://www.laestanciaazul.com/'>La Estancia Azul</a>
                 <a className='Footer__link' href='https://github.com/IsmaelB83/keepcoding-react-wallakeep'>Repositorio</a>
                 <a className='Footer__link' href='https://keepcoding.io/es/nuestros-bootcamps/full-stack-web-bootcamp/'>Keepcoding Fullstack Bootcamp</a>
-            </div>
-        </div>
-    );
-}
-
-/**
- * Sección de links del footer
- */
-function FooterRecentProducts() {
-    return (
-        <div className='Footer__section'>
-            <h2 className='Footer__title'>Anuncios recientes</h2>
-            <div className='Footer__content'>
             </div>
         </div>
     );

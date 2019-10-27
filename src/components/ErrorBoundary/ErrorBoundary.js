@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 /* Material UI */
 import Container from '@material-ui/core/Container';
 /* Own modules */
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 /* Assets */
 /* CSS */
 
@@ -12,6 +10,7 @@ import Footer from '../Footer/Footer';
  * Error Boundary
  */
 export default class ErrorBoundary extends Component {
+    
     /**
      * Constructor
      */
@@ -37,14 +36,12 @@ export default class ErrorBoundary extends Component {
         if (this.state.error) {
             return (
             <React.Fragment>
-                <Header handleSearch={this.handleSearch}/>
                 <Container>
                     <main className='Home'>
                         <h1>Se ha producido un error incontrolado en la aplicación.</h1>
-                        <h2>Contacte con el administrador de la página.</h2>
+                        <h2>Contacte con el administrador de la app.</h2>
                     </main>
                 </Container>
-                <Footer/>
             </React.Fragment>
             );
         } else {

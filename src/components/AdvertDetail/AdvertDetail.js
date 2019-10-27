@@ -4,7 +4,7 @@ import Moment from 'react-moment';
 /* Material UI */
 import Container from '@material-ui/core/Container';
 /* Own modules */
-import Header from '../Header/Header';
+import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 import UserConsumer from '../../context/UserContext';
 import NodepopAPI from '../../services/NodepopAPI';
@@ -63,7 +63,9 @@ export default class AdvertDetail extends Component {
   render() {
     return (
       <React.Fragment>
-        <Header name={this.context.session.name}/>
+        <header>
+          <NavBar/>
+        </header>
         <Container>
           <main className='AdvertEdit'>
             <div className='SectionTitle'>

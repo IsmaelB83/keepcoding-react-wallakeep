@@ -41,6 +41,7 @@ export default class App extends Component {
             <Router>
               <Switch>
                   <Route path='/register' exact component={Register} />
+                  <Route path='/profile' exact component={Register} />
                   <Route path='/advert/display/:id' exact component={AdvertDetail} />
                   <Route path='/advert/create' exact render={(props) => <AdvertEdit {...props} mode='create'/>}/>
                   <Route path='/advert/edit/:id' exact render={(props) => <AdvertEdit {...props} mode='edit'/>}/>

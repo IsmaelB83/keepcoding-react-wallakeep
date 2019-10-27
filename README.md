@@ -10,9 +10,9 @@ Wallakeep - React Frontend for the Nodepop API (https://github.com/IsmaelB83/kee
   - [Configuración](#Configuración)
 - [Guía de uso](#GUÍA-DE-USO)
   - [Registro](#Registro)
-  - [Instalación](#Inicialización-de-base-de-datos)
-  - [Ejecución](#Ejecución)
-  - [Configuración](#Configuración)
+  - [Home](#Home)
+  - [Create Advert](#Create-Advert)
+  - [Edit Advert](#Edit-Advert)
 
 ### INTRODUCCION
 
@@ -83,12 +83,30 @@ Además podemos acceder al detalle de cada uno de los anuncios concretos pulsand
 
 ![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/home_2.jpg).
 
-## Edit/Create
+Las opciones adicionales a nivel de usuario como: añadir nuevo anuncio, desconectar o volver al perfil de usuario, se encuentran en el submenu de usuario en la barra de navegación. Esquina superior derecha:
 
-En la vista de edición/creación podemos interactuar con la API para crear anuncios nuevos o editar los existentes. En el formulario deberemos indicar un nombre, tipo de anuncio, tags, precio y descripción. Adicionalmente podremos asociar una imagen al anuncio:
+![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/usermenu.jpg).
+
+## Create Advert
+
+Para acceder a la opción de crear un nuevo anuncio, debemos buscar la opción dentro del submenu de usuario (esquina superior derecha de la barra de navegación). También está accesible esta sección desde el footer de la aplicación.
+
+![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/usermenu_2.jpg).
+
+En la vista de reación podemos interactuar con la API para crear anuncios nuevos. En el formulario deberemos indicar los siguientes campos obligatorios: nombre, tipo (compra/venta), tags (uno o varios de los existentes), precio y descripción. Adicionalmente podremos asociar una imagen al anuncio:
 
 ![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/home_3.jpg).
 
 Para gestionar el campo **imagen**, lo que he hecho es crear un botón, en el que al pulsarlo aparacerá un modal donde podremos indicar la URL a la imagen que queremos asociar. El hecho de no poder cargar imagenes desde local es una limitación impuesta por la API, dado que actualmente no permite gestionar carga de imagenes en el PUT/POST. Por esta raźon lo que indicamos en este punto es una URL a una imagen ya accesible en internet. El botón previsualizará la imagen seleccionada una vez indiquemos la URL en el modal
 
 ![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/home_4.jpg).
+
+**Nota:** actualmente el formulario de creación/edición de anuncios tiene una limitación, y es que NO podemos asociar nuevos TAGS (no existentes ya en la BBDD) a los anuncios creados. Esto es una limitación a mejorar en nuevas versiones (la limitación esta derivada del componente Select que se ha utilizado de Material UI).
+
+## Edit Advert
+
+Para acceder a la opción de editar un nuevo anuncio, debemos pulsar en el botón del "lapicero" dentro de la card de un anuncio en el listado principal:
+
+![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-react-wallakeep/master/src/assets/images/readme/home_2.jpg).
+
+La app nos llevará al componente de edición, que funciona de forma similar a lo vist en el punto anterior de creación

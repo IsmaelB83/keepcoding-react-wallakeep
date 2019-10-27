@@ -19,7 +19,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 /* Own modules */
-import Header from '../Header/Header';
+import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 import NodepopAPI from '../../services/NodepopAPI';
 import UserConsumer from '../../context/UserContext';
@@ -92,7 +92,9 @@ class AdvertEdit extends Component {
   render() {
     return (
       <React.Fragment>
-        <Header name={this.context.session.name}/>
+        <header>
+          <NavBar/>
+        </header>
         <Container>
           <main className='AdvertEdit'>
             <div className='SectionTitle'>
