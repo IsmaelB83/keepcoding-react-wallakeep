@@ -18,11 +18,21 @@ Wallakeep - React Frontend for the Nodepop API (https://github.com/IsmaelB83/kee
 
 ### INTRODUCCION
 
-Este proyecto proporciona una SPA escrita en react para trabajar sobre la funcionalidad ofrecida por la API de Nodepop (https://github.com/IsmaelB83/keepcoding-backend-node). Se puede utilizar como
-punto de partida (muy básico) de una tienda online de anuncios (tipo wallapop). Algunas funcionalidades pendientes de implementar serían por ejemplo: autenticación contra la API mediante JWT, redux,
-creación de cuentas, reseteo de contraseñas, funcionalidades de red social, comentarios, likes sobre anuncios, votaciones, cesta de la compra, etc.
+Este proyecto proporciona una SPA escrita en react para trabajar sobre la funcionalidad ofrecida por la [API de Nodepop](https://github.com/IsmaelB83/keepcoding-nodepop-api). Se puede utilizar como
+punto de partida (muy básico) de una tienda online de anuncios (tipo wallapop). 
 
-En este documento se detalla el modo de utilización del frontal en REACT. Para documentación detallada de la API puedes utilizar el repo siguiente https://github.com/IsmaelB83/keepcoding-backend-node
+En la versión 2.0, creada para el módulo de REACT Avanzado de Keepcoding, se incorpora un store con redux a la aplicación para almacenar datos como:
+- Estado de sesión del usuario (aunque en esta versión del backend, todavía NO tenemos autenticación por JWT),
+- Información sobre los anuncios,
+- Creacción de acciones y reducers
+- Configuración de redux dev tools,
+
+Adicionalmente también se han aplicado:
+- refactorizaciones en los formularios, para componentizarlos,
+- aplicación de hooks utilizando useState y useEffect,
+- testing a los components con acceso al store.
+
+Nota: En este documento se detalla el modo de utilización del frontal en REACT. Para documentación detallada de la API puedes utilizar el repo siguiente https://github.com/IsmaelB83/keepcoding-backend-node
 
 ### INSTALACIÓN Y EJECUCIÓN
 
@@ -52,15 +62,11 @@ Para arrancar la aplicación react utilizaremos npm start (esta aplicación util
 
 ## Configuración
 
-En el fichero ubicado en /src/config.js puedes configurar varios parámetros importantes para la aplicación, como son la **url de la API de Nodepop** a la que va a puntar el frontal (por defecto espera que esté a la escucha en el localhost puerto 3001), y el **número máximo de anuncios** que queremos ver en el grid de anuncios del home (por pagina).
+En el fichero .env que es necesario crear en la raiz del proyecto, se debe indicar la **url de la API de Nodepop** a la que va a apuntar el frontal (por defecto el localhost puerto 3001), y el **número máximo de anuncios** que queremos ver en el grid de anuncios del home (por pagina). **Importante** cree este fichero antes de arrancar la aplicación, para que no falle. Puede utilizar como ejemplo el fichero .env.example que se proporciona.
 ```js
-const config = {
-    API_URL: 'http://localhost:3001/apiv1',
-    MAX_ADVERTS_GRID: 20
-}
+REACT_APP_API=http://localhost:3001/apiv1
+REACT_APP_MAX_ADVERTS_GRID=20
 ```
-
-De todas formas esos dos parámetros hardcodeados en el fichero Config.js, son sólo importantes para la primera ejecución de un usuario. Una vez logueado en la aplicación, es posible modificar estos parámetros (así como el nombre, apellido y tag por defecto), en el perfil del usuario. [Perfil de Usuario](#Perfil-de-Usuario).
 
 ### GUÍA DE USO
 

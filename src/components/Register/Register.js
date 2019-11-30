@@ -7,7 +7,6 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import RefreshIcon from '@material-ui/icons/Refresh';
 import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
@@ -46,7 +45,6 @@ class Register extends Component {
       surname: '',
       tag: '',
       tags: null,
-      apiUrl: ''
     }
   }
 
@@ -115,21 +113,6 @@ class Register extends Component {
               </Select>
               <FormHelperText>Select a tag as the initial filter</FormHelperText>
             </FormControl>
-            <div className='Register__API'>
-              <FormControl fullWidth>
-                <Input
-                  name='apiUrl'
-                  value={this.state.apiUrl || ''}
-                  onChange={this.handleInput('apiUrl')}
-                  type='text' 
-                  required
-                />
-                <FormHelperText>URL y puerto donde conectar a Nodepop</FormHelperText>
-              </FormControl>  
-              <Button className='button' type='submit' variant='contained' color='primary' onClick={this.handleReconnect}> 
-                <RefreshIcon/> Test API
-              </Button>
-            </div>
             <FormControlLabel
               name='isRemember'
               label='remember me'
@@ -157,10 +140,9 @@ class Register extends Component {
     this.setState({
       name: session.name,
       surname: session.surname,
-      apiUrl: session.apiUrl
     }, () => {
       // Recuperar tags de la API
-      const { getTags } = NodepopAPI(session.apiUrl);
+      const { getTags } = NodepopAPI();
       getTags()
       .then(res => {
         // Conectado OK a la API
@@ -188,30 +170,22 @@ class Register extends Component {
     // Sólo si no hay errores de conexión
     if (!this.state.error) {
       // Campos relevantes para generar el objeto sesión
-      const { name, surname, tag, apiUrl } = {...this.state};
+      const { name, surname, tag } = {...this.state};
       // Son todos obligatorios, en caso de no estar no permito continuar
-      if (!name || !surname || !tag || !apiUrl) {
+      if (!name || !surname || !tag) {
         this.props.enqueueSnackbar('Rellene todos los campos del formulario', { variant: 'error', });
         return;
       }
-      // Compruebo que la API indicada es buena
-      try {
-        const { getTags } = NodepopAPI(apiUrl);
-        const res = await getTags();
-        if (res) {
-          // Genero sesión y la guardo en LS si ha seleccionado "remember"
-          const session = new Session (name, surname, tag, apiUrl, this.context.session.maxAdverts);
-          if (this.state.isRemember) {
-            LocalStorage.saveLocalStorage(session);
-          }
-          // Actualizo el contexto y redijo el home
-          this.context.session = session;
-          this.props.history.push('/');
-        }
-      } catch (error) {
-        this.props.enqueueSnackbar('Error conectando con la API. Revise la URL.', { variant: 'error', });        
+      // Genero sesión y la guardo en LS si ha seleccionado "remember"
+      const session = new Session (name, surname, tag, this.context.session.maxAdverts);
+      if (this.state.isRemember) {
+        LocalStorage.saveLocalStorage(session);
       }
+      // Actualizo el contexto y redijo el home
+      this.context.session = session;
+      this.props.history.push('/');
     } else {
+      // Sin API no continuamos
       this.props.enqueueSnackbar('Error conectando con la API. Revise la URL.', { variant: 'error', });
     }
   }
@@ -231,29 +205,6 @@ class Register extends Component {
   handleInput = (field) => (event) => {
     this.setState({
       [field]: event.target.value 
-    });
-  }
-
-  /**
-   * Reconecta a una API si se cambia la URL
-   */
-  handleReconnect = async () => {
-    // Recuperar tags de la API
-    const { getTags } = NodepopAPI(this.state.apiUrl);
-    getTags()
-    .then(res => {
-      // Conectado OK a la API
-      this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
-      this.setState({
-        error: false,
-        tags: res,
-      });
-    })
-    .catch(() => {
-      this.props.enqueueSnackbar('Error conectando con la API. Revise la URL.', { variant: 'error', });
-      this.setState({
-        error: true,
-      });
     });
   }
 }

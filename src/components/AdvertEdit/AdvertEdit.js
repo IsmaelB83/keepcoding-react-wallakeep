@@ -72,7 +72,7 @@ class AdvertEdit extends Component {
       return this.props.history.push('/register');
     } 
     // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
-    const { getTags, getAdvert } = NodepopAPI(session.apiUrl);
+    const { getTags, getAdvert } = NodepopAPI();
     getTags().then(res => {
       this.setState({tags: res})
     });
@@ -267,7 +267,7 @@ class AdvertEdit extends Component {
    */
   handleSubmit = (ev) => {
     ev.preventDefault();
-    const { postAdvert, editAdvert } = NodepopAPI(this.context.session.apiUrl);
+    const { postAdvert, editAdvert } = NodepopAPI();
     // Creo un anuncio con los datos del estado si es válido
     const advert = new Advert(this.state.advert);
     if (advert.isValid()) {

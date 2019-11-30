@@ -126,7 +126,7 @@ class Home extends Component {
       return this.props.history.push('/register');
     }
     // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
-    const { getTags } = NodepopAPI(session.apiUrl);
+    const { getTags } = NodepopAPI();
     getTags().then(res => this.setState({tags: res}));
     // Obtengo los anuncios
     if (session.tag) {
@@ -141,7 +141,7 @@ class Home extends Component {
    * Try to connect to the backend API
    */
   getAdverts = () => {
-    const { getAdverts } = NodepopAPI(this.context.session.apiUrl);
+    const { getAdverts } = NodepopAPI();
     getAdverts()
     .then(res => {
       const numPages = Math.ceil(res.length/this.context.session.maxAdverts);
@@ -167,7 +167,7 @@ class Home extends Component {
    */
   handleSearch = (filters) => {
     // Llamo a la API con los filtros recibido
-    const { searchAdvert } = NodepopAPI(this.context.session.apiUrl);
+    const { searchAdvert } = NodepopAPI();
     searchAdvert(filters)
     .then(res => {
       const numPages = Math.ceil(res.length/this.context.session.maxAdverts);

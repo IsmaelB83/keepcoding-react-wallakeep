@@ -50,7 +50,7 @@ export default class AdvertDetail extends Component {
     } 
     // Call API to get advert detail
     const id = this.props.match.params.id;
-    const { getAdvert } = NodepopAPI(session.apiUrl);
+    const { getAdvert } = NodepopAPI();
     getAdvert(id)
       .then( res => {
         this.setState({

@@ -44,7 +44,6 @@ class Profile extends Component {
       name: '',
       surname: '',
       tag: '',
-      apiUrl: '',
       maxAdverts: 0,
       tags: []
     }
@@ -63,11 +62,10 @@ class Profile extends Component {
     this.setState({
       name: session.name,
       surname: session.surname, 
-      apiUrl: session.apiUrl,
       maxAdverts: session.maxAdverts
     }, () => {
       // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
-      const { getTags } = NodepopAPI(this.context.session.apiUrl);
+      const { getTags } = NodepopAPI();
       getTags().then(res => {
         this.setState({
           tag: session.tag,
@@ -138,16 +136,6 @@ class Profile extends Component {
                 </Select>
               </FormControl>
               <FormControl fullWidth className='Profile__FormControl'>
-                <InputLabel shrink htmlFor='apiUrl'>URL Nodepop (address:port)</InputLabel>
-                <Input
-                  name='apiUrl'
-                  value={this.state.apiUrl}
-                  onChange={this.handleChange('apiUrl')}
-                  type='text' 
-                  required
-                />
-              </FormControl>
-              <FormControl fullWidth className='Profile__FormControl'>
                 <InputLabel htmlFor='maxAdverts'>Anuncios por página (Home)</InputLabel>
                 <Input
                   name='maxAdverts'
@@ -189,8 +177,8 @@ class Profile extends Component {
   handleSubmit = (ev) => {
     ev.preventDefault();
     // Genero sesión y la guardo en LS
-    const { name, surname, tag, apiUrl, maxAdverts } = this.state;
-    const session = new Session (name, surname, tag, apiUrl, maxAdverts);
+    const { name, surname, tag, maxAdverts } = this.state;
+    const session = new Session (name, surname, tag, maxAdverts);
     LocalStorage.saveLocalStorage(session);
     this.context.session = session;
     this.props.enqueueSnackbar('Local storage actualizado correctamente.', { variant: 'success' });

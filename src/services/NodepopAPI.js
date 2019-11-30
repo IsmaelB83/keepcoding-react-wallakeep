@@ -9,8 +9,16 @@ import Advert from '../models/Advert';
 /**
 * Objeto API
 */
-const NodepopAPI = (API_URL) => {
+const NodepopAPI = () => {
   
+  /**
+   * URL base del API
+   */
+  const API_URL = process.env.REACT_APP_API;
+
+  /**
+   * Objeto JSON con todos los métodos
+   */
   return {
     
     /**
@@ -23,7 +31,6 @@ const NodepopAPI = (API_URL) => {
       return Axios.get(baseURL)
       .then(res => res.data.results);
     },
-    
     
     /**
     * Obtener todos los anuncios
