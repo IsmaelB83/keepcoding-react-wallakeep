@@ -50,7 +50,7 @@ export default class NavBar extends Component {
           <Link to='/' className='NavBar__Brand'>
             <img src={imageLogo} alt='logo' className='NavBar__Brand'/>
           </Link>
-          { session.name &&
+          { session.email &&
           <div>
             <IconButton
               aria-label='account of current user'

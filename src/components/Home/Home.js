@@ -122,7 +122,7 @@ class Home extends Component {
   componentDidMount() {
     // Chequeo sesion del contexto, si no existe redirijo a register
     const session = this.context.session
-    if (!session.name) {
+    if (!session.email) {
       return this.props.history.push('/register');
     }
     // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas

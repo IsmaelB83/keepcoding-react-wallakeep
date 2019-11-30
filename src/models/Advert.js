@@ -36,3 +36,20 @@ export default class Advert {
                 this.tags.length >= 1;
     }
 }
+
+/**
+ * Constantes para el trabajo con el modelo de anuncio
+ */
+export const ADVERT_CONSTANTS = {
+    TYPE: {
+        ALL: 'all',
+        BUY: 'buy',
+        SELL: 'sell'
+    }, 
+    TAGS: {
+        WORK: 'work', 
+        LIFESTYLE: 'lifestyle', 
+        MOTOR: 'motor', 
+        MOBILE: 'mobile'
+    },
+}

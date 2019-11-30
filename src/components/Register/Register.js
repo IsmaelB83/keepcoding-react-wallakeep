@@ -6,6 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -41,6 +42,7 @@ class Register extends Component {
     this.state = {
       error: false,
       isRemember: true,
+      email: '',
       name: '',
       surname: '',
       tag: '',
@@ -84,6 +86,23 @@ class Register extends Component {
                 startAdornment={
                   <InputAdornment position='start' className='InputIcon__Icon'>
                     <AccountCircleIcon/>
+                  </InputAdornment>
+                }
+                endAdornment={this.props.endAdornment}
+                required
+              />
+            </FormControl>
+            <FormControl>
+              <Input
+                name='email'
+                value={this.state.email || ''}
+                onChange={this.handleInput('email')}
+                type='email' 
+                placeholder='type your email'
+                autoComplete='username'
+                startAdornment={
+                  <InputAdornment position='start' className='InputIcon__Icon'>
+                    <MailOutlineIcon/>
                   </InputAdornment>
                 }
                 endAdornment={this.props.endAdornment}
@@ -138,6 +157,7 @@ class Register extends Component {
     // Restaurar datos de sesion del contexto
     const session = this.context.session;
     this.setState({
+      email: session.email,
       name: session.name,
       surname: session.surname,
     }, () => {
@@ -170,14 +190,14 @@ class Register extends Component {
     // Sólo si no hay errores de conexión
     if (!this.state.error) {
       // Campos relevantes para generar el objeto sesión
-      const { name, surname, tag } = {...this.state};
+      const { email, name, surname, tag } = {...this.state};
       // Son todos obligatorios, en caso de no estar no permito continuar
-      if (!name || !surname || !tag) {
+      if (!email || !name || !surname || !tag) {
         this.props.enqueueSnackbar('Rellene todos los campos del formulario', { variant: 'error', });
         return;
       }
       // Genero sesión y la guardo en LS si ha seleccionado "remember"
-      const session = new Session (name, surname, tag, this.context.session.maxAdverts);
+      const session = new Session (email, name, surname, tag, this.context.session.maxAdverts);
       if (this.state.isRemember) {
         LocalStorage.saveLocalStorage(session);
       }

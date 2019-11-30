@@ -41,6 +41,7 @@ class Profile extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      email: '',
       name: '',
       surname: '',
       tag: '',
@@ -55,11 +56,12 @@ class Profile extends Component {
   componentDidMount() {
     // Chequeo sesion del contexto, si no existe redirijo a register
     const session = this.context.session
-    if (!session.name) {
+    if (!session.email) {
       return this.props.history.push('/register');
     }
     // Actualizo la sesión (excepto el tags que dependo de cargar primero los tags)
     this.setState({
+      email: session.email,
       name: session.name,
       surname: session.surname, 
       maxAdverts: session.maxAdverts
@@ -110,6 +112,16 @@ class Profile extends Component {
                   value={this.state.surname}
                   onChange={this.handleChange('surname')}
                   type='text' 
+                  required
+                />
+              </FormControl>
+              <FormControl fullWidth className='Profile__FormControl'>
+                <InputLabel shrink htmlFor='type'>Email</InputLabel>
+                <Input
+                  name='email'
+                  value={this.state.email}
+                  onChange={this.handleChange('email')}
+                  type='email' 
                   required
                 />
               </FormControl>
@@ -177,8 +189,8 @@ class Profile extends Component {
   handleSubmit = (ev) => {
     ev.preventDefault();
     // Genero sesión y la guardo en LS
-    const { name, surname, tag, maxAdverts } = this.state;
-    const session = new Session (name, surname, tag, maxAdverts);
+    const { email, name, surname, tag, maxAdverts } = this.state;
+    const session = new Session (email, name, surname, tag, maxAdverts);
     LocalStorage.saveLocalStorage(session);
     this.context.session = session;
     this.props.enqueueSnackbar('Local storage actualizado correctamente.', { variant: 'success' });

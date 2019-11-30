@@ -45,7 +45,7 @@ export default class AdvertDetail extends Component {
   componentDidMount() {
     // Chequeo sesion del contexto, si no existe redirijo a register
     const session = this.context.session
-    if (!session.name) {
+    if (!session.email) {
       return this.props.history.push('/register');
     } 
     // Call API to get advert detail
