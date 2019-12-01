@@ -38,6 +38,30 @@ export default class App extends Component {
     }
   }
 
+  componentDidMount() {
+    // Me subscrico al store para actuar frente a cambios del estado
+    this.props.store.subscribe(() => {
+      const state = this.props.store.getState();
+      console.log('Store actualizado!!!');
+      console.log(state);
+    });
+    // Uso del store forzando acciones desde el componente raiz
+    const session = {
+      name: 'Ismael',
+      surname: 'Bernal',
+      email: 'ismaelbernal83@gmail.com',
+      tag: 'lifestyle',
+      advertsPerPage: 8
+    }
+    this.props.store.dispatch ({type: 'LOGIN_SESSION', session});
+    const adverts = [
+      { name:"PS4Pro", description: "Compro PS4 Pro con menos de 1 año de uso", price:200.99 },
+      { name:"XBOX OneX", description: "Vendo XBOX One X como nueva. No tengo tiempo para jugar.", price:170.05 },
+      { name:"Raton Gaming Razer Mamba", description: "El mejor ratón gamer del mercado. Como nuevo (1 año)", price:35.50 },
+    ]
+    this.props.store.dispatch ({type: 'SET_ADVERTS', adverts});
+  }
+  
   /**
    * Render
    */
