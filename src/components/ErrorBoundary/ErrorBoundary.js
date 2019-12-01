@@ -23,9 +23,6 @@ export default class ErrorBoundary extends Component {
      * Component did catch (necesario para el error boundary)
      */
     componentDidCatch(error, errorInfo) {
-        console.log(error.message);
-        console.log(error.stack);
-        console.log(errorInfo);
         this.setState({ error });
     }
 

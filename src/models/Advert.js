@@ -52,4 +52,5 @@ export const ADVERT_CONSTANTS = {
         MOTOR: 'motor', 
         MOBILE: 'mobile'
     },
+    MAX_PRICE: 999999
 }

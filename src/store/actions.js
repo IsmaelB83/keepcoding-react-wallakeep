@@ -26,6 +26,11 @@ export const editSession = session => ({
     session,
 });
 
+export const loginSession = session => ({
+    type: LOGOUT_SESSION,
+    session
+});
+
 export const logoutSession = () => ({
     type: LOGOUT_SESSION,
 });

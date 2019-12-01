@@ -1,5 +1,4 @@
 // Node imports
-import { combineReducers } from 'redux';
 // Own imports
 import * as TYPES from './types';
 import { ADVERT_CONSTANTS } from '../models/Advert';
@@ -10,20 +9,21 @@ import { ADVERT_CONSTANTS } from '../models/Advert';
 export const initialState = {
     // User session
     session: {
-        name: null,
-        surname: null,
-        tag: null,
-        advertsPerPage: null
+        name: '',
+        surname: '',
+        email: '',
+        tag: ADVERT_CONSTANTS.TAG.ALL,
+        advertsPerPage: process.env.REACT_APP_MAX_ADVERTS_GRID
     },
     // Adverts in the app
     adverts: [],
     // Filters applied (text, tag, type, amounts)
     filters: {
-        name: null,
+        name: '',
         type: ADVERT_CONSTANTS.TYPE.ALL,
         tag: ADVERT_CONSTANTS.TAG.ALL,
-        minPrice: null,
-        maxPrice: null
+        minPrice: 0,
+        maxPrice: ADVERT_CONSTANTS.MAX_PRICE
     }
 }
 
@@ -32,7 +32,7 @@ export const initialState = {
  * @param {Array} state Anuncios
  * @param {Object} action Action
  */
-const adverts = (state = initialState.adverts, action) => {
+export function adverts(state = initialState.adverts, action) {
     switch (action.type) {
         case TYPES.SET_ADVERTS:
             return action.adverts;
@@ -53,7 +53,7 @@ const adverts = (state = initialState.adverts, action) => {
  * @param {Array} state Anuncios
  * @param {Object} action Action
  */
-const filters = (state = initialState.filters, action) => {
+export function filters (state = initialState.filters, action) {
     switch (action.type) {
         case TYPES.SET_FILTERS:
             return action.filters;
@@ -67,24 +67,18 @@ const filters = (state = initialState.filters, action) => {
  * @param {Array} state Anuncios
  * @param {Object} action Action
  */
-const session = (state = initialState.session, action) => {
+export function session (state = initialState.session, action) {
     switch (action.type) {
         case TYPES.EDIT_SESSION:
             if (state.email === action.session.email) {
                 state = {...action.session};
             }
             return state;
+        case TYPES.LOGIN_SESSION:
+            return action.session;
         case TYPES.LOGOUT_SESSION:
             return initialState.session;
         default:
             return state;
     }
 }
-
-const reducer = combineReducers({
-    adverts,
-    filters,
-    session
-});
-
-export default reducer;
