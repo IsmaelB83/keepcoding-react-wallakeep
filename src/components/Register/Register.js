@@ -22,7 +22,7 @@ import Session from '../../models/Session';
 /* Assets */
 import imageLogo from '../../assets/images/logo2.png';
 /* CSS */
-import './Register.css';
+import './styles.css';
 
 /**
  * Register Form
@@ -202,6 +202,7 @@ class Register extends Component {
         LocalStorage.saveLocalStorage(session);
       }
       // Actualizo el contexto y redijo el home
+      this.props.login(session);
       this.context.session = session;
       this.props.history.push('/');
     } else {

@@ -13,7 +13,7 @@ import Chip from '@material-ui/core/Chip';
 /* Own modules */
 /* Assets */
 /* CSS */
-import './SearchPanel.css';
+import './styles.css';
 
 /**
  * Main App

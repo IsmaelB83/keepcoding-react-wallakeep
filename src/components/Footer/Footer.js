@@ -1,5 +1,5 @@
 /* NPM modules */
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 /* Material UI */
 import Grid from '@material-ui/core/Grid';
@@ -13,32 +13,27 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 /* Own modules */
 /* Assets */
 /* CSS */
-import './Footer.css';
+import './styles.css';
 
 
 /**
  * Component para el footer
  */
-export default class Footer extends Component {
-    /**
-     * Render
-     */
-    render() {
-        return (
-            <footer className='Footer'>
-                <Container>
-                    <Grid container spacing={3} className='Footer__row'>
-                        <Grid item xs={12} sm={6} className='Footer-item mt-3 mt-lg-0'>
-                           <FooterAddress/> 
-                        </Grid>
-                        <Grid item xs={12} sm={6} className='Footer-item links mt-3 mt-lg-0'>
-                            <FooterLinks/>
-                        </Grid>
+export default function Footer() {
+    return (
+        <footer className='Footer'>
+            <Container>
+                <Grid container spacing={3} className='Footer__row'>
+                    <Grid item xs={12} sm={6} className='Footer-item mt-3 mt-lg-0'>
+                        <FooterAddress/> 
                     </Grid>
-                </Container>
-            </footer>
-        );
-    }
+                    <Grid item xs={12} sm={6} className='Footer-item links mt-3 mt-lg-0'>
+                        <FooterLinks/>
+                    </Grid>
+                </Grid>
+            </Container>
+        </footer>
+    );
 }
 
 /**

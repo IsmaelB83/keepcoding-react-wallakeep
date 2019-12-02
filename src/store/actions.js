@@ -3,7 +3,8 @@ import {
     EDIT_ADVERT,
     SET_FILTERS,
     EDIT_SESSION,
-    LOGOUT_SESSION
+    LOGIN,
+    LOGOUT
 } from './types';
 
 export const setAdverts = adverts => ({
@@ -26,11 +27,11 @@ export const editSession = session => ({
     session,
 });
 
-export const loginSession = session => ({
-    type: LOGOUT_SESSION,
+export const login = session => ({
+    type: LOGIN,
     session
 });
 
-export const logoutSession = () => ({
-    type: LOGOUT_SESSION,
+export const logout = () => ({
+    type: LOGOUT,
 });

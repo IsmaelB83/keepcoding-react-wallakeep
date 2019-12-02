@@ -21,16 +21,18 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import SaveIcon from '@material-ui/icons/Save';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Cancel';
-/* Own modules */
-import NavBar from '../NavBar/NavBar';
-import Footer from '../Footer/Footer';
-import NodepopAPI from '../../services/NodepopAPI';
+/* Components */
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer';
+/* Models */
+import Advert from '../../models/Advert';
+/* Modules */
 import UserConsumer from '../../context/UserContext';
+import NodepopAPI from '../../services/NodepopAPI';
 /* Assets */
 import imagePhoto from '../../assets/images/photo.png'
 /* CSS */
-import './AdvertEdit.css';
-import Advert from '../../models/Advert';
+import './styles.css';
 
 /**
  * Main App
@@ -66,11 +68,6 @@ class AdvertEdit extends Component {
    * Component did mount
    */
   componentDidMount() {
-    // Chequeo sesion del contexto, si no existe redirijo a register
-    const session = this.context.session
-    if (!session.email) {
-      return this.props.history.push('/register');
-    } 
     // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
     const { getTags, getAdvert } = NodepopAPI();
     getTags().then(res => {
@@ -95,9 +92,7 @@ class AdvertEdit extends Component {
   render() {
     return (
       <React.Fragment>
-        <header>
-          <NavBar/>
-        </header>
+        <NavBar/>
         <Container>
           <main className='Main__Section'>
             <div className='Section__Title'>

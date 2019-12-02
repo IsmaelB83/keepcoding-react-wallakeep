@@ -10,7 +10,7 @@ import Container from '@material-ui/core/Container';
  * Error Boundary
  */
 export default class ErrorBoundary extends Component {
-    
+
     /**
      * Constructor
      */
@@ -37,6 +37,7 @@ export default class ErrorBoundary extends Component {
                     <main className='Home'>
                         <h1>Se ha producido un error incontrolado en la aplicación.</h1>
                         <h2>Contacte con el administrador de la app.</h2>
+                        <h3>{this.state.error}</h3>
                     </main>
                 </Container>
             </React.Fragment>

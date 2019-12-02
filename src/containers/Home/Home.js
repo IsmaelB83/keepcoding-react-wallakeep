@@ -5,19 +5,20 @@ import { withSnackbar } from 'notistack';
 import SettingsInputHdmiIcon from '@material-ui/icons/SettingsInputHdmi';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
+/* Components */
+import SearchPanel from '../../components/SearchPanel';
+import AdvertCard from '../../components/AdvertCard';
+import Paginator from '../../components/Paginator';
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer/';
 /* Own modules */
-import SearchPanel from '../SearchPanel/SearchPanel';
 import UserConsumer from '../../context/UserContext';
 import NodepopAPI from '../../services/NodepopAPI';
-import AdvertCard from '../AdvertCard/AdvertCard';
-import Paginator from '../Paginator/Paginator';
-import NavBar from '../NavBar/NavBar';
-import Footer from '../Footer/Footer';
 /* Assets */
-import imageError from '../../assets/images/error.png';
 import imageSpinner from '../../assets/images/spinner.gif';
+import imageError from '../../assets/images/error.png';
 /* CSS */
-import './Home.css';
+import './styles.css';
 
 /**
  * Main App
@@ -53,9 +54,7 @@ class Home extends Component {
     // Render
     return (
       <React.Fragment>
-        <header>
-          <NavBar/>
-        </header>
+        <NavBar/>
         <Container className='Container__Fill'>
           <main className='Main__Section'>
             {
@@ -122,9 +121,6 @@ class Home extends Component {
   componentDidMount() {
     // Chequeo sesion del contexto, si no existe redirijo a register
     const session = this.context.session
-    if (!session.email) {
-      return this.props.history.push('/register');
-    }
     // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
     const { getTags } = NodepopAPI();
     getTags().then(res => this.setState({tags: res}));

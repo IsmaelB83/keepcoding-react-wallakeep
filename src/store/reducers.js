@@ -13,7 +13,7 @@ export const initialState = {
         surname: '',
         email: '',
         tag: ADVERT_CONSTANTS.TAG.ALL,
-        advertsPerPage: process.env.REACT_APP_MAX_ADVERTS_GRID
+        maxAdverts: process.env.REACT_APP_MAX_ADVERTS_GRID
     },
     // Adverts in the app
     adverts: [],
@@ -74,9 +74,9 @@ export function session (state = initialState.session, action) {
                 state = {...action.session};
             }
             return state;
-        case TYPES.LOGIN_SESSION:
+        case TYPES.LOGIN:
             return action.session;
-        case TYPES.LOGOUT_SESSION:
+        case TYPES.LOGOUT:
             return initialState.session;
         default:
             return state;

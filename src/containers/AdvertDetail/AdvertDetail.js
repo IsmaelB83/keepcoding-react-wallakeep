@@ -8,15 +8,16 @@ import Container from '@material-ui/core/Container';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
+/* Components */
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer';
 /* Own modules */
 import UserConsumer from '../../context/UserContext';
 import NodepopAPI from '../../services/NodepopAPI';
-import NavBar from '../NavBar/NavBar';
-import Footer from '../Footer/Footer';
 /* Assets */
 import imageSpinner from '../../assets/images/spinner.gif';
 /* CSS */
-import './AdvertDetail.css';
+import './styles.css';
 
 /**
  * Main App
@@ -43,11 +44,6 @@ export default class AdvertDetail extends Component {
    * Component did mount
    */
   componentDidMount() {
-    // Chequeo sesion del contexto, si no existe redirijo a register
-    const session = this.context.session
-    if (!session.email) {
-      return this.props.history.push('/register');
-    } 
     // Call API to get advert detail
     const id = this.props.match.params.id;
     const { getAdvert } = NodepopAPI();
@@ -67,9 +63,7 @@ export default class AdvertDetail extends Component {
   render() {
     return (
       <React.Fragment>
-        <header>
-          <NavBar/>
-        </header>
+        <NavBar/>
         <Container>
           <main className='Main__Section'>
             <div className='Section__Title'>

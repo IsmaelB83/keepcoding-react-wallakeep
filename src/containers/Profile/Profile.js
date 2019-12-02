@@ -13,17 +13,18 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Chip from '@material-ui/core/Chip';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
+/* Components */
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer';
 /* Own modules */
-import NavBar from '../NavBar/NavBar';
-import Footer from '../Footer/Footer';
-import LocalStorage from '../../utils/Storage';
-import NodepopAPI from '../../services/NodepopAPI';
 import UserConsumer from '../../context/UserContext';
+import NodepopAPI from '../../services/NodepopAPI';
+import LocalStorage from '../../utils/Storage';
 import Session from '../../models/Session';
 /* Assets */
 import imagePhoto from '../../assets/images/user.png'
 /* CSS */
-import './Profile.css';
+import './styles.css';
 
 /**
  * Main App
@@ -56,9 +57,6 @@ class Profile extends Component {
   componentDidMount() {
     // Chequeo sesion del contexto, si no existe redirijo a register
     const session = this.context.session
-    if (!session.email) {
-      return this.props.history.push('/register');
-    }
     // Actualizo la sesión (excepto el tags que dependo de cargar primero los tags)
     this.setState({
       email: session.email,
@@ -83,9 +81,7 @@ class Profile extends Component {
   render() {
     return (
       <React.Fragment>
-        <header>
-          <NavBar/>
-        </header>
+        <NavBar/>
         <Container>
           <main className='Main__Section'>
             <div className='Section__Title'>
@@ -195,6 +191,7 @@ class Profile extends Component {
     this.context.session = session;
     this.props.enqueueSnackbar('Local storage actualizado correctamente.', { variant: 'success' });
     this.props.history.push('/');
+    this.props.login(session);
   }
 
   /**
@@ -204,6 +201,7 @@ class Profile extends Component {
     // Borro el local storage y la sesión del contexto
     LocalStorage.cleanLocalStorage();
     this.context.session = new Session();
+    this.props.logout();
   }
 }
 

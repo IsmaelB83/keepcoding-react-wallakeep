@@ -21,7 +21,7 @@ import UserContext from '../../context/UserContext';
 import imageLogo from '../../assets/images/logo2.png';
 import imageAvatar from '../../assets/images/user.png';
 /* CSS */
-import './NavBar.css';
+import './styles.css';
 
 /**
  * Componente NavBar
@@ -84,7 +84,7 @@ export default class NavBar extends Component {
                 </ListItemIcon>
                 <ListItemText className='NavBar__MenuItemText' primary="Perfil" />
               </MenuItem>
-              <MenuItem className='NavBar__MenuItem' component={Link} to='/register'>
+              <MenuItem className='NavBar__MenuItem' component={Link} to='/register' onClick={() => this.props.logout()}>
                 <ListItemIcon className='NavBar__MenuItemIcon'>
                   <ExitToAppIcon fontSize="small" />
                 </ListItemIcon>
