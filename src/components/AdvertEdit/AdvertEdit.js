@@ -1,7 +1,6 @@
 /* NPM modules */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { withSnackbar } from 'notistack';
 /* Material UI */
 import Container from '@material-ui/core/Container';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -22,12 +21,11 @@ import SaveIcon from '@material-ui/icons/Save';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Cancel';
 /* Components */
-import NavBar from '../../components/NavBar';
-import Footer from '../../components/Footer';
+import NavBar from '../NavBar';
+import Footer from '../Footer';
 /* Models */
 import Advert from '../../models/Advert';
 /* Modules */
-import UserConsumer from '../../context/UserContext';
 import NodepopAPI from '../../services/NodepopAPI';
 /* Assets */
 import imagePhoto from '../../assets/images/photo.png'
@@ -37,12 +35,7 @@ import './styles.css';
 /**
  * Main App
  */
-class AdvertEdit extends Component {
-
-  /**
-   * Utilizar el contexto en cualquier metodo del ciclo de vida del component
-   */
-  static contextType = UserConsumer;
+export default class AdvertEdit extends Component {
 
   /**
    * Constructor
@@ -270,6 +263,9 @@ class AdvertEdit extends Component {
         // POST
         postAdvert(advert)
         .then(res => {
+          // Actualizo redux
+          this.props.createAdvert(res);
+          // Redirijo al home
           this.props.enqueueSnackbar('OK. Anuncio creado con exito.', { variant: 'success' })
           this.props.history.push('/');
         })
@@ -278,9 +274,11 @@ class AdvertEdit extends Component {
         });
       } else {
         // PUT
-
         editAdvert(advert)
         .then(res => {
+          // Actualizo redux
+          this.props.editAdvert(res);
+          // Redirijo al home
           this.props.enqueueSnackbar('OK. Anuncio editado con exito.', { variant: 'success' })
           this.props.history.push('/');
         })
@@ -332,5 +330,3 @@ class AdvertEdit extends Component {
     return <div></div>;
   }
 }
-
-export default withSnackbar(AdvertEdit);

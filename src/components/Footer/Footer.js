@@ -17,9 +17,10 @@ import './styles.css';
 
 
 /**
- * Component para el footer
+ * Component para el footer (functional component)
  */
 export default function Footer() {
+
     return (
         <footer className='Footer'>
             <Container>
@@ -34,12 +35,14 @@ export default function Footer() {
             </Container>
         </footer>
     );
+
 }
 
 /**
  * Sección de dirección del footer
  */
 function FooterAddress() {
+
     return (
         <div className='Footer__section'>
             <h2 className='Footer__title'>Contactar</h2>
@@ -60,12 +63,14 @@ function FooterAddress() {
             </div>
         </div>
     );
+
 }
 
 /**
  * Sección de links del footer
  */
 function FooterLinks() {
+
     return (
         <div className='Footer__section'>
             <h2 className='Footer__title'>Links</h2>
@@ -79,4 +84,5 @@ function FooterLinks() {
             </div>
         </div>
     );
+    
 }

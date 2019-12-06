@@ -7,7 +7,7 @@ import Container from '@material-ui/core/Container';
 /* CSS */
 
 /**
- * Error Boundary
+ * Error Boundary (mantengo el class component de react)
  */
 export default class ErrorBoundary extends Component {
 

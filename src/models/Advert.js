@@ -47,6 +47,7 @@ export const ADVERT_CONSTANTS = {
         SELL: 'sell'
     }, 
     TAG: {
+        ALL: 'all',
         WORK: 'work', 
         LIFESTYLE: 'lifestyle', 
         MOTOR: 'motor', 

@@ -9,10 +9,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 /* Components */
-import NavBar from '../../components/NavBar';
-import Footer from '../../components/Footer';
+import NavBar from '../NavBar';
+import Footer from '../Footer';
 /* Own modules */
-import UserConsumer from '../../context/UserContext';
 import NodepopAPI from '../../services/NodepopAPI';
 /* Assets */
 import imageSpinner from '../../assets/images/spinner.gif';
@@ -23,11 +22,6 @@ import './styles.css';
  * Main App
  */
 export default class AdvertDetail extends Component {
-  
-  /**
-   * Utilizar el contexto en cualquier metodo del ciclo de vida del component
-   */
-  static contextType = UserConsumer;
   
   /**
    * Constructor

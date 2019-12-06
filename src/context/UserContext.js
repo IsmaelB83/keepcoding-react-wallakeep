@@ -5,18 +5,16 @@ import React from 'react'
 /* Assets */
 /* CSS */
 
+// Creo el contexto
 const UserContext = React.createContext()
 
-export const UserProvider = UserContext.Provider;
-export const UserConsumer = UserContext.Consumer;
-export default UserContext;
-
-export function withUserContext(Component) {
+// Exporto el componente envuelto en el consumer
+export default function withUserContext(Component) {
     return function WithUserContext(props) {
       return (
-        <UserConsumer>
+        <UserContext.Consumer>
           {userContextValue => <Component {...props} {...userContextValue} />}
-        </UserConsumer>
+        </UserContext.Consumer>
       );
     };
   }

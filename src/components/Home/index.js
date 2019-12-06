@@ -1,7 +1,9 @@
+// Node modules
 import { connect } from 'react-redux';
+import { withSnackbar } from 'notistack';
 // Own modules
-import NavBar from './NavBar';
-import { logout } from '../../store/actions';
+import Home from './Home';
+import { setAdverts } from '../../store/actions';
 
 /**
  * Inyecta props en mmi componente para acceder al state del store
@@ -10,6 +12,7 @@ import { logout } from '../../store/actions';
 const mapStateToProps = (state) => {
     return {
         session: state.session,
+        adverts: state.adverts,
     }
 }
 
@@ -19,11 +22,11 @@ const mapStateToProps = (state) => {
  */
 const mapDispatchToProps = (dispatch) => {
     return {
-        logout: () => dispatch(logout()),
+        setAdverts: (adverts) => dispatch(setAdverts(adverts))
     }
 }
 
 /**
  * Envuelvo el App en al función connect para conectar con el store recibido del provider
  */ 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(Home));

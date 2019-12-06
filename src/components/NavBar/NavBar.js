@@ -1,5 +1,5 @@
 /* NPM modules */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 /* Material UI */
 import Container from '@material-ui/core/Container';
@@ -16,7 +16,6 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText'
 /* Own modules */
-import UserContext from '../../context/UserContext';
 /* Assets */
 import imageLogo from '../../assets/images/logo2.png';
 import imageAvatar from '../../assets/images/user.png';
@@ -24,101 +23,75 @@ import imageAvatar from '../../assets/images/user.png';
 import './styles.css';
 
 /**
- * Componente NavBar
+ * Componente NavBar (uso del hook useState)
  */
-export default class NavBar extends Component {
+export default function NavBar(props) {
 
-  /**
-   * 
-   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      anchorUserMenu: null,
-    }
-  }
-
+  // Estado del componente funcional mediante el "useState hook"
+  const [anchorUserMenu, setAnchorUserMenu] = useState(null);
+  
   /**
    * Render del componente
    */
-  render() {
-    const session = this.context.session;
-    return (
-      <AppBar title='Wallakeep' position='static' className='NavBar'>
-        <Container>
-        <Toolbar className='NavBar__Toolbar'>
-          <Link to='/' className='NavBar__Brand'>
-            <img src={imageLogo} alt='logo' className='NavBar__Brand'/>
-          </Link>
-          { session.email &&
-          <div>
-            <IconButton
-              aria-label='account of current user'
-              aria-controls='menu-NavBar'
-              aria-haspopup='true'
-              onClick={this.handleMenu}
-              color='inherit'
-              className='NavBar__User' 
-            >
-              <Avatar className='Avatar' alt={this.props.name} src={imageAvatar}/>
-              <span className='NavBar__User--hiddenXS'>{session.name}</span>
-              <KeyboardArrowDownIcon/>
-            </IconButton>
-            <Menu
-              className='NavBar__Menu'
-              id='menu-navbar'
-              anchorEl={this.state.anchorUserMenu}
-              keepMounted
-              open={this.state.anchorUserMenu?true:false}
-              onClose={this.handleClose}
-            >
-              <MenuItem className='NavBar__MenuItem' component={Link} to='/advert/create' onClick={this.handleClose}>
-                <ListItemIcon className='NavBar__MenuItemIcon'>
-                  <PostAddIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText className='NavBar__MenuItemText' primary="Añádir anuncio" />
-              </MenuItem>
-              <MenuItem className='NavBar__MenuItem' component={Link} to='/profile' onClick={this.handleClose}>
-                <ListItemIcon className='NavBar__MenuItemIcon'>
-                  <AccountCircleIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText className='NavBar__MenuItemText' primary="Perfil" />
-              </MenuItem>
-              <MenuItem className='NavBar__MenuItem' component={Link} to='/register' onClick={() => this.props.logout()}>
-                <ListItemIcon className='NavBar__MenuItemIcon'>
-                  <ExitToAppIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText className='NavBar__MenuItemText' primary="Desconectar" />
-              </MenuItem>
-            </Menu>
-          </div>
-          }
-          { !session &&
-          <div>
-            <IconButton color='inherit' className='NavBar__User'>
-              <AccountCircleIcon/>
-            </IconButton>
-          </div>
-          }
-        </Toolbar>
-        </Container>
-      </AppBar>
-    );
-  }
-
-  /**
-   * Cierra el submenu
-   */
-  handleClose = event => {
-    this.setState({anchorUserMenu: null});
-  }
-
-  /**
-   * Abre el menu
-   */
-  handleMenu = event => {
-    this.setState({anchorUserMenu: event.currentTarget});
-  }
+  return (
+    <AppBar title='Wallakeep' position='static' className='NavBar'>
+      <Container>
+      <Toolbar className='NavBar__Toolbar'>
+        <Link to='/' className='NavBar__Brand'>
+          <img src={imageLogo} alt='logo' className='NavBar__Brand'/>
+        </Link>
+        { props.session.email &&
+        <div>
+          <IconButton
+            aria-label='account of current user'
+            aria-controls='menu-NavBar'
+            aria-haspopup='true'
+            onClick={ (ev) => setAnchorUserMenu(ev.currentTarget) }
+            color='inherit'
+            className='NavBar__User' 
+          >
+            <Avatar className='Avatar' alt={props.session.name} src={imageAvatar}/>
+            <span className='NavBar__User--hiddenXS'>{props.session.name}</span>
+            <KeyboardArrowDownIcon/>
+          </IconButton>
+          <Menu
+            className='NavBar__Menu'
+            id='menu-navbar'
+            anchorEl={anchorUserMenu}
+            keepMounted
+            open={anchorUserMenu?true:false}
+            onClose={ () => setAnchorUserMenu(null) }
+          >
+            <MenuItem className='NavBar__MenuItem' component={Link} to='/advert/create' onClick={() => setAnchorUserMenu(null)}>
+              <ListItemIcon className='NavBar__MenuItemIcon'>
+                <PostAddIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText className='NavBar__MenuItemText' primary="Añádir anuncio" />
+            </MenuItem>
+            <MenuItem className='NavBar__MenuItem' component={Link} to='/profile' onClick={() => setAnchorUserMenu(null)}>
+              <ListItemIcon className='NavBar__MenuItemIcon'>
+                <AccountCircleIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText className='NavBar__MenuItemText' primary="Perfil" />
+            </MenuItem>
+            <MenuItem className='NavBar__MenuItem' component={Link} to='/register' onClick={() => props.logout()}>
+              <ListItemIcon className='NavBar__MenuItemIcon'>
+                <ExitToAppIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText className='NavBar__MenuItemText' primary="Desconectar" />
+            </MenuItem>
+          </Menu>
+        </div>
+        }
+        { !props.session &&
+        <div>
+          <IconButton color='inherit' className='NavBar__User'>
+            <AccountCircleIcon/>
+          </IconButton>
+        </div>
+        }
+      </Toolbar>
+      </Container>
+    </AppBar>
+  );
 }
-
-NavBar.contextType = UserContext

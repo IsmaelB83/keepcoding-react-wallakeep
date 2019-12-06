@@ -1,6 +1,5 @@
 /* NPM modules */
 import React, { Component } from 'react';
-import { withSnackbar } from 'notistack';
 /* Material UI */
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -14,11 +13,11 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Chip from '@material-ui/core/Chip';
+/* Models */
+import Session from '../../models/Session';
 /* Own modules */
-import UserConsumer from '../../context/UserContext';
 import LocalStorage from '../../utils/Storage';
 import NodepopAPI from '../../services/NodepopAPI';
-import Session from '../../models/Session';
 /* Assets */
 import imageLogo from '../../assets/images/logo2.png';
 /* CSS */
@@ -27,12 +26,7 @@ import './styles.css';
 /**
  * Register Form
  */
-class Register extends Component {
-  
-  /**
-   * Uso del contexto en el cualquier metodo del componente 
-   */ 
-  static contextType = UserConsumer;
+export default class Register extends Component {
 
   /**
    * Constructor
@@ -229,5 +223,3 @@ class Register extends Component {
     });
   }
 }
-
-export default withSnackbar(Register);

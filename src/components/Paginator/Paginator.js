@@ -1,5 +1,5 @@
 /* NPM modules */
-import React, { Component } from 'react';
+import React from 'react';
 /* Material UI */
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
@@ -10,52 +10,32 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 /* CSS */
 
 /**
-* Main App
+* Functional component for the advert paginator
 */
-export default class Paginator extends Component {
+export default function Paginator(props) {
       
-    /**
-    * Render
-    */
-    render() {   
-        return (
-            <MobileStepper
-                className='Paginator'
-                variant="dots"
-                steps={this.props.numPages}
-                position="static"
-                activeStep={this.props.currentPage}
-                backButton={
-                    <Button size="small" onClick={this.handleBack} disabled={this.props.currentPage === 0} className='ButtonWallakeep ButtonWallakeep__Green'>
-                    <KeyboardArrowLeft />
-                    Back
-                    </Button>
-                }
-                nextButton={
-                    <Button size="small" onClick={this.handleNext} disabled={this.props.currentPage === this.props.numPages - 1 } className='ButtonWallakeep ButtonWallakeep__Green'>
-                    Next
-                    <KeyboardArrowRight />
-                    </Button>
-                }
-            />    
-        );
-    }
+    const handleBack = () => props.handleMovePaginator(props.currentPage > 0 ? -1 : 0)
+    const handleNext = () => props.handleMovePaginator(props.currentPage < props.numPages ? 1 : 0)
 
-    /**
-     * Retroceder
-     */
-    handleBack = () => {
-        if (this.props.currentPage > 0) {
-            this.props.handleMovePaginator(-1);
-        }
-    }
-
-    /**
-     * Avanzar
-     */
-    handleNext = () => {
-        if (this.props.currentPage < this.props.numPages) {
-            this.props.handleMovePaginator(1);
-        }       
-    }
+    return (
+        <MobileStepper
+            className='Paginator'
+            variant="dots"
+            steps={props.numPages}
+            position="static"
+            activeStep={props.currentPage}
+            backButton={
+                <Button size="small" onClick={handleBack} disabled={props.currentPage === 0} className='ButtonWallakeep ButtonWallakeep__Green'>
+                <KeyboardArrowLeft />
+                Back
+                </Button>
+            }
+            nextButton={
+                <Button size="small" onClick={handleNext} disabled={props.currentPage === props.numPages - 1 } className='ButtonWallakeep ButtonWallakeep__Green'>
+                Next
+                <KeyboardArrowRight />
+                </Button>
+            }
+        />    
+    );
 }

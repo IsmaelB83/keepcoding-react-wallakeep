@@ -3,8 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { SnackbarProvider } from 'notistack';
+/* Components */
+import App from './components/App';
 /* Own modules */
-import App from './containers/App';
 import { configureStore } from './store';
 /* Material UI */
 /* Assets */
@@ -20,4 +21,5 @@ ReactDOM.render(
         <SnackbarProvider maxSnack={2}>
             <App /> 
         </SnackbarProvider>
-    </Provider>, document.getElementById('root'));
+    </Provider>, document.getElementById('root')
+);

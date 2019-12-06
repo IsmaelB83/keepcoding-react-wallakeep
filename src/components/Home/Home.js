@@ -1,18 +1,16 @@
 /* NPM modules */
 import React, { Component } from 'react';
-import { withSnackbar } from 'notistack';
 /* Material UI */
 import SettingsInputHdmiIcon from '@material-ui/icons/SettingsInputHdmi';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 /* Components */
-import SearchPanel from '../../components/SearchPanel';
-import AdvertCard from '../../components/AdvertCard';
-import Paginator from '../../components/Paginator';
-import NavBar from '../../components/NavBar';
-import Footer from '../../components/Footer/';
+import SearchPanel from '../SearchPanel';
+import AdvertCard from '../AdvertCard';
+import Paginator from '../Paginator';
+import NavBar from '../NavBar';
+import Footer from '../Footer/';
 /* Own modules */
-import UserConsumer from '../../context/UserContext';
 import NodepopAPI from '../../services/NodepopAPI';
 /* Assets */
 import imageSpinner from '../../assets/images/spinner.gif';
@@ -23,12 +21,7 @@ import './styles.css';
 /**
  * Main App
  */
-class Home extends Component {
-
-  /**
-   * Utilizar el contexto en cualquier metodo del ciclo de vida del component
-   */
-  static contextType = UserConsumer;
+export default class Home extends Component {
 
   /**
    * Constructor
@@ -38,7 +31,6 @@ class Home extends Component {
     this.state = {
       loading: true,
       error: false,
-      numPages: 0,
       currentPage: 0,
     }
   }
@@ -48,9 +40,10 @@ class Home extends Component {
    */
   render() {   
     // Variables para el paginado
-    const { numPages, currentPage } = this.state;
-    const minAdvert = this.state.currentPage * this.context.session.maxAdverts;
-    const maxAdvert = this.state.currentPage * this.context.session.maxAdverts + this.context.session.maxAdverts
+    const { currentPage } = this.state;
+    const numPages = Math.ceil(this.props.adverts.length/this.props.session.maxAdverts);
+    const minAdvert = this.state.currentPage * this.props.session.maxAdverts;
+    const maxAdvert = this.state.currentPage * parseInt(this.props.session.maxAdverts) + parseInt(this.props.session.maxAdverts)
     // Render
     return (
       <React.Fragment>
@@ -66,13 +59,13 @@ class Home extends Component {
             }
             {
               !this.state.loading &&
-              this.state.adverts && 
+              this.props.adverts && 
               <div className='Home__Results'>
                 <SearchPanel handleSearch={this.handleSearch} tags={this.state.tags} tag={this.state.tag}/>
                 <Paginator numPages={numPages} currentPage={currentPage} handleMovePaginator={this.handleMovePaginator}/>
                 <section className='Home__Grid'>
-                  { this.state.adverts.length > 0 &&
-                    this.state.adverts.slice(minAdvert, maxAdvert).map((advert, index) => 
+                  { this.props.adverts.length > 0 &&
+                    this.props.adverts.slice(minAdvert, maxAdvert).map((advert, index) => 
                       <AdvertCard key={advert._id} 
                                   id={advert._id} 
                                   name={advert.name} 
@@ -85,7 +78,7 @@ class Home extends Component {
                       />
                     )
                   }
-                  { this.state.adverts.length === 0 &&
+                  { this.props.adverts.length === 0 &&
                     <h2 className='Home__Subtitle'>No hay anuncios que cumplan con los criterios de búsqueda</h2>
                   }
                 </section>
@@ -120,7 +113,7 @@ class Home extends Component {
    */
   componentDidMount() {
     // Chequeo sesion del contexto, si no existe redirijo a register
-    const session = this.context.session
+    const session = this.props.session
     // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
     const { getTags } = NodepopAPI();
     getTags().then(res => this.setState({tags: res}));
@@ -140,13 +133,11 @@ class Home extends Component {
     const { getAdverts } = NodepopAPI();
     getAdverts()
     .then(res => {
-      const numPages = Math.ceil(res.length/this.context.session.maxAdverts);
+      this.props.setAdverts(res);
       this.setState({
         error: false,
         loading: false,
-        adverts: res,
         currentPage: 0,
-        numPages: numPages,
       })
     })
     .catch(() => {
@@ -166,13 +157,11 @@ class Home extends Component {
     const { searchAdvert } = NodepopAPI();
     searchAdvert(filters)
     .then(res => {
-      const numPages = Math.ceil(res.length/this.context.session.maxAdverts);
+      this.props.setAdverts(res);
       this.setState({       
         error: false,
         loading: false,
-        adverts: res,
         currentPage: 0,
-        numPages: numPages,
       })
     })
     .catch(() => {
@@ -189,15 +178,14 @@ class Home extends Component {
    */
   handleMovePaginator = increment => {
     // Actualizo la pagina actual
-    let { currentPage, numPages } = this.state;
+    let { currentPage } = this.state;
+    const numPages = Math.ceil(this.props.adverts.length/this.props.session.maxAdverts);
     currentPage += increment;
     // Actualizo el state sólo si sigue dentro de los limites (realmente este chequeo también lo hace el componete paginator)
-    if (currentPage >= 0 && currentPage < numPages) {
+    if (increment !== 0 && currentPage >= 0 && currentPage < numPages) {
         this.setState({
           currentPage: currentPage
         });   
     }
   }
 }
-
-export default withSnackbar(Home);

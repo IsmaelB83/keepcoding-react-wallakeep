@@ -1,7 +1,18 @@
+// Node modules
 import { connect } from 'react-redux';
 // Own modules
-import Profile from './Profile';
-import { login, logout } from '../../store/actions';
+import App from './App';
+import { login } from '../../store/actions';
+
+/**
+ * Inyecta props en mmi componente para acceder al state del store
+ * @param {Object} state Estado de mi store
+ */
+const mapStateToProps = (state) => {
+    return {
+        session: state.session,
+    }
+}
 
 /**
  * Inyecta props en mmi componente para acceder a los reducers del store
@@ -10,11 +21,10 @@ import { login, logout } from '../../store/actions';
 const mapDispatchToProps = (dispatch) => {
     return {
         login: (session) => dispatch(login(session)),
-        logout: () => dispatch(logout()),
     }
 }
 
 /**
  * Envuelvo el App en al función connect para conectar con el store recibido del provider
  */ 
-export default connect(null, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

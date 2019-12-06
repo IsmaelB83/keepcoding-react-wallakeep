@@ -14,9 +14,10 @@ import imageSell from '../../assets/images/sell.png';
 import './styles.css';
 
 /**
- * Main App
+ * Functional component to render an advert card
  */
 export default function AdvertCard (props) {
+    
     return(
         <article className='AdvertCard'>
             <header className='AdvertCard__Header'>

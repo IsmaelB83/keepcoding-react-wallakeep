@@ -1,7 +1,6 @@
 /* NPM modules */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { withSnackbar } from 'notistack';
 /* Material UI */
 import Container from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
@@ -14,13 +13,13 @@ import Chip from '@material-ui/core/Chip';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 /* Components */
-import NavBar from '../../components/NavBar';
-import Footer from '../../components/Footer';
+import NavBar from '../NavBar';
+import Footer from '../Footer';
+/* Models */
+import Session from '../../models/Session';
 /* Own modules */
-import UserConsumer from '../../context/UserContext';
 import NodepopAPI from '../../services/NodepopAPI';
 import LocalStorage from '../../utils/Storage';
-import Session from '../../models/Session';
 /* Assets */
 import imagePhoto from '../../assets/images/user.png'
 /* CSS */
@@ -29,12 +28,7 @@ import './styles.css';
 /**
  * Main App
  */
-class Profile extends Component {
-
-  /**
-   * Utilizar el contexto en cualquier metodo del ciclo de vida del component
-   */
-  static contextType = UserConsumer;
+export default class Profile extends Component {
 
   /**
    * Constructor
@@ -191,7 +185,7 @@ class Profile extends Component {
     this.context.session = session;
     this.props.enqueueSnackbar('Local storage actualizado correctamente.', { variant: 'success' });
     this.props.history.push('/');
-    this.props.login(session);
+    this.props.editSession(session);
   }
 
   /**
@@ -204,5 +198,3 @@ class Profile extends Component {
     this.props.logout();
   }
 }
-
-export default withSnackbar(Profile);

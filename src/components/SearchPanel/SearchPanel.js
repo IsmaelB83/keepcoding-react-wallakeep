@@ -1,5 +1,5 @@
 /* NPM modules */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 /* Material UI */
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -11,161 +11,155 @@ import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import Chip from '@material-ui/core/Chip';
 /* Own modules */
+/* Models */
+import { ADVERT_CONSTANTS } from '../../models/Advert';
 /* Assets */
 /* CSS */
 import './styles.css';
 
+// Initial state del componente
+const initialState = {
+  name: '',
+  type: ADVERT_CONSTANTS.TYPE.ALL,
+  tag: ADVERT_CONSTANTS.TAG.ALL,
+  priceFrom: 0,
+  priceTo: 0
+}
+
 /**
  * Main App
  */
-export default class SearchPanel extends Component {
+export default function SearchPanel(props) {
 
-  /**
-   * Constructor
-   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      type: 'all',
-      tag: props.tag,
-      priceFrom: 0,
-      priceTo: 0,  
+  // Uso del hook useState
+  const [inputs, setInputs] = useState(initialState);
+
+  // Cambio en alguno de los campo del formulario
+  const handleInputChange = event => {
+    const name = event.target.name;
+    const value = event.target.value;
+    const formInputs = {...inputs, [name]: value};
+    setInputs(formInputs);
+    // Los campos numérico NO lanzan busqueda automática (salvo que estén en blanco). El resto de campos lanzan búsqueda en tiempo real
+    if (!name.startsWith('price') || (name.startsWith('price') && inputs[name] === '')) {
+      props.handleSearch(formInputs);
     }
   }
 
-  /**
-   * Render
-   */
-  render() {   
-    return (
-      <form className='SearchPanel' onSubmit={this.handleSubmit}>
-        <h2>Criterios de búsqueda</h2>
-        <div className='InputSearch'>
-            <SearchIcon className={`InputSearch__Icon InputSearch__Icon--start ${this.state.focus?'InputSearch__Icon--focus':''}`}/>
-            <input 
-                id='filter_name'
-                name='name'
-                type='text' 
-                value={this.state.name}
-                onChange={this.handleChange('name')}
-                className='InputSearch__Input'
-                autoComplete='off'
-                placeholder='Buscar productos por nombre'
-            />
-        </div>   
-        <div className='SearchPanel__Filters'>
-          <FormControl>
-            <InputLabel shrink htmlFor='type'>Tipo</InputLabel>
-            <Select
-              id='filter_type'
-              name= 'type'
-              onChange={this.handleChange('type')}
-              className='SearchPanel__Type'
-              value={this.state.type}
-              displayEmpty
-            >
-              <MenuItem key='all' value='all'><Chip size='small' label='all' className='Ad__Tag Ad__Tag--small'/></MenuItem>
-              <MenuItem key='buy' value='buy'><Chip size='small' label='buy' className='Ad__Tag Ad__Tag--small Ad__Tag--buy'/></MenuItem>
-              <MenuItem key='sell' value='sell'><Chip size='small' label='sell' className='Ad__Tag Ad__Tag--small Ad__Tag--sell'/></MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl>
-            <InputLabel shrink htmlFor='tag'>Tag</InputLabel>
-            <Select
-              id='filter_tag'
-              name='tag'
-              value={this.state.tag}
-              onChange={this.handleChange('tag')}
-              displayEmpty
-            >
-              <MenuItem key='all' value='all'>
-                <Chip key='todos'
-                      size='small'
-                      label='todos'
-                      className='Ad__Tag Ad__Tag--small'
-                />
-              </MenuItem>
-              {
-                this.props.tags && 
-                this.props.tags.map((value, key) => {
-                  return  <MenuItem key={key} value={value}>
-                            <Chip key={key}
-                                  size='small'
-                                  label={value}
-                                  className={`Ad__Tag Ad__Tag--small Ad__Tag--${value}`}
-                            />
-                          </MenuItem>
-                })
-              }
-            </Select>
-          </FormControl>
-          <FormControl>
-            <InputLabel htmlFor='priceFrom'>Precio desde</InputLabel>
-            <Input
-              id='filter_priceFrom'
-              name='priceFrom'
-              type='number'
-              value={parseInt(this.state.priceFrom) || 0}
-              onChange={this.handleChange('priceFrom')}
-              endAdornment={<InputAdornment position='start'>€</InputAdornment>}
-            />
-          </FormControl>
-          <FormControl>
-            <InputLabel htmlFor='priceTo'>Precio hasta</InputLabel>
-            <Input
-              id='filter_priceTo'
-              name='priceTo'
-              type='number'
-              value={parseInt(this.state.priceTo) || 0}
-              onChange={this.handleChange('priceTo')}
-              endAdornment={<InputAdornment position='start'>€</InputAdornment>}
-            />
-          </FormControl>
-        </div> 
-        <div className='SearchPanel__Footer'>
-          <Button type='submit' variant='contained' color='primary'> Search </Button>
-          <Button variant='contained' color='secondary' onClick={this.handleReset}> Reset </Button>
-        </div>       
-      </form>
-    );
-  }
-
-  /**
-   * Cambio en alguno de los campo del formulario
-   */
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    }, () => {
-      // Los campos numérico NO quiero que lancen busqueda automática (salvo que estén en blanco).
-      // Para el resto de campos la búsqueda se activa en cuanto el usuario modifica el formulario (mejor UX)
-      if  ( !name.startsWith('price') || (name.startsWith('price') && this.state[name] === '') ) {
-        this.props.handleSearch(this.state);
-      }
-    });
-  }
-
-  /**
-   * Reseteo el estado a los valores originales de búsqueda
-   */
-  handleReset = () => {
-    this.setState({
-      type: 'all',
-      tag: 'all',
-      priceFrom: null,
-      priceTo: null,
-    }, () => {
-      // Llamo a realizar la busqueda
-      this.props.handleSearch(this.state);
-    });
+  // Reseteo el estado a los valores originales de búsqueda
+  const handleInputReset = () => {
+    setInputs(initialState)
+    props.handleSearch(initialState);
   }
   
   /**
    * Reseteo el estado a los valores originales de búsqueda
    */
-  handleSubmit = (ev) => {
+  const handleSubmit = (ev) => {
     ev.preventDefault();
-    this.props.handleSearch(this.state);
+    props.handleSearch(inputs);
   }
+
+  /**
+   * Render
+   * ------
+   * TODO: al refactorizar este form utilizar el context para pasar a los inputs el contexto. Props, etc.
+   */
+  return (
+    <form className='SearchPanel' onSubmit={handleSubmit}>
+      <h2>Criterios de búsqueda</h2>
+      <div className='InputSearch'>
+          <SearchIcon className='InputSearch__Icon InputSearch__Icon--start'/>
+          <input 
+              id='filter_name'
+              name='name'
+              type='text' 
+              value={inputs.name}
+              onChange={handleInputChange}
+              className='InputSearch__Input'
+              autoComplete='off'
+              placeholder='Buscar productos por nombre'
+          />
+      </div>   
+      <div className='SearchPanel__Filters'>
+        <FormControl>
+          <InputLabel shrink htmlFor='type'>Tipo</InputLabel>
+          <Select
+            id='filter_type'
+            name= 'type'
+            onChange={handleInputChange}
+            className='SearchPanel__Type'
+            value={inputs.type}
+            displayEmpty
+          >
+            <MenuItem key={ADVERT_CONSTANTS.TYPE.ALL} value={ADVERT_CONSTANTS.TYPE.ALL}>
+              <Chip size='small' label={ADVERT_CONSTANTS.TYPE.ALL} className='Ad__Tag Ad__Tag--small'/>
+            </MenuItem>
+            <MenuItem key={ADVERT_CONSTANTS.TYPE.BUY} value={ADVERT_CONSTANTS.TYPE.BUY}>
+              <Chip size='small' label={ADVERT_CONSTANTS.TYPE.BUY} className='Ad__Tag Ad__Tag--small Ad__Tag--buy'/>
+            </MenuItem>
+            <MenuItem key={ADVERT_CONSTANTS.TYPE.SELL} value={ADVERT_CONSTANTS.TYPE.SELL}>
+              <Chip size='small' label={ADVERT_CONSTANTS.TYPE.SELL} className='Ad__Tag Ad__Tag--small Ad__Tag--sell'/>
+            </MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel shrink htmlFor='tag'>Tag</InputLabel>
+          <Select
+            id='filter_tag'
+            name='tag'
+            value={inputs.tag}
+            onChange={handleInputChange}
+            displayEmpty
+          >
+            <MenuItem key={ADVERT_CONSTANTS.TAG.ALL} value={ADVERT_CONSTANTS.TAG.ALL}>
+              <Chip key={ADVERT_CONSTANTS.TAG.ALL}
+                    label={ADVERT_CONSTANTS.TAG.ALL}
+                    size='small'
+                    className='Ad__Tag Ad__Tag--small'
+              />
+            </MenuItem>
+            {
+              props.tags && 
+              props.tags.map((value, key) => {
+                return  <MenuItem key={key} value={value}>
+                          <Chip key={key}
+                                size='small'
+                                label={value}
+                                className={`Ad__Tag Ad__Tag--small Ad__Tag--${value}`}
+                          />
+                        </MenuItem>
+              })
+            }
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel htmlFor='priceFrom'>Precio desde</InputLabel>
+          <Input
+            id='filter_priceFrom'
+            name='priceFrom'
+            type='number'
+            value={parseInt(inputs.priceFrom) || 0}
+            onChange={handleInputChange}
+            endAdornment={<InputAdornment position='start'>€</InputAdornment>}
+          />
+        </FormControl>
+        <FormControl>
+          <InputLabel htmlFor='priceTo'>Precio hasta</InputLabel>
+          <Input
+            id='filter_priceTo'
+            name='priceTo'
+            type='number'
+            value={parseInt(inputs.priceTo) || 0}
+            onChange={handleInputChange}
+            endAdornment={<InputAdornment position='start'>€</InputAdornment>}
+          />
+        </FormControl>
+      </div> 
+      <div className='SearchPanel__Footer'>
+        <Button type='submit' variant='contained' color='primary'> Search </Button>
+        <Button variant='contained' color='secondary' onClick={handleInputReset}> Reset </Button>
+      </div>       
+    </form>
+  );
 }

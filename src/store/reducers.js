@@ -43,6 +43,8 @@ export function adverts(state = initialState.adverts, action) {
                 }
                 return advert;
             });
+        case TYPES.CREATE_ADVERT:
+            return state.concat(action.advert);
         default:
             return state;
     }
@@ -70,14 +72,11 @@ export function filters (state = initialState.filters, action) {
 export function session (state = initialState.session, action) {
     switch (action.type) {
         case TYPES.EDIT_SESSION:
-            if (state.email === action.session.email) {
-                state = {...action.session};
-            }
-            return state;
+            return {...action.session};
         case TYPES.LOGIN:
-            return action.session;
+            return {...action.session};
         case TYPES.LOGOUT:
-            return initialState.session;
+            return {...initialState.session};
         default:
             return state;
     }

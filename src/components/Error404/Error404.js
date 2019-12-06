@@ -2,14 +2,18 @@
 import React from 'react';
 /* Material UI */
 /* Own modules */
-import NavBar from '../NavBar/NavBar';
-import Footer from '../Footer/Footer';
+import NavBar from '../NavBar';
+import Footer from '../Footer';
 /* Assets */
 import image404 from '../../assets/images/404.png';
 /* CSS */
 import './styles.css';
 
+/**
+ * Functional component to render 404 error
+ */
 export default function Error404() {
+
   return (
     <React.Fragment>
       <NavBar/>
@@ -20,4 +24,5 @@ export default function Error404() {
       <Footer/>
     </React.Fragment>
   );
+  
 }

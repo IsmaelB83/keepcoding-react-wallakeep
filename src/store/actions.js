@@ -1,6 +1,7 @@
 import {
     SET_ADVERTS,
     EDIT_ADVERT,
+    CREATE_ADVERT,
     SET_FILTERS,
     EDIT_SESSION,
     LOGIN,
@@ -16,6 +17,12 @@ export const editAdvert = advert => ({
     type: EDIT_ADVERT,
     advert,
 });
+
+export const createAdvert = advert => ({
+    type: CREATE_ADVERT,
+    advert,
+});
+
 
 export const setFilters = filters => ({
     type: SET_FILTERS,
