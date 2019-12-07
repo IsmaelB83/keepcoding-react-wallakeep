@@ -5,7 +5,17 @@ import Profile from './Profile';
 import { editSession, logout } from '../../store/actions';
 
 /**
- * Inyecta props en mmi componente para acceder a los reducers del store
+ * Inyecta props en mi componente para acceder al state del store
+ * @param {Object} state Estado de mi store
+ */
+const mapStateToProps = (state) => {
+    return {
+        session: state.session,
+    }
+}
+
+/**
+ * Inyecta props en mi componente para acceder a los reducers del store
  * @param {Function} dispatch Dispatch del store
  */
 const mapDispatchToProps = (dispatch) => {
@@ -16,4 +26,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 // Retorno el componente envuelto en el "connect", y en un withSnackBar (para los tags de info de la app)
-export default connect(null, mapDispatchToProps)(withSnackbar(Profile));
+export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(Profile));

@@ -5,7 +5,7 @@ import App from './App';
 import { login } from '../../store/actions';
 
 /**
- * Inyecta props en mmi componente para acceder al state del store
+ * Inyecta props en mi componente para acceder al state del store
  * @param {Object} state Estado de mi store
  */
 const mapStateToProps = (state) => {
@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 }
 
 /**
- * Inyecta props en mmi componente para acceder a los reducers del store
+ * Inyecta props en mi componente para acceder a los reducers del store
  * @param {Function} dispatch Dispatch del store
  */
 const mapDispatchToProps = (dispatch) => {

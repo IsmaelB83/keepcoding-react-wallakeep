@@ -42,14 +42,14 @@ export default function SearchPanel(props) {
     setInputs(formInputs);
     // Los campos numérico NO lanzan busqueda automática (salvo que estén en blanco). El resto de campos lanzan búsqueda en tiempo real
     if (!name.startsWith('price') || (name.startsWith('price') && inputs[name] === '')) {
-      props.handleSearch(formInputs);
+      props.setFilters(formInputs);
     }
   }
 
   // Reseteo el estado a los valores originales de búsqueda
   const handleInputReset = () => {
     setInputs(initialState)
-    props.handleSearch(initialState);
+    props.setFilters(initialState);
   }
   
   /**
@@ -57,7 +57,7 @@ export default function SearchPanel(props) {
    */
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    props.handleSearch(inputs);
+    props.setFilters(inputs);
   }
 
   /**
@@ -134,23 +134,23 @@ export default function SearchPanel(props) {
           </Select>
         </FormControl>
         <FormControl>
-          <InputLabel htmlFor='priceFrom'>Precio desde</InputLabel>
+          <InputLabel htmlFor='minPrice'>Precio desde</InputLabel>
           <Input
-            id='filter_priceFrom'
-            name='priceFrom'
+            id='filter_minPrice'
+            name='minPrice'
             type='number'
-            value={parseInt(inputs.priceFrom) || 0}
+            value={parseFloat(inputs.minPrice) || 0}
             onChange={handleInputChange}
             endAdornment={<InputAdornment position='start'>€</InputAdornment>}
           />
         </FormControl>
         <FormControl>
-          <InputLabel htmlFor='priceTo'>Precio hasta</InputLabel>
+          <InputLabel htmlFor='maxPrice'>Precio hasta</InputLabel>
           <Input
-            id='filter_priceTo'
-            name='priceTo'
+            id='filter_maxPrice'
+            name='maxPrice'
             type='number'
-            value={parseInt(inputs.priceTo) || 0}
+            value={parseFloat(inputs.maxPrice) || 0}
             onChange={handleInputChange}
             endAdornment={<InputAdornment position='start'>€</InputAdornment>}
           />

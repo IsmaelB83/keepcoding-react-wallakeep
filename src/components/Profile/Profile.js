@@ -49,20 +49,18 @@ export default class Profile extends Component {
    * Component did mount
    */
   componentDidMount() {
-    // Chequeo sesion del contexto, si no existe redirijo a register
-    const session = this.context.session
     // Actualizo la sesión (excepto el tags que dependo de cargar primero los tags)
     this.setState({
-      email: session.email,
-      name: session.name,
-      surname: session.surname, 
-      maxAdverts: session.maxAdverts
+      email: this.props.session.email,
+      name: this.props.session.name,
+      surname: this.props.session.surname, 
+      maxAdverts: this.props.session.maxAdverts
     }, () => {
       // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
       const { getTags } = NodepopAPI();
       getTags().then(res => {
         this.setState({
-          tag: session.tag,
+          tag: this.props.session.tag,
           tags: res
         })
       });
@@ -182,7 +180,6 @@ export default class Profile extends Component {
     const { email, name, surname, tag, maxAdverts } = this.state;
     const session = new Session (email, name, surname, tag, maxAdverts);
     LocalStorage.saveLocalStorage(session);
-    this.context.session = session;
     this.props.enqueueSnackbar('Local storage actualizado correctamente.', { variant: 'success' });
     this.props.history.push('/');
     this.props.editSession(session);
@@ -194,7 +191,6 @@ export default class Profile extends Component {
   handleReset = () => {
     // Borro el local storage y la sesión del contexto
     LocalStorage.cleanLocalStorage();
-    this.context.session = new Session();
     this.props.logout();
   }
 }

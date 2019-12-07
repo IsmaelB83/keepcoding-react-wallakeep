@@ -7,6 +7,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 /* Own modules */
 /* Assets */
+import './styles.css'
 /* CSS */
 
 /**

@@ -23,7 +23,7 @@ export const initialState = {
         type: ADVERT_CONSTANTS.TYPE.ALL,
         tag: ADVERT_CONSTANTS.TAG.ALL,
         minPrice: 0,
-        maxPrice: ADVERT_CONSTANTS.MAX_PRICE
+        maxPrice: 0
     }
 }
 
@@ -58,7 +58,11 @@ export function adverts(state = initialState.adverts, action) {
 export function filters (state = initialState.filters, action) {
     switch (action.type) {
         case TYPES.SET_FILTERS:
-            return action.filters;
+            const newState = {...action.filters};
+            newState.name = action.filters.name.toLowerCase();
+            newState.minPrice = parseFloat(action.filters.minPrice);
+            newState.maxPrice = parseFloat(action.filters.maxPrice);
+            return newState;
         default:
             return state;
     }

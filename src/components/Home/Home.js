@@ -61,8 +61,9 @@ export default class Home extends Component {
               !this.state.loading &&
               this.props.adverts && 
               <div className='Home__Results'>
-                <SearchPanel handleSearch={this.handleSearch} tags={this.state.tags} tag={this.state.tag}/>
+                <SearchPanel tags={this.state.tags} tag={this.state.tag}/>
                 <Paginator numPages={numPages} currentPage={currentPage} handleMovePaginator={this.handleMovePaginator}/>
+                <p className='Home__Count'>{this.props.adverts.length} resultados encontrados</p>
                 <section className='Home__Grid'>
                   { this.props.adverts.length > 0 &&
                     this.props.adverts.slice(minAdvert, maxAdvert).map((advert, index) => 
@@ -112,15 +113,13 @@ export default class Home extends Component {
    * Component did mount
    */
   componentDidMount() {
-    // Chequeo sesion del contexto, si no existe redirijo a register
-    const session = this.props.session
     // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
     const { getTags } = NodepopAPI();
     getTags().then(res => this.setState({tags: res}));
     // Obtengo los anuncios
-    if (session.tag) {
-      this.setState({tag: session.tag})
-      this.handleSearch({tag: session.tag});
+    if (this.props.session.tag) {
+      this.setState({tag: this.props.session.tag})
+      this.handleSearch({tag: this.props.session.tag});
     } else {
       this.getAdverts(); 
     }
@@ -153,7 +152,7 @@ export default class Home extends Component {
    * Gestiona el evento de búsqueda de anuncios
    */
   handleSearch = (filters) => {
-    // Llamo a la API con los filtros recibido
+    // Filtro los anuncios del store de redux
     const { searchAdvert } = NodepopAPI();
     searchAdvert(filters)
     .then(res => {

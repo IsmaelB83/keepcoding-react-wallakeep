@@ -8,12 +8,14 @@
  * Objeto para trabajar con local storage
  */
 const LocalStorage = {
+
     /**
      * Salvar sesión en local storage
      */
     saveLocalStorage: (session) => {
         localStorage.setItem('Wallakeep_IBA', JSON.stringify(session));
     },
+
     /**
      * Recuperar sesión del local storage
      */
@@ -21,6 +23,7 @@ const LocalStorage = {
         const session = localStorage.getItem('Wallakeep_IBA');
         return JSON.parse(session)
     },
+    
     /**
      * Clean local storage
      */

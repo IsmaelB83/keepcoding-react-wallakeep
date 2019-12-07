@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PrivateRoute from './PrivateRoute';
 
 /**
- * Inyecta props en mmi componente para acceder al state del store
+ * Inyecta props en mi componente para acceder al state del store
  * @param {Object} state Estado de mi store
  */
 const mapStateToProps = (state) => {

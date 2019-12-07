@@ -41,3 +41,9 @@
 .Home__Error .Home__Reconnect:hover {
     background-color: var(--main-color-dark);   
 }
+
+.Home__Count {
+    margin: .5rem 0 0 0;
+    text-align: right;
+    font-size: .75rem;
+}

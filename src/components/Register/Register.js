@@ -18,6 +18,8 @@ import Session from '../../models/Session';
 /* Own modules */
 import LocalStorage from '../../utils/Storage';
 import NodepopAPI from '../../services/NodepopAPI';
+/* Models */
+import { ADVERT_CONSTANTS } from '../../models/Advert';
 /* Assets */
 import imageLogo from '../../assets/images/logo2.png';
 /* CSS */
@@ -112,6 +114,13 @@ export default class Register extends Component {
                 required
               >
                 <MenuItem value='' disabled>Filter by tag</MenuItem>
+                <MenuItem key={ADVERT_CONSTANTS.TAG.ALL} value={ADVERT_CONSTANTS.TAG.ALL}>
+                  <Chip key={ADVERT_CONSTANTS.TAG.ALL}
+                        label={ADVERT_CONSTANTS.TAG.ALL}
+                        size='small'
+                        className='Ad__Tag Ad__Tag--small'
+                  />
+                </MenuItem>
                 {
                   this.state.tags && 
                   this.state.tags.map((value) => {
@@ -148,12 +157,11 @@ export default class Register extends Component {
    * Did mount
    */
   componentDidMount() {
-    // Restaurar datos de sesion del contexto
-    const session = this.context.session;
+    // Restaurar datos de sesion del store de redux
     this.setState({
-      email: session.email,
-      name: session.name,
-      surname: session.surname,
+      email: this.props.session.email,
+      name: this.props.session.name,
+      surname: this.props.session.surname,
     }, () => {
       // Recuperar tags de la API
       const { getTags } = NodepopAPI();
@@ -164,7 +172,7 @@ export default class Register extends Component {
         this.setState({
           error: false,
           tags: res,
-          tag: session.tag,
+          tag: this.props.session.tag,
         });
       })
       .catch(() => {
@@ -191,13 +199,12 @@ export default class Register extends Component {
         return;
       }
       // Genero sesión y la guardo en LS si ha seleccionado "remember"
-      const session = new Session (email, name, surname, tag, this.context.session.maxAdverts);
+      const session = new Session (email, name, surname, tag, this.props.session.maxAdverts);
       if (this.state.isRemember) {
         LocalStorage.saveLocalStorage(session);
       }
       // Actualizo el contexto y redijo el home
       this.props.login(session);
-      this.context.session = session;
       this.props.history.push('/');
     } else {
       // Sin API no continuamos
