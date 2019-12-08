@@ -1,15 +1,43 @@
 import {
-    SET_ADVERTS,
+    FETCH_TAGS_REQUEST,
+    FETCH_TAGS_FAILURE,
+    FETCH_TAGS_SUCCESS,
+    FETCH_ADVERTS_REQUEST,
+    FETCH_ADVERTS_FAILURE,
+    FETCH_ADVERTS_SUCCESS,
     EDIT_ADVERT,
     CREATE_ADVERT,
     SET_FILTERS,
     EDIT_SESSION,
-    LOGIN,
-    LOGOUT
+    SET_SESSION,
+    LOGOUT,
 } from './types';
 
-export const setAdverts = adverts => ({
-    type: SET_ADVERTS,
+export const fetchTagsRequest = () => ({
+    type: FETCH_TAGS_REQUEST
+});
+
+export const fetchTagsFailure = error => ({
+    type: FETCH_TAGS_FAILURE,
+    error,
+});
+
+export const fetchTagsSuccess = tags => ({
+    type: FETCH_TAGS_SUCCESS,
+    tags,
+});
+
+export const fetchAdvertsRequest = () => ({
+    type: FETCH_ADVERTS_REQUEST
+});
+
+export const fetchAdvertsFailure = error => ({
+    type: FETCH_ADVERTS_FAILURE,
+    error,
+});
+
+export const fetchAdvertsSuccess = adverts => ({
+    type: FETCH_ADVERTS_SUCCESS,
     adverts,
 });
 
@@ -23,7 +51,6 @@ export const createAdvert = advert => ({
     advert,
 });
 
-
 export const setFilters = filters => ({
     type: SET_FILTERS,
     filters,
@@ -34,8 +61,8 @@ export const editSession = session => ({
     session,
 });
 
-export const login = session => ({
-    type: LOGIN,
+export const setSession = session => ({
+    type: SET_SESSION,
     session
 });
 

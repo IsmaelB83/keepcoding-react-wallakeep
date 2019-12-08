@@ -1,5 +1,6 @@
 /* NPM modules */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import Moment from 'react-moment';
 /* Material UI */
@@ -7,9 +8,12 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import Chip from '@material-ui/core/Chip';
 /* Own modules */
+/* Models */
+import { ADVERT_CONSTANTS } from '../../models/Advert';
 /* Assets */
-import imageBuy from '../../assets/images/buy.png';
-import imageSell from '../../assets/images/sell.png';
+import imgBuy from '../../assets/images/buy.png';
+import imgSell from '../../assets/images/sell.png';
+import imgProduct from '../../assets/images/product.jpg';
 /* CSS */
 import './styles.css';
 
@@ -21,14 +25,14 @@ export default function AdvertCard (props) {
     return(
         <article className='AdvertCard'>
             <header className='AdvertCard__Header'>
-                <img src={`${props.type==='buy'?imageBuy:imageSell}`} alt='avatar' />
+                <img src={`${props.type==='buy'?imgBuy:imgSell}`} alt='avatar' />
                 <div className='AdvertCard__HeaderTitle'>
                     <Link to={`/advert/display/${props.id}`} className='AdvertCard__Link'><h2>{props.name}</h2></Link>
                     <Moment className='AdvertCard__Date' fromNow>{props.createdAt}</Moment>
                 </div>
             </header>
             <div className='AdvertCard__Media'>
-                <img src={props.photo} alt='caption'/>
+                <img src={props.photo || imgProduct} alt='caption'/>
                 <p className='AdvertCard__Price'>
                     {props.price} 
                     <span className='AdvertCard__Currency'>€</span>
@@ -54,4 +58,14 @@ export default function AdvertCard (props) {
             </div>
         </article>
     );
+}
+
+AdvertCard.propTypes = {
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    photo: PropTypes.string,
+    price: PropTypes.number.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    type: PropTypes.oneOf([ADVERT_CONSTANTS.TYPE.BUY, ADVERT_CONSTANTS.TYPE.SELL]).isRequired,
 }

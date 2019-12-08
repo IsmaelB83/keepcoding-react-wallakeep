@@ -1,5 +1,6 @@
 /* NPM modules */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 /* Material UI */
 import Container from '@material-ui/core/Container';
@@ -25,8 +26,8 @@ import NavBar from '../NavBar';
 import Footer from '../Footer';
 /* Models */
 import Advert from '../../models/Advert';
-/* Modules */
-import NodepopAPI from '../../services/NodepopAPI';
+// API
+import { AdvertServices } from '../../services';
 /* Assets */
 import imagePhoto from '../../assets/images/photo.png'
 /* CSS */
@@ -62,14 +63,13 @@ export default class AdvertEdit extends Component {
    */
   componentDidMount() {
     // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
-    const { getTags, getAdvert } = NodepopAPI();
-    getTags().then(res => {
+    AdvertServices.getTags().then(res => {
       this.setState({tags: res})
     });
     // En caso de ser una modificación cargo el anuncio a editar
     if (this.props.mode === 'edit' && this.props.match.params) {
       const id = this.props.match.params.id;
-      getAdvert(id)
+      AdvertServices.getAdvert(id)
         .then( res => {
           this.setState({
             advert: res,
@@ -255,13 +255,12 @@ export default class AdvertEdit extends Component {
    */
   handleSubmit = (ev) => {
     ev.preventDefault();
-    const { postAdvert, editAdvert } = NodepopAPI();
     // Creo un anuncio con los datos del estado si es válido
     const advert = new Advert(this.state.advert);
     if (advert.isValid()) {
       if (this.props.mode === 'create') {
         // POST
-        postAdvert(advert)
+        AdvertServices.postAdvert(advert)
         .then(res => {
           // Actualizo redux
           this.props.createAdvert(res);
@@ -274,7 +273,7 @@ export default class AdvertEdit extends Component {
         });
       } else {
         // PUT
-        editAdvert(advert)
+        AdvertServices.editAdvert(advert)
         .then(res => {
           // Actualizo redux
           this.props.editAdvert(res);
@@ -329,4 +328,8 @@ export default class AdvertEdit extends Component {
     }
     return <div></div>;
   }
+}
+
+AdvertEdit.propTypes = {
+  mode: PropTypes.oneOf(['edit', 'create']).isRequired,
 }

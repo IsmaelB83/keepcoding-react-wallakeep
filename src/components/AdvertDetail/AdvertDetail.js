@@ -12,7 +12,7 @@ import Chip from '@material-ui/core/Chip';
 import NavBar from '../NavBar';
 import Footer from '../Footer';
 /* Own modules */
-import NodepopAPI from '../../services/NodepopAPI';
+import { AdvertServices } from '../../services';
 /* Assets */
 import imageSpinner from '../../assets/images/spinner.gif';
 /* CSS */
@@ -40,8 +40,7 @@ export default class AdvertDetail extends Component {
   componentDidMount() {
     // Call API to get advert detail
     const id = this.props.match.params.id;
-    const { getAdvert } = NodepopAPI();
-    getAdvert(id)
+    AdvertServices.getAdvert(id)
       .then( res => {
         this.setState({
           advert: res,

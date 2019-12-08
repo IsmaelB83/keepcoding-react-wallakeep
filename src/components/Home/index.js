@@ -1,10 +1,21 @@
 // Node modules
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-// Own modules
+// Own Components
 import Home from './Home';
-import { setAdverts } from '../../store/actions';
+// Own modules
+import { 
+    fetchAdvertsFailure,
+    fetchAdvertsRequest,
+    fetchAdvertsSuccess,
+    fetchTagsFailure,
+    fetchTagsRequest,
+    fetchTagsSuccess
+ } from '../../store/actions';
 import { getVisibleAdverts } from '../../store/selectors';
+// Models
+// API
+import { AdvertServices } from '../../services';
 
 /**
  * Inyecta props en mi componente para acceder al state del store
@@ -13,7 +24,9 @@ import { getVisibleAdverts } from '../../store/selectors';
 const mapStateToProps = (state) => {
     return {
         session: state.session,
-        adverts: getVisibleAdverts(state.adverts, state.filters)
+        tags: state.tags,
+        adverts: getVisibleAdverts(state.adverts, state.filters),
+        ui: state.ui,
     }
 }
 
@@ -23,7 +36,33 @@ const mapStateToProps = (state) => {
  */
 const mapDispatchToProps = (dispatch) => {
     return {
-        setAdverts: (adverts) => dispatch(setAdverts(adverts))
+        loadTags: async () => {
+            dispatch(fetchTagsRequest());
+            try {
+                const tags = await AdvertServices.getTags();
+                dispatch(fetchTagsSuccess(tags))
+            } catch (error) {
+                dispatch(fetchTagsFailure(error.message))
+            }
+        },
+        loadAdverts: async () => {
+            dispatch(fetchAdvertsRequest());
+            try {
+                const adverts = await AdvertServices.getAdverts();
+                setTimeout(() => dispatch(fetchAdvertsSuccess(adverts)), 1000);                
+            } catch (error) {
+                dispatch(fetchAdvertsFailure(error.message))
+            }
+        },
+        searchAdverts: async (filters) => {
+            dispatch(fetchAdvertsRequest());
+            try {
+                const adverts = await AdvertServices.searchAdverts(filters);
+                setTimeout(() => dispatch(fetchAdvertsSuccess(adverts)), 1000);                
+            } catch (error) {
+                dispatch(fetchAdvertsFailure(error.message))
+            }
+        }
     }
 }
 

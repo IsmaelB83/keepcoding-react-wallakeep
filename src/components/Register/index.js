@@ -2,7 +2,7 @@ import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 // Own modules
 import Register from './Register';
-import { login } from '../../store/actions';
+import { setSession } from '../../store/actions';
 
 /**
  * Inyecta props en mi componente para acceder al state del store
@@ -20,7 +20,7 @@ const mapStateToProps = (state) => {
  */
 const mapDispatchToProps = (dispatch) => {
     return {
-        login: (session) => dispatch(login(session)),
+        setSession: (session) => dispatch(setSession(session)),
     }
 }
 

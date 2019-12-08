@@ -18,7 +18,7 @@ import Footer from '../Footer';
 /* Models */
 import Session from '../../models/Session';
 /* Own modules */
-import NodepopAPI from '../../services/NodepopAPI';
+import { AdvertServices } from '../../services';
 import LocalStorage from '../../utils/Storage';
 /* Assets */
 import imagePhoto from '../../assets/images/user.png'
@@ -57,8 +57,7 @@ export default class Profile extends Component {
       maxAdverts: this.props.session.maxAdverts
     }, () => {
       // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
-      const { getTags } = NodepopAPI();
-      getTags().then(res => {
+      AdvertServices.getTags().then(res => {
         this.setState({
           tag: this.props.session.tag,
           tags: res

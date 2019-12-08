@@ -17,7 +17,7 @@ import Chip from '@material-ui/core/Chip';
 import Session from '../../models/Session';
 /* Own modules */
 import LocalStorage from '../../utils/Storage';
-import NodepopAPI from '../../services/NodepopAPI';
+import { AdvertServices } from '../../services';
 /* Models */
 import { ADVERT_CONSTANTS } from '../../models/Advert';
 /* Assets */
@@ -164,8 +164,7 @@ export default class Register extends Component {
       surname: this.props.session.surname,
     }, () => {
       // Recuperar tags de la API
-      const { getTags } = NodepopAPI();
-      getTags()
+      AdvertServices.getTags()
       .then(res => {
         // Conectado OK a la API
         this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
@@ -204,7 +203,7 @@ export default class Register extends Component {
         LocalStorage.saveLocalStorage(session);
       }
       // Actualizo el contexto y redijo el home
-      this.props.login(session);
+      this.props.setSession(session);
       this.props.history.push('/');
     } else {
       // Sin API no continuamos

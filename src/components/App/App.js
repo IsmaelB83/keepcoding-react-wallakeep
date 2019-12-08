@@ -35,7 +35,7 @@ export default class App extends Component {
       session = new Session ();
     } 
     // Dispatch de la acción de login
-    this.props.login(session);
+    this.props.setSession(session);
     this.state = {
       session
     }

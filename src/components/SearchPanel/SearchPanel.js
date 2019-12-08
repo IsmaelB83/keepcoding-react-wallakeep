@@ -9,6 +9,7 @@ import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
+import ClearIcon from '@material-ui/icons/Clear';
 import Chip from '@material-ui/core/Chip';
 /* Own modules */
 /* Models */
@@ -17,19 +18,19 @@ import { ADVERT_CONSTANTS } from '../../models/Advert';
 /* CSS */
 import './styles.css';
 
-// Initial state del componente
-const initialState = {
-  name: '',
-  type: ADVERT_CONSTANTS.TYPE.ALL,
-  tag: ADVERT_CONSTANTS.TAG.ALL,
-  priceFrom: 0,
-  priceTo: 0
-}
-
 /**
  * Main App
  */
 export default function SearchPanel(props) {
+
+  // Initial state del componente
+  const initialState = {
+    name: '',
+    type: ADVERT_CONSTANTS.TYPE.ALL,
+    tag: props.tag || ADVERT_CONSTANTS.TAG.ALL,
+    priceFrom: 0,
+    priceTo: 0
+  }
 
   // Uso del hook useState
   const [inputs, setInputs] = useState(initialState);
@@ -48,8 +49,11 @@ export default function SearchPanel(props) {
 
   // Reseteo el estado a los valores originales de búsqueda
   const handleInputReset = () => {
-    setInputs(initialState)
-    props.setFilters(initialState);
+    const formInputs = initialState;
+    formInputs.tag = ADVERT_CONSTANTS.TAG.ALL;
+    setInputs(formInputs)
+    props.setFilters(formInputs);
+    props.handleAPISearch();
   }
   
   /**
@@ -57,7 +61,7 @@ export default function SearchPanel(props) {
    */
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    props.setFilters(inputs);
+    props.handleAPISearch(inputs);
   }
 
   /**
@@ -157,9 +161,9 @@ export default function SearchPanel(props) {
         </FormControl>
       </div> 
       <div className='SearchPanel__Footer'>
-        <Button type='submit' variant='contained' color='primary'> Search </Button>
-        <Button variant='contained' color='secondary' onClick={handleInputReset}> Reset </Button>
-      </div>       
+        <Button type='submit' variant='contained' color='primary' startIcon={<SearchIcon />}> Search API </Button>
+        <Button variant='contained' color='secondary' onClick={handleInputReset} startIcon={<ClearIcon/>}> Reset </Button>
+      </div>
     </form>
   );
 }
