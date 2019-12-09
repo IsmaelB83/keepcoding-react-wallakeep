@@ -16,7 +16,7 @@ export default function Loading(props) {
     return (
         <div className='Loading'>
             <img src={imageSpinner} className='Loading__Spinner' alt='spinner'/>
-            <h2 className='Loading__Text'>loading...</h2>
+            <h2 className='Loading__Text'>{props.text}</h2>
         </div>
     );
 }

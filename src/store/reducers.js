@@ -11,6 +11,10 @@ import Session from '../models/Session';
 export const initialState = {
     // User session
     session: new Session(),
+    // Para el modo visualizar/editar almaceno el anuncio seleccionado en cache (lo obtengo
+    // desde la API en vez de extraerlo del store. Así me aseguro que el usuario ve la
+    // versión más actualizada del anuncio cuando lo selecciona)
+    advert: null,
     // Adverts in the app
     adverts: [],
     // Available tags in the backend
@@ -28,7 +32,7 @@ export const initialState = {
         apiConnected: false,
         error: null,
         isFetching: false,
-        isUpdatingAdvert: false,
+        isUpdating: false,
         lastAdvertsUpdated: null,
         totalAdvertsReturned: 0,
         currentPage: 0,
@@ -44,6 +48,24 @@ export function tags(state = initialState.tags, action) {
     switch (action.type) {
         case TYPES.FETCH_TAGS_SUCCESS:
             return action.tags;
+        default:
+            return state;
+    }
+}
+
+/**
+ * Reducer para gestionar las acciones sobre el anuncio que se visita para edicion o visualización (que se mantiene en cache de redux)
+ * @param {Array} state Anuncio
+ * @param {Object} action Action
+ */
+export function advert(state = initialState.advert, action) {
+    switch (action.type) {
+        case TYPES.FETCH_ADVERT_REQUEST:
+            return initialState.advert;
+        case TYPES.FETCH_ADVERT_FAILURE:
+            return initialState.advert;
+        case TYPES.FETCH_ADVERT_SUCCESS:
+            return action.advert;
         default:
             return state;
     }
@@ -121,6 +143,12 @@ export function ui(state = initialState.ui, action) {
     switch (action.type) {
         case TYPES.SET_FILTERS:
             return { ...state, currentPage: 0 }
+        case TYPES.FETCH_ADVERT_REQUEST:
+            return { ...state, isFetching: true, error: null }
+        case TYPES.FETCH_ADVERT_FAILURE:
+            return { ...state, isFetching: false, error: action.error }
+        case TYPES.FETCH_ADVERT_SUCCESS:
+            return { ...state, isFetching: false, error: null }
         case TYPES.FETCH_ADVERTS_REQUEST:
             return { ...state, isFetching: true, error: null }
         case TYPES.FETCH_ADVERTS_FAILURE:
@@ -134,17 +162,17 @@ export function ui(state = initialState.ui, action) {
                      currentPage: 0
                     }
         case TYPES.EDIT_ADVERT_REQUEST:
-            return { ...state, isUpdatingAdvert: true, error: null }
+            return { ...state, isUpdating: true, error: null }
         case TYPES.EDIT_ADVERT_FAILURE:
-            return { ...state, isUpdatingAdvert: false, error: action.error }
+            return { ...state, isUpdating: false, error: action.error }
         case TYPES.EDIT_ADVERT_SUCCESS:
-            return { ...state, isUpdatingAdvert: false, error: null }
+            return { ...state, isUpdating: false, error: null }
         case TYPES.CREATE_ADVERT_REQUEST:
-            return { ...state, isUpdatingAdvert: true, error: null }
+            return { ...state, isUpdating: true, error: null }
         case TYPES.CREATE_ADVERT_FAILURE:
-            return { ...state, isUpdatingAdvert: false, error: action.error }
+            return { ...state, isUpdating: false, error: action.error }
         case TYPES.CREATE_ADVERT_SUCCESS:
-            return { ...state, isUpdatingAdvert: false, error: null }
+            return { ...state, isUpdating: false, error: null }
         case TYPES.FETCH_TAGS_REQUEST:
             return { ...state, error: null, isFetching: true, apiConnected: false }
         case TYPES.FETCH_TAGS_FAILURE:

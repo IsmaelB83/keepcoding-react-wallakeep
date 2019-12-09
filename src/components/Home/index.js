@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(fetchAdvertsRequest());
             try {
                 const adverts = await AdvertServices.getAdverts();
-                dispatch(fetchAdvertsSuccess(adverts));
+                setTimeout(()=>dispatch(fetchAdvertsSuccess(adverts)),1000);
             } catch (error) {
                 dispatch(fetchAdvertsFailure(error.message))
             }
@@ -47,7 +47,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(fetchAdvertsRequest());
             try {
                 const adverts = await AdvertServices.searchAdverts(filters);
-                dispatch(fetchAdvertsSuccess(adverts));
+                setTimeout(()=>dispatch(fetchAdvertsSuccess(adverts)),1000);
+                
             } catch (error) {
                 dispatch(fetchAdvertsFailure(error.message));
             }

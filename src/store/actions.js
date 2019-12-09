@@ -2,6 +2,9 @@ import {
     FETCH_TAGS_REQUEST,
     FETCH_TAGS_FAILURE,
     FETCH_TAGS_SUCCESS,
+    FETCH_ADVERT_REQUEST,
+    FETCH_ADVERT_FAILURE,
+    FETCH_ADVERT_SUCCESS,
     FETCH_ADVERTS_REQUEST,
     FETCH_ADVERTS_FAILURE,
     FETCH_ADVERTS_SUCCESS,
@@ -30,6 +33,20 @@ export const fetchTagsFailure = error => ({
 export const fetchTagsSuccess = tags => ({
     type: FETCH_TAGS_SUCCESS,
     tags,
+});
+
+export const fetchAdvertRequest = () => ({
+    type: FETCH_ADVERT_REQUEST
+});
+
+export const fetchAdvertFailure = error => ({
+    type: FETCH_ADVERT_FAILURE,
+    error,
+});
+
+export const fetchAdvertSuccess = advert => ({
+    type: FETCH_ADVERT_SUCCESS,
+    advert,
 });
 
 export const fetchAdvertsRequest = () => ({

@@ -28,7 +28,6 @@ import Loading from '../Loading';
 import Error from '../Error';
 // Models
 import Advert from '../../models/Advert';
-import { AdvertServices } from '../../services';
 // Assets
 import imagePhoto from '../../assets/images/photo.png'
 // CSS
@@ -66,25 +65,20 @@ export default class AdvertEdit extends Component {
     // En caso de ser una modificación cargo el anuncio a editar (para tener la versión más actualizada posible desde el backend)
     if (this.props.mode === 'edit' && this.props.match.params) {
       const id = this.props.match.params.id;
-      AdvertServices.getAdvert(id)
-        .then( res => {
-          this.setState({
-            advert: res,
-            loading: false
-          });
-        })
+      this.props.loadAdvert(id);
     }
   }
 
   componentDidUpdate() {
+    const { mode } = this.props;
     // Si se ha intentado guardar los cambios, y la operación ha concluido
-    if (this.state.submit && this.props.ui.isUpdatingAdvert === false) {
+    if (this.state.submit && this.props.ui.isUpdating === false) {
       if (!this.props.ui.error) {
-        this.props.enqueueSnackbar(`OK. Anuncio ${this.props.mode === 'edit' ? 'editado':'creado'} con exito.`, { variant: 'success' });
+        this.props.enqueueSnackbar(`OK. Anuncio ${mode === 'edit' ? 'editado':'creado'} con exito.`, { variant: 'success' });
         this.props.history.push('/');
       }
       else if (this.props.ui.error)
-        this.props.enqueueSnackbar(`Error ${this.props.mode === 'edit' ? 'editando':'creando'} anuncio: ${this.props.ui.error}`, { variant: 'error' });
+        this.props.enqueueSnackbar(`Error ${mode === 'edit' ? 'editando':'creando'} anuncio: ${this.props.ui.error}`, { variant: 'error' });
       // Evento reportado  
       this.setState({submit: false});
     }
@@ -94,14 +88,15 @@ export default class AdvertEdit extends Component {
    * Render
    */
   render() {
-    const { isUpdatingAdvert, error } = this.props.ui;
+    const { isUpdating, isFetching, error } = this.props.ui;
+    const { mode } = this.props;
     return (
       <React.Fragment>
         <NavBar/>
         <Container>
           <main className='Main__Section'>
             <div className='Section__Title'>
-              <h2>{this.props.mode === 'edit' ? 'Editar anuncio' : 'Crear nuevo anuncio' }</h2>
+              <h2>{mode === 'edit' ? 'Editar anuncio' : 'Crear nuevo anuncio' }</h2>
             </div>
             <form onSubmit={this.handleSubmit} noValidate autoComplete='off' className='AdvertEdit__Form'>
               <button type='button' className='AdvertEdit_Picture' onClick={this.handleSwitchOpen}>
@@ -212,7 +207,7 @@ export default class AdvertEdit extends Component {
                 fullWidth
               />
             </DialogContent>
-            { isUpdatingAdvert && <Loading/> }
+            { isUpdating && <Loading/> }
             { error &&  <Error error={error}/> }
             <DialogActions className='Modal__Actions'>
               <Button onClick={this.handleChangePhoto} variant='contained' startIcon={<CheckIcon />} className='ButtonWallakeep ButtonWallakeep__Green'>
@@ -223,10 +218,12 @@ export default class AdvertEdit extends Component {
               </Button>
             </DialogActions>
           </Dialog>
+          { isFetching && <Loading text={'fetching advert'}/> }
+          { isUpdating && <Loading text={mode === 'edit' ? 'Editando anuncio' : 'Creando anuncio' }/> }
+          { error &&  <Error error={error}/> }
         </Container>
         <Footer/>
       </React.Fragment>
-        
     );
   }
 
@@ -269,12 +266,13 @@ export default class AdvertEdit extends Component {
    * Manejador del submit del formulario
    */
   handleSubmit = (ev) => {
+    const { mode } = this.props;
     ev.preventDefault();
     // Creo un anuncio con los datos del estado si es válido
     const advert = new Advert(this.state.advert);
     if (advert.isValid()) {
       this.setState({submit: true});
-      if (this.props.mode === 'create')
+      if (mode === 'create')
         this.props.createAdvert(advert)
       else
         this.props.editAdvert(advert);

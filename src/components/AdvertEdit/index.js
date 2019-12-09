@@ -5,9 +5,9 @@ import { withSnackbar } from 'notistack';
 import AdvertEdit from './AdvertEdit';
 // Own modules
 import { 
-/*     fetchAdvertFailure,
+    fetchAdvertFailure,
     fetchAdvertRequest,
-    fetchAdvertSuccess, */
+    fetchAdvertSuccess,
     editAdvertFailure,
     editAdvertRequest,
     editAdvertSuccess,
@@ -37,20 +37,21 @@ const mapStateToProps = (state) => {
  */
 const mapDispatchToProps = (dispatch) => {
     return {
-        /* getAdvert: async (id) => {
+        loadAdvert: async (id) => {
             dispatch(fetchAdvertRequest());
             try {
                 const advert = await AdvertServices.getAdvert(id);
-                dispatch(fetchAdvertSuccess(advert));
+                setTimeout(()=>dispatch(fetchAdvertSuccess(advert)),1000);
             } catch (error) {
                 dispatch(fetchAdvertFailure(error.message))
             }
-        }, */
+        },
         editAdvert: async (advert) => {
             dispatch(editAdvertRequest());
             try {
+                debugger;
                 const response = await AdvertServices.editAdvert(advert);
-                dispatch(editAdvertSuccess(response));
+                setTimeout(()=>dispatch(editAdvertSuccess(response)),350);
             } catch (error) {
                 dispatch(editAdvertFailure(error.message))
             }
@@ -59,7 +60,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(createAdvertRequest());
             try {
                 const response = await AdvertServices.postAdvert(advert);
-                dispatch(createAdvertSuccess(response));
+                setTimeout(()=>dispatch(createAdvertSuccess(response)),350);
             } catch (error) {
                 dispatch(createAdvertFailure(error.message));
             }

@@ -52,7 +52,7 @@ export default class Home extends Component {
               }
               <Paginator numPages={numPages} currentPage={currentPage} handleMovePaginator={this.handleMovePaginator}/>
             </div>
-            { isFetching && <Loading/> }
+            { isFetching && <Loading text={'fetching data'}/> }
             { error &&  <Error error={error}/> }
           </main>
         </Container>
