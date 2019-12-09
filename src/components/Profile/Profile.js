@@ -4,12 +4,9 @@ import { Link } from 'react-router-dom';
 // Material UI
 import Container from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import Chip from '@material-ui/core/Chip';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 // Components
@@ -38,7 +35,6 @@ export default class Profile extends Component {
       email: this.props.session.email,
       name: this.props.session.name,
       surname: this.props.session.surname, 
-      tag: this.props.session.tag,
       maxAdverts: this.props.session.maxAdverts
     }
   }
@@ -90,28 +86,6 @@ export default class Profile extends Component {
                 />
               </FormControl>
               <FormControl fullWidth className='Profile__FormControl'>
-                <InputLabel shrink htmlFor='tag'>Tag</InputLabel>
-                <Select
-                  value={this.state.tag}
-                  onChange={this.handleChange('tag')}
-                  name='tag'
-                  displayEmpty
-                  required
-                >
-                  {
-                    this.props.tags && 
-                    this.props.tags.map((value) => {
-                      return  <MenuItem key={value} value={value}>
-                                <Chip size='small'
-                                      label={value}
-                                      className={`Ad__Tag Ad__Tag--small Ad__Tag--${value}`}
-                                />
-                              </MenuItem>
-                    })
-                  }
-                </Select>
-              </FormControl>
-              <FormControl fullWidth className='Profile__FormControl'>
                 <InputLabel htmlFor='maxAdverts'>Anuncios por página (Home)</InputLabel>
                 <Input
                   name='maxAdverts'
@@ -153,8 +127,8 @@ export default class Profile extends Component {
   handleSubmit = (ev) => {
     ev.preventDefault();
     // Genero sesión y la guardo en LS
-    const { email, name, surname, tag, maxAdverts } = this.state;
-    const session = new Session (email, name, surname, tag, maxAdverts);
+    const { email, name, surname, maxAdverts } = this.state;
+    const session = new Session (email, name, surname, maxAdverts);
     LocalStorage.saveLocalStorage(session);
     this.props.enqueueSnackbar('Local storage actualizado correctamente.', { variant: 'success' });
     this.props.history.push('/');

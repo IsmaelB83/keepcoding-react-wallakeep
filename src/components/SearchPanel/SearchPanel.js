@@ -27,7 +27,7 @@ export default function SearchPanel(props) {
   const initialState = {
     name: '',
     type: ADVERT_CONSTANTS.TYPE.ALL,
-    tag: props.tag || ADVERT_CONSTANTS.TAG.ALL,
+    tag: ADVERT_CONSTANTS.TAG.ALL,
     priceFrom: 0,
     priceTo: 0
   }

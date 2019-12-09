@@ -4,21 +4,15 @@ import React, { Component } from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
-import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
-import Chip from '@material-ui/core/Chip';
 // Models
 import Session from '../../models/Session';
 /* Own modules */
 import LocalStorage from '../../utils/Storage';
-// Models
-import { ADVERT_CONSTANTS } from '../../models/Advert';
 // Assets
 import imageLogo from '../../assets/images/logo2.png';
 // CSS
@@ -39,7 +33,6 @@ export default class Register extends Component {
       email: this.props.session.email,
       name: this.props.session.name,
       surname: this.props.session.surname,
-      tag: this.props.session.tag,
     }
   }
 
@@ -102,36 +95,6 @@ export default class Register extends Component {
                 required
               />
             </FormControl>
-            <FormControl>
-              <Select
-                value={this.state.tag || ''}
-                onChange={this.handleInput('tag')}
-                name='tag'
-                displayEmpty
-                required
-              >
-                <MenuItem value='' disabled>Filter by tag</MenuItem>
-                <MenuItem key={ADVERT_CONSTANTS.TAG.ALL} value={ADVERT_CONSTANTS.TAG.ALL}>
-                  <Chip key={ADVERT_CONSTANTS.TAG.ALL}
-                        label={ADVERT_CONSTANTS.TAG.ALL}
-                        size='small'
-                        className='Ad__Tag Ad__Tag--small'
-                  />
-                </MenuItem>
-                {
-                  this.props.tags && 
-                  this.props.tags.map((value) => {
-                    return  <MenuItem key={value} value={value}>
-                              <Chip size='small'
-                                    label={value}
-                                    className={`Ad__Tag Ad__Tag--small Ad__Tag--${value}`}
-                              />
-                            </MenuItem>
-                  })
-                }
-              </Select>
-              <FormHelperText>Select a tag as the initial filter</FormHelperText>
-            </FormControl>
             <FormControlLabel
               name='isRemember'
               label='remember me'
@@ -169,14 +132,14 @@ export default class Register extends Component {
     // Sólo si no hay errores de conexión
     if (!this.state.error) {
       // Campos relevantes para generar el objeto sesión
-      const { email, name, surname, tag } = {...this.state};
+      const { email, name, surname } = {...this.state};
       // Son todos obligatorios, en caso de no estar no permito continuar
-      if (!email || !name || !surname || !tag) {
+      if (!email || !name || !surname) {
         this.props.enqueueSnackbar('Rellene todos los campos del formulario', { variant: 'error', });
         return;
       }
       // Genero sesión y la guardo en LS si ha seleccionado "remember"
-      const session = new Session (email, name, surname, tag, this.props.session.maxAdverts);
+      const session = new Session (email, name, surname, this.props.session.maxAdverts);
       if (this.state.isRemember) {
         LocalStorage.saveLocalStorage(session);
       }

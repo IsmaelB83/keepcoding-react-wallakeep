@@ -40,7 +40,7 @@ export default class Home extends Component {
         <Container className='Container__Fill'>
           <main className='Main__Section'>
             <div className='Home__Results'>
-              <SearchPanel tags={this.props.tags} tag={this.props.session.tag} handleAPISearch={this.handleSearch}/>
+              <SearchPanel tags={this.props.tags} handleAPISearch={this.handleSearch}/>
               <Paginator numPages={numPages} currentPage={currentPage} handleMovePaginator={this.handleMovePaginator}/>
               <p className='Home__Count'>{this.props.adverts.length} resultados cumplen el filtro. {this.props.ui.totalAdvertsReturned} resultados en el store de redux</p>
               <p className='Home__Count'>Last API call <Moment fromNow>{this.props.ui.lastAdvertsUpdated}</Moment></p>
@@ -65,11 +65,7 @@ export default class Home extends Component {
    * Component did mount
    */
   componentDidMount() {
-    if (this.props.session.tag) {
-      this.handleSearch({tag: this.props.session.tag})
-    } else {
-      this.props.loadAdverts();
-    }
+    this.props.loadAdverts();
   }
 
   /**

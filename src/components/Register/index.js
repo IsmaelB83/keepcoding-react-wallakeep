@@ -15,7 +15,6 @@ import {
  */
 const mapStateToProps = (state) => {
     return {
-        tags: state.tags,
         session: state.session,
         isFetching: state.ui.isFetching,
         apiConnected: state.ui.apiConnected,
