@@ -35,6 +35,19 @@ export default class Advert {
                 this.tags && 
                 this.tags.length >= 1;
     }
+
+    static emptyAdvert() {
+        return {
+            _id: '',
+            createdAt: Date.now(),
+            name: '',
+            description: '',
+            price: 0,
+            type: ADVERT_CONSTANTS.TYPE.BUY,
+            photo: '',
+            tags: []
+        };
+    }
 }
 
 /**

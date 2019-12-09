@@ -2,7 +2,7 @@
 // Own imports
 import * as TYPES from './types';
 // Models
-import { ADVERT_CONSTANTS } from '../models/Advert';
+import Advert, { ADVERT_CONSTANTS } from '../models/Advert';
 import Session from '../models/Session';
 
 /**
@@ -14,7 +14,7 @@ export const initialState = {
     // Para el modo visualizar/editar almaceno el anuncio seleccionado en cache (lo obtengo
     // desde la API en vez de extraerlo del store. Así me aseguro que el usuario ve la
     // versión más actualizada del anuncio cuando lo selecciona)
-    advert: null,
+    advert: Advert.emptyAdvert(),
     // Adverts in the app
     adverts: [],
     // Available tags in the backend
@@ -66,6 +66,8 @@ export function advert(state = initialState.advert, action) {
             return initialState.advert;
         case TYPES.FETCH_ADVERT_SUCCESS:
             return action.advert;
+        case TYPES.CLEAR_ADVERT:
+            return initialState.advert;
         default:
             return state;
     }

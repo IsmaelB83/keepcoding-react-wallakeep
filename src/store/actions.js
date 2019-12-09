@@ -18,7 +18,8 @@ import {
     EDIT_SESSION,
     SET_SESSION,
     LOGOUT,
-    SET_PAGE
+    SET_PAGE,
+    CLEAR_ADVERT
 } from './types';
 
 export const fetchTagsRequest = () => ({
@@ -89,6 +90,10 @@ export const createAdvertFailure = error => ({
 export const createAdvertSuccess = advert => ({
     type: CREATE_ADVERT_SUCCESS,
     advert,
+});
+
+export const clearAdvert = () => ({
+    type: CLEAR_ADVERT,
 });
 
 export const setFilters = filters => ({

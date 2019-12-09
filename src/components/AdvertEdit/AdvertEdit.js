@@ -47,14 +47,6 @@ export default class AdvertEdit extends Component {
       photoTemp: '',
       openModal: false,   
       submit: false,
-      advert: {
-        name: '',
-        type: '',
-        tags: [],
-        price: 0,
-        description: '', 
-        photo: '',
-      }
     }
   }
 
@@ -66,11 +58,19 @@ export default class AdvertEdit extends Component {
     if (this.props.mode === 'edit' && this.props.match.params) {
       const id = this.props.match.params.id;
       this.props.loadAdvert(id);
+    } else {
+      this.props.clearAdvert();
     }
   }
 
   componentDidUpdate() {
     const { mode } = this.props;
+    // Para solucionar el caso en el que estando ya en editar, el usuario navega a crear. Al estar ambas opciones en el mismo componente, el flujo
+    // de react no pasa por el component did mount, y en ese caso el formulario aun estando en opción crear, mostraría los datos del anterior anuncio.
+    // Con este if, y llamando al clear del store, consigo vaciar el anuncio del store, y con ello del form.
+    if (mode === 'create' && this.props.advert._id !== '') {
+      this.props.clearAdvert();
+    }
     // Si se ha intentado guardar los cambios, y la operación ha concluido
     if (this.state.submit && this.props.ui.isUpdating === false) {
       if (!this.props.ui.error) {

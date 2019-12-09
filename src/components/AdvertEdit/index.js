@@ -13,7 +13,8 @@ import {
     editAdvertSuccess,
     createAdvertFailure,
     createAdvertRequest,
-    createAdvertSuccess
+    createAdvertSuccess,
+    clearAdvert
  } from '../../store/actions';
 // Models
 // API
@@ -47,10 +48,10 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(fetchAdvertFailure(error.message))
             }
         },
+        clearAdvert: () => dispatch(clearAdvert()),
         editAdvert: async (advert) => {
             dispatch(editAdvertRequest());
             try {
-                debugger;
                 const response = await AdvertServices.editAdvert(advert);
                 setTimeout(()=>dispatch(editAdvertSuccess(response)),500);
             } catch (error) {

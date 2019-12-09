@@ -120,7 +120,7 @@ export default class Register extends Component {
     if (!this.props.isFetching && this.props.apiConnected) {
       this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
     } else if (!this.props.isFetching && !this.props.apiConnected) {
-      this.props.enqueueSnackbar('Error conectando con la API. Revise la URL.', { variant: 'error', });
+      this.props.enqueueSnackbar(`Error conectando con la API ${process.env.REACT_APP_API}`, { variant: 'error', });
     }
   }
 
@@ -130,7 +130,7 @@ export default class Register extends Component {
   handleOnSubmit = async (event) => {
     event.preventDefault();
     // Sólo si no hay errores de conexión
-    if (!this.state.error) {
+    if (this.props.apiConnected) {
       // Campos relevantes para generar el objeto sesión
       const { email, name, surname } = {...this.state};
       // Son todos obligatorios, en caso de no estar no permito continuar
@@ -148,7 +148,7 @@ export default class Register extends Component {
       this.props.history.push('/');
     } else {
       // Sin API no continuamos
-      this.props.enqueueSnackbar('Error conectando con la API. Revise la URL.', { variant: 'error', });
+      this.props.enqueueSnackbar(`Error conectando con la API ${process.env.REACT_APP_API}`, { variant: 'error', });
     }
   }
 
