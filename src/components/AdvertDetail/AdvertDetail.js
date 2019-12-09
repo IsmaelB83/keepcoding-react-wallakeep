@@ -21,11 +21,13 @@ import './styles.css';
  */
 export default function AdvertDetail(props) {
   
+  const id = props.match.params.id;
+  const loadAdvert = props.loadAdvert;
+
+  // Dispatch load advert action
   useEffect(() => {
-    // Dispatch acción a redux para que cargue el anuncio
-    const id = props.match.params.id;
-    props.loadAdvert(id);
-  }, []);
+    loadAdvert(id);
+  }, [id, loadAdvert]);
 
   // Render
   return (

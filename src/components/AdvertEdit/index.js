@@ -26,6 +26,7 @@ import { AdvertServices } from '../../services';
 const mapStateToProps = (state) => {
     return {
         tags: state.tags,
+        advert: state.advert,
         adverts: state.adverts,
         ui: state.ui
     }
@@ -41,7 +42,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(fetchAdvertRequest());
             try {
                 const advert = await AdvertServices.getAdvert(id);
-                setTimeout(()=>dispatch(fetchAdvertSuccess(advert)),1000);
+                setTimeout(()=>dispatch(fetchAdvertSuccess(advert)),500);
             } catch (error) {
                 dispatch(fetchAdvertFailure(error.message))
             }
@@ -51,7 +52,7 @@ const mapDispatchToProps = (dispatch) => {
             try {
                 debugger;
                 const response = await AdvertServices.editAdvert(advert);
-                setTimeout(()=>dispatch(editAdvertSuccess(response)),350);
+                setTimeout(()=>dispatch(editAdvertSuccess(response)),500);
             } catch (error) {
                 dispatch(editAdvertFailure(error.message))
             }
@@ -60,7 +61,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(createAdvertRequest());
             try {
                 const response = await AdvertServices.postAdvert(advert);
-                setTimeout(()=>dispatch(createAdvertSuccess(response)),350);
+                setTimeout(()=>dispatch(createAdvertSuccess(response)),500);
             } catch (error) {
                 dispatch(createAdvertFailure(error.message));
             }

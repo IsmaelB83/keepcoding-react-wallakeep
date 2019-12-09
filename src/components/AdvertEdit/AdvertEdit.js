@@ -98,15 +98,16 @@ export default class AdvertEdit extends Component {
             <div className='Section__Title'>
               <h2>{mode === 'edit' ? 'Editar anuncio' : 'Crear nuevo anuncio' }</h2>
             </div>
+            { this.props.advert &&
             <form onSubmit={this.handleSubmit} noValidate autoComplete='off' className='AdvertEdit__Form'>
               <button type='button' className='AdvertEdit_Picture' onClick={this.handleSwitchOpen}>
-                <img src={this.state.advert.photo || imagePhoto} alt='dummy_photo'/>
+                <img src={this.props.advert.photo || imagePhoto} alt='dummy_photo'/>
               </button>
               <FormControl fullWidth className='AdvertEdit__FormControl'>
                 <InputLabel shrink htmlFor='type'>Nombre</InputLabel>
                 <Input
                   name='name'
-                  value={this.state.advert.name}
+                  value={this.props.advert.name}
                   onChange={this.handleChange('name')}
                   type='text' 
                   required
@@ -118,7 +119,7 @@ export default class AdvertEdit extends Component {
                   name= 'type'
                   onChange={this.handleChange('type')}
                   className='SearchPanel__Type'
-                  value={this.state.advert.type}
+                  value={this.props.advert.type}
                   displayEmpty
                 >
                   <MenuItem key='buy' value='buy'><Chip size='small' label='buy' className='Ad__Tag Ad__Tag--small Ad__Tag--buy'/></MenuItem>
@@ -130,11 +131,11 @@ export default class AdvertEdit extends Component {
                 <Select
                   multiple
                   name='tags'
-                  value={this.state.advert.tags || ''}
+                  value={this.props.advert.tags || ''}
                   onChange={this.handleChangeMultiple}
                   renderValue={() =>
                       <div> 
-                        { this.state.advert.tags.map(value => 
+                        { this.props.advert.tags.map(value => 
                             <Chip key={value} size='small' label={value} className={`Ad__Tag Ad__Tag--small Ad__Tag--${value}`}/> 
                         )}
                       </div>
@@ -159,7 +160,7 @@ export default class AdvertEdit extends Component {
                 <Input
                   name='price'
                   type='number'
-                  value={this.state.advert.price}
+                  value={this.props.advert.price}
                   onChange={this.handleChangeNumber('price')}
                   endAdornment={<InputAdornment position='start'>€</InputAdornment>}
                 />
@@ -168,7 +169,7 @@ export default class AdvertEdit extends Component {
                 <TextField
                   name='description'
                   label='Descripción'
-                  value={this.state.advert.description}
+                  value={this.props.advert.description}
                   onChange={this.handleChange('description')}
                   multiline
                   rows={2}
@@ -187,6 +188,7 @@ export default class AdvertEdit extends Component {
                 </Button>
               </div>            
             </form>
+            }
           </main>
           <Dialog open={this.state.openModal} className='AdvertEdit__Modal'>
             <DialogTitle className='Modal_Title'>
@@ -207,8 +209,6 @@ export default class AdvertEdit extends Component {
                 fullWidth
               />
             </DialogContent>
-            { isUpdating && <Loading/> }
-            { error &&  <Error error={error}/> }
             <DialogActions className='Modal__Actions'>
               <Button onClick={this.handleChangePhoto} variant='contained' startIcon={<CheckIcon />} className='ButtonWallakeep ButtonWallakeep__Green'>
                 Aceptar
@@ -231,7 +231,7 @@ export default class AdvertEdit extends Component {
    * Cambio en un input tipo texto
    */
   handleChange = field => event => {
-    const aux = this.state.advert;
+    const aux = this.props.advert;
     aux[field] = event.target.value
     this.setState({
       advert: aux
@@ -242,7 +242,7 @@ export default class AdvertEdit extends Component {
    * Cambio en un input tipo number
    */
   handleChangeNumber = field => event => {
-    const aux = this.state.advert;
+    const aux = this.props.advert;
     aux[field] = parseFloat(event.target.value);
     if (aux[field]) {
       this.setState({
@@ -256,7 +256,7 @@ export default class AdvertEdit extends Component {
    */
   handleChangeMultiple = event => {
     // Obtengo el estado, actualizo los tags seleccionados
-    const aux = this.state.advert;
+    const aux = this.props.advert;
     aux.tags = event.target.value;
     // Actualizo el estado
     this.setState({advert: aux})
@@ -269,7 +269,7 @@ export default class AdvertEdit extends Component {
     const { mode } = this.props;
     ev.preventDefault();
     // Creo un anuncio con los datos del estado si es válido
-    const advert = new Advert(this.state.advert);
+    const advert = new Advert(this.props.advert);
     if (advert.isValid()) {
       this.setState({submit: true});
       if (mode === 'create')
@@ -287,7 +287,7 @@ export default class AdvertEdit extends Component {
    */
   handleSwitchOpen = () => {
     this.setState({
-      photoTemp: this.state.advert.photo,
+      photoTemp: this.props.advert.photo,
       openModal: !this.state.openModal
     });
   }
@@ -298,7 +298,7 @@ export default class AdvertEdit extends Component {
   handleChangePhoto = () => {
     // Actualizo la imagen y cierro el modal
     if (this.state.photoTemp) {
-      const aux = this.state.advert;
+      const aux = this.props.advert;
       aux.photo = this.state.photoTemp;
       this.setState({
         advert: aux,
@@ -310,10 +310,10 @@ export default class AdvertEdit extends Component {
   }
 
   renderValue = () => {
-    if (this.state.advert.tags) {
+    if (this.props.advert.tags) {
       return (
         <div> 
-        { this.state.advert.tags.map(value => 
+        { this.props.advert.tags.map(value => 
           <Chip key={value} size='small' label={value} className={`Ad__Tag Ad__Tag--small Ad__Tag--${value}`}/> 
         )}
         </div>
