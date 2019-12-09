@@ -1,21 +1,21 @@
-/* NPM modules */
+// NPM Modules
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
-/* Material UI */
+// Material UI
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Container from '@material-ui/core/Container';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
-/* Components */
+// Components
 import NavBar from '../NavBar';
 import Footer from '../Footer';
 /* Own modules */
 import { AdvertServices } from '../../services';
-/* Assets */
+// Assets
 import imageSpinner from '../../assets/images/spinner.gif';
-/* CSS */
+// CSS
 import './styles.css';
 
 /**

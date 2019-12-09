@@ -1,6 +1,6 @@
-/* NPM modules */
+// NPM Modules
 import React, { useState } from 'react';
-/* Material UI */
+// Material UI
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,10 +12,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
 import Chip from '@material-ui/core/Chip';
 /* Own modules */
-/* Models */
+// Models
 import { ADVERT_CONSTANTS } from '../../models/Advert';
-/* Assets */
-/* CSS */
+// Assets
+// CSS
 import './styles.css';
 
 /**

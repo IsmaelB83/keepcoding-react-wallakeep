@@ -1,8 +1,8 @@
-/* NPM modules */
+// NPM Modules
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-/* Material UI */
+// Material UI
 import Container from '@material-ui/core/Container';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
@@ -21,16 +21,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import SaveIcon from '@material-ui/icons/Save';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Cancel';
-/* Components */
+// Components
 import NavBar from '../NavBar';
 import Footer from '../Footer';
-/* Models */
+import Loading from '../Loading';
+import Error from '../Error';
+// Models
 import Advert from '../../models/Advert';
-// API
 import { AdvertServices } from '../../services';
-/* Assets */
+// Assets
 import imagePhoto from '../../assets/images/photo.png'
-/* CSS */
+// CSS
 import './styles.css';
 
 /**
@@ -45,8 +46,8 @@ export default class AdvertEdit extends Component {
     super(props)
     this.state = {
       photoTemp: '',
-      openModal: false,
-      tags: [],
+      openModal: false,   
+      submit: false,
       advert: {
         name: '',
         type: '',
@@ -62,11 +63,7 @@ export default class AdvertEdit extends Component {
    * Component did mount
    */
   componentDidMount() {
-    // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
-    AdvertServices.getTags().then(res => {
-      this.setState({tags: res})
-    });
-    // En caso de ser una modificación cargo el anuncio a editar
+    // En caso de ser una modificación cargo el anuncio a editar (para tener la versión más actualizada posible desde el backend)
     if (this.props.mode === 'edit' && this.props.match.params) {
       const id = this.props.match.params.id;
       AdvertServices.getAdvert(id)
@@ -75,7 +72,21 @@ export default class AdvertEdit extends Component {
             advert: res,
             loading: false
           });
-        }) 
+        })
+    }
+  }
+
+  componentDidUpdate() {
+    // Si se ha intentado guardar los cambios, y la operación ha concluido
+    if (this.state.submit && this.props.ui.isUpdatingAdvert === false) {
+      if (!this.props.ui.error) {
+        this.props.enqueueSnackbar(`OK. Anuncio ${this.props.mode === 'edit' ? 'editado':'creado'} con exito.`, { variant: 'success' });
+        this.props.history.push('/');
+      }
+      else if (this.props.ui.error)
+        this.props.enqueueSnackbar(`Error ${this.props.mode === 'edit' ? 'editando':'creando'} anuncio: ${this.props.ui.error}`, { variant: 'error' });
+      // Evento reportado  
+      this.setState({submit: false});
     }
   }
 
@@ -83,6 +94,7 @@ export default class AdvertEdit extends Component {
    * Render
    */
   render() {
+    const { isUpdatingAdvert, error } = this.props.ui;
     return (
       <React.Fragment>
         <NavBar/>
@@ -134,8 +146,8 @@ export default class AdvertEdit extends Component {
                   }
                 >
                   {
-                    this.state.tags && 
-                    this.state.tags.map((value, key) => {
+                    this.props.tags && 
+                    this.props.tags.map((value, key) => {
                       return  <MenuItem key={key} value={value}>
                                 <Chip key={key}
                                       size='small'
@@ -200,6 +212,8 @@ export default class AdvertEdit extends Component {
                 fullWidth
               />
             </DialogContent>
+            { isUpdatingAdvert && <Loading/> }
+            { error &&  <Error error={error}/> }
             <DialogActions className='Modal__Actions'>
               <Button onClick={this.handleChangePhoto} variant='contained' startIcon={<CheckIcon />} className='ButtonWallakeep ButtonWallakeep__Green'>
                 Aceptar
@@ -212,6 +226,7 @@ export default class AdvertEdit extends Component {
         </Container>
         <Footer/>
       </React.Fragment>
+        
     );
   }
 
@@ -258,31 +273,11 @@ export default class AdvertEdit extends Component {
     // Creo un anuncio con los datos del estado si es válido
     const advert = new Advert(this.state.advert);
     if (advert.isValid()) {
-      if (this.props.mode === 'create') {
-        // POST
-        AdvertServices.postAdvert(advert)
-        .then(res => {
-          // Actualizo redux
-          this.props.createAdvert(res);
-          // Redirijo al home
-          this.props.enqueueSnackbar('OK. Anuncio creado con exito.', { variant: 'success' })
-          this.props.history.push('/');
-        })
-        .catch(error => {
-          this.props.enqueueSnackbar('Error creando anuncio.', { variant: 'error' })
-        });
-      } else {
-        // PUT
-        AdvertServices.editAdvert(advert)
-        .then(res => {
-          // Actualizo redux
-          this.props.editAdvert(res);
-          // Redirijo al home
-          this.props.enqueueSnackbar('OK. Anuncio editado con exito.', { variant: 'success' })
-          this.props.history.push('/');
-        })
-        .catch(error => this.props.enqueueSnackbar('Error editando anuncio.', { variant: 'error' }));
-      }
+      this.setState({submit: true});
+      if (this.props.mode === 'create')
+        this.props.createAdvert(advert)
+      else
+        this.props.editAdvert(advert);
     } else {
       // El anuncio no es completo. Error
       this.props.enqueueSnackbar('Los datos del anuncio no están completos', { variant: 'error' });

@@ -1,20 +1,20 @@
-/* NPM modules */
+// NPM Modules
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
-/* Material UI */
+// Material UI
 import Container from '@material-ui/core/Container';
-/* Components */
+// Components
 import SearchPanel from '../SearchPanel';
-import AdvertCard from '../AdvertCard';
+import AdvertList from '../AdvertList';
 import Paginator from '../Paginator';
 import Loading from '../Loading';
 import Footer from '../Footer/';
 import NavBar from '../NavBar';
 import Error from '../Error';
 /* Own modules */
-/* Assets */
-/* CSS */
+// Assets
+// CSS
 import './styles.css';
 
 /**
@@ -23,26 +23,15 @@ import './styles.css';
 export default class Home extends Component {
 
   /**
-   * Constructor
-   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentPage: 0,
-    }
-  }
-
-  /**
    * Render
    */
   render() {   
     // Variables para el UI
-    const { isFetchingAdverts, error } = this.props.ui;
+    const { isFetching, error, currentPage } = this.props.ui;
     // Variables para el paginado
-    const { currentPage } = this.state;
     const numPages = Math.ceil(this.props.adverts.length/this.props.session.maxAdverts);
-    const minAdvert = this.state.currentPage * this.props.session.maxAdverts;
-    const maxAdvert = this.state.currentPage * parseInt(this.props.session.maxAdverts) + parseInt(this.props.session.maxAdverts)
+    const minAdvert = currentPage * this.props.session.maxAdverts;
+    const maxAdvert = currentPage * parseInt(this.props.session.maxAdverts) + parseInt(this.props.session.maxAdverts)
 
     // Render
     return (
@@ -53,34 +42,17 @@ export default class Home extends Component {
             <div className='Home__Results'>
               <SearchPanel tags={this.props.tags} tag={this.props.session.tag} handleAPISearch={this.handleSearch}/>
               <Paginator numPages={numPages} currentPage={currentPage} handleMovePaginator={this.handleMovePaginator}/>
-              <p className='Home__Count'>
-                {this.props.adverts.length} resultados cumplen el filtro.
-              </p>
-              <p className='Home__Count'>
-                Last API call <Moment fromNow>{this.props.ui.lastAdvertsUpdated}</Moment> returned {this.props.ui.totalAdvertsReturned} results
-              </p>
-              <section className='Home__Grid'>
-                { this.props.adverts.length > 0 &&
-                  this.props.adverts.slice(minAdvert, maxAdvert).map((advert, index) => 
-                    <AdvertCard key={advert._id} 
-                                id={advert._id} 
-                                name={advert.name} 
-                                description={advert.description}
-                                price={advert.price}
-                                type={advert.type} 
-                                photo={advert.photo} 
-                                tags={advert.tags} 
-                                createdAt={advert.createdAt}
-                    />
-                  )
-                }
-                { this.props.adverts.length === 0 &&
-                  <h2 className='Home__Subtitle'>No hay anuncios que cumplan con los criterios de búsqueda</h2>
-                }
-              </section>
+              <p className='Home__Count'>{this.props.adverts.length} resultados cumplen el filtro. {this.props.ui.totalAdvertsReturned} resultados en el store de redux</p>
+              <p className='Home__Count'>Last API call <Moment fromNow>{this.props.ui.lastAdvertsUpdated}</Moment></p>
+              { this.props.adverts.length > 0 &&
+                <AdvertList adverts={this.props.adverts.slice(minAdvert, maxAdvert)} />
+              }
+              { this.props.adverts.length === 0 &&
+                <h2 className='Home__Subtitle'>No hay anuncios que cumplan con los criterios de búsqueda</h2>
+              }
               <Paginator numPages={numPages} currentPage={currentPage} handleMovePaginator={this.handleMovePaginator}/>
             </div>
-            { isFetchingAdverts && <Loading/> }
+            { isFetching && <Loading/> }
             { error &&  <Error error={error}/> }
           </main>
         </Container>
@@ -93,7 +65,6 @@ export default class Home extends Component {
    * Component did mount
    */
   componentDidMount() {
-    this.props.loadTags();
     if (this.props.session.tag) {
       this.handleSearch({tag: this.props.session.tag})
     } else {
@@ -115,18 +86,15 @@ export default class Home extends Component {
    */
   handleMovePaginator = increment => {
     // Actualizo la pagina actual
-    let { currentPage } = this.state;
+    let { currentPage } = this.props.ui;
     const numPages = Math.ceil(this.props.adverts.length/this.props.session.maxAdverts);
     currentPage += increment;
     // Actualizo el state sólo si sigue dentro de los limites (realmente este chequeo también lo hace el componete paginator)
     if (increment !== 0 && currentPage >= 0 && currentPage < numPages) {
-        this.setState({
-          currentPage: currentPage
-        });   
+        this.props.setCurrentPage(currentPage);
     }
   }
 }
-
 
 Home.propTypes = {
   session: PropTypes.object.isRequired,

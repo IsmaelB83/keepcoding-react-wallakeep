@@ -5,12 +5,17 @@ import {
     FETCH_ADVERTS_REQUEST,
     FETCH_ADVERTS_FAILURE,
     FETCH_ADVERTS_SUCCESS,
-    EDIT_ADVERT,
-    CREATE_ADVERT,
+    EDIT_ADVERT_REQUEST,
+    EDIT_ADVERT_FAILURE,
+    EDIT_ADVERT_SUCCESS,
+    CREATE_ADVERT_REQUEST,
+    CREATE_ADVERT_FAILURE,
+    CREATE_ADVERT_SUCCESS,
     SET_FILTERS,
     EDIT_SESSION,
     SET_SESSION,
     LOGOUT,
+    SET_PAGE
 } from './types';
 
 export const fetchTagsRequest = () => ({
@@ -41,13 +46,31 @@ export const fetchAdvertsSuccess = adverts => ({
     adverts,
 });
 
-export const editAdvert = advert => ({
-    type: EDIT_ADVERT,
+export const editAdvertRequest = () => ({
+    type: EDIT_ADVERT_REQUEST
+});
+
+export const editAdvertFailure = error => ({
+    type: EDIT_ADVERT_FAILURE,
+    error,
+});
+
+export const editAdvertSuccess = advert => ({
+    type: EDIT_ADVERT_SUCCESS,
     advert,
 });
 
-export const createAdvert = advert => ({
-    type: CREATE_ADVERT,
+export const createAdvertRequest = () => ({
+    type: CREATE_ADVERT_REQUEST
+});
+
+export const createAdvertFailure = error => ({
+    type: CREATE_ADVERT_FAILURE,
+    error,
+});
+
+export const createAdvertSuccess = advert => ({
+    type: CREATE_ADVERT_SUCCESS,
     advert,
 });
 
@@ -68,4 +91,9 @@ export const setSession = session => ({
 
 export const logout = () => ({
     type: LOGOUT,
+});
+
+export const setPage = pageNumber => ({
+    type: SET_PAGE,
+    pageNumber
 });

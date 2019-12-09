@@ -1,7 +1,7 @@
-/* NPM modules */
+// NPM Modules
 import React from 'react';
 import { Link } from "react-router-dom";
-/* Material UI */
+// Material UI
 import Grid from '@material-ui/core/Grid';
 import HomeIcon from '@material-ui/icons/Home';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -11,8 +11,8 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 /* Own modules */
-/* Assets */
-/* CSS */
+// Assets
+// CSS
 import './styles.css';
 
 

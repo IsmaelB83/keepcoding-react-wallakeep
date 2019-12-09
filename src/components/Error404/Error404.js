@@ -1,12 +1,12 @@
-/* NPM modules */
+// NPM Modules
 import React from 'react';
-/* Material UI */
+// Material UI
 /* Own modules */
 import NavBar from '../NavBar';
 import Footer from '../Footer';
-/* Assets */
+// Assets
 import image404 from '../../assets/images/404.png';
-/* CSS */
+// CSS
 import './styles.css';
 
 /**

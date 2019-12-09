@@ -1,12 +1,12 @@
-/* NPM modules */
+// NPM Modules
 import React from 'react';
-/* Material UI */
+// Material UI
 /* Own modules */
-/* Assets */
+// Assets
 import imageSpinner from '../../assets/images/spinner.gif';
-/* CSS */
+// CSS
 import './styles.css';
-/* Assets */
+// Assets
 
 /**
 * Component para el footer (functional component)

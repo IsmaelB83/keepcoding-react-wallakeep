@@ -1,11 +1,11 @@
-/* NPM modules */
+// NPM Modules
 import React, { useState } from 'react';
-/* Material UI */
+// Material UI
 /* Own modules */
-/* Models */
+// Models
 import { ADVERT_CONSTANTS } from '../../models/Advert';
-/* Assets */
-/* CSS */
+// Assets
+// CSS
 import './styles.css';
 
 // Initial state del componente

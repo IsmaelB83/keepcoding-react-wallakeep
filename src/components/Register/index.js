@@ -1,16 +1,24 @@
+// NPM modules
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
-// Own modules
+// Own components
 import Register from './Register';
-import { setSession } from '../../store/actions';
+// Own modules
+import { 
+    setSession
+ } from '../../store/actions';
 
+ 
 /**
  * Inyecta props en mi componente para acceder al state del store
  * @param {Object} state Estado de mi store
  */
 const mapStateToProps = (state) => {
     return {
+        tags: state.tags,
         session: state.session,
+        isFetching: state.ui.isFetching,
+        apiConnected: state.ui.apiConnected,
     }
 }
 
@@ -20,7 +28,7 @@ const mapStateToProps = (state) => {
  */
 const mapDispatchToProps = (dispatch) => {
     return {
-        setSession: (session) => dispatch(setSession(session)),
+        setSession: (session) => dispatch(setSession(session))
     }
 }
 

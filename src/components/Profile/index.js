@@ -10,6 +10,7 @@ import { editSession, logout } from '../../store/actions';
  */
 const mapStateToProps = (state) => {
     return {
+        tags: state.tags,
         session: state.session,
     }
 }

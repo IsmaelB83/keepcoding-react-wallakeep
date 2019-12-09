@@ -25,12 +25,13 @@ export const initialState = {
     },
     // UI State
     ui: {
-        // Mensajes de error
+        apiConnected: false,
         error: null,
-        isFetchingAdverts: false,
-        isFetchingTags: false,
+        isFetching: false,
+        isUpdatingAdvert: false,
         lastAdvertsUpdated: null,
         totalAdvertsReturned: 0,
+        currentPage: 0,
     }
 }
 
@@ -61,14 +62,14 @@ export function adverts(state = initialState.adverts, action) {
             return initialState.adverts;
         case TYPES.FETCH_ADVERTS_SUCCESS:
             return action.adverts;
-        case TYPES.EDIT_ADVERT:
+        case TYPES.EDIT_ADVERT_SUCCESS:
             return state.map(advert => {
                 if (advert._id === action.advert._id) {
                     return { ...action.advert }
                 }
                 return advert;
             });
-        case TYPES.CREATE_ADVERT:
+        case TYPES.CREATE_ADVERT_SUCCESS:
             return state.concat(action.advert);
         default:
             return state;
@@ -118,18 +119,40 @@ export function session (state = initialState.session, action) {
  */
 export function ui(state = initialState.ui, action) {
     switch (action.type) {
+        case TYPES.SET_FILTERS:
+            return { ...state, currentPage: 0 }
         case TYPES.FETCH_ADVERTS_REQUEST:
-            return { ...state, isFetchingAdverts: true, error: null }
+            return { ...state, isFetching: true, error: null }
         case TYPES.FETCH_ADVERTS_FAILURE:
-            return { ...state, isFetchingAdverts: false, error: action.error }
+            return { ...state, isFetching: false, error: action.error }
         case TYPES.FETCH_ADVERTS_SUCCESS:
-            return { ...state, isFetchingAdverts: false, error: null, lastAdvertsUpdated: Date.now(), totalAdvertsReturned: action.adverts.length}
+            return { ...state, 
+                     isFetching: false, 
+                     error: null, 
+                     lastAdvertsUpdated: Date.now(), 
+                     totalAdvertsReturned: action.adverts.length,
+                     currentPage: 0
+                    }
+        case TYPES.EDIT_ADVERT_REQUEST:
+            return { ...state, isUpdatingAdvert: true, error: null }
+        case TYPES.EDIT_ADVERT_FAILURE:
+            return { ...state, isUpdatingAdvert: false, error: action.error }
+        case TYPES.EDIT_ADVERT_SUCCESS:
+            return { ...state, isUpdatingAdvert: false, error: null }
+        case TYPES.CREATE_ADVERT_REQUEST:
+            return { ...state, isUpdatingAdvert: true, error: null }
+        case TYPES.CREATE_ADVERT_FAILURE:
+            return { ...state, isUpdatingAdvert: false, error: action.error }
+        case TYPES.CREATE_ADVERT_SUCCESS:
+            return { ...state, isUpdatingAdvert: false, error: null }
         case TYPES.FETCH_TAGS_REQUEST:
-            return { ...state, isFetchingTags: true, error: null }
+            return { ...state, error: null, isFetching: true, apiConnected: false }
         case TYPES.FETCH_TAGS_FAILURE:
-            return { ...state, isFetchingTags: false, error: action.error }
+            return { ...state, error: action.error, isFetching: false, apiConnected: false }
         case TYPES.FETCH_TAGS_SUCCESS:
-            return { ...state, isFetchingTags: false, error: null }
+            return { ...state, error: null, isFetching: false, apiConnected: true }
+        case TYPES.SET_PAGE:
+            return { ...state, currentPage: action.pageNumber }
         default:
             return state;
     }

@@ -1,8 +1,8 @@
-/* NPM modules */
-/* Material UI */
+// NPM Modules
+// Material UI
 /* Own modules */
-/* Assets */
-/* CSS */
+// Assets
+// CSS
 
 /**
  * Modelo de anuncio en nodepop

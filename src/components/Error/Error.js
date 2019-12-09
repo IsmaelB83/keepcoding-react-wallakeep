@@ -1,11 +1,11 @@
-/* NPM modules */
+// NPM Modules
 import React from 'react';
-/* Material UI */
+// Material UI
 /* Own modules */
-/* Assets */
-/* CSS */
+// Assets
+// CSS
 import './styles.css';
-/* Assets */
+// Assets
 
 /**
 * Component para el display de error (functional component)

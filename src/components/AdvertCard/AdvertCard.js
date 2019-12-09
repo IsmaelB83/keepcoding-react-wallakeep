@@ -1,20 +1,20 @@
-/* NPM modules */
+// NPM Modules
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import Moment from 'react-moment';
-/* Material UI */
+// Material UI
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import Chip from '@material-ui/core/Chip';
 /* Own modules */
-/* Models */
+// Models
 import { ADVERT_CONSTANTS } from '../../models/Advert';
-/* Assets */
+// Assets
 import imgBuy from '../../assets/images/buy.png';
 import imgSell from '../../assets/images/sell.png';
 import imgProduct from '../../assets/images/product.jpg';
-/* CSS */
+// CSS
 import './styles.css';
 
 /**

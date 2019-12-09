@@ -1,7 +1,7 @@
-/* NPM modules */
+// NPM Modules
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-/* Material UI */
+// Material UI
 import Container from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,17 +12,16 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Chip from '@material-ui/core/Chip';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
-/* Components */
+// Components
 import NavBar from '../NavBar';
 import Footer from '../Footer';
-/* Models */
+// Models
 import Session from '../../models/Session';
 /* Own modules */
-import { AdvertServices } from '../../services';
 import LocalStorage from '../../utils/Storage';
-/* Assets */
+// Assets
 import imagePhoto from '../../assets/images/user.png'
-/* CSS */
+// CSS
 import './styles.css';
 
 /**
@@ -36,34 +35,12 @@ export default class Profile extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: '',
-      name: '',
-      surname: '',
-      tag: '',
-      maxAdverts: 0,
-      tags: []
-    }
-  }
-
-  /**
-   * Component did mount
-   */
-  componentDidMount() {
-    // Actualizo la sesión (excepto el tags que dependo de cargar primero los tags)
-    this.setState({
       email: this.props.session.email,
       name: this.props.session.name,
       surname: this.props.session.surname, 
+      tag: this.props.session.tag,
       maxAdverts: this.props.session.maxAdverts
-    }, () => {
-      // Obtengo los tags y los paso al estado para que re-renderice el panel de busquedas
-      AdvertServices.getTags().then(res => {
-        this.setState({
-          tag: this.props.session.tag,
-          tags: res
-        })
-      });
-    })
+    }
   }
 
   /**
@@ -122,8 +99,8 @@ export default class Profile extends Component {
                   required
                 >
                   {
-                    this.state.tags && 
-                    this.state.tags.map((value) => {
+                    this.props.tags && 
+                    this.props.tags.map((value) => {
                       return  <MenuItem key={value} value={value}>
                                 <Chip size='small'
                                       label={value}

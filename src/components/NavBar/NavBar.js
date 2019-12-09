@@ -1,7 +1,7 @@
-/* NPM modules */
+// NPM Modules
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-/* Material UI */
+// Material UI
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import AppBar from '@material-ui/core/AppBar'
@@ -16,10 +16,10 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText'
 /* Own modules */
-/* Assets */
+// Assets
 import imageLogo from '../../assets/images/logo2.png';
 import imageAvatar from '../../assets/images/user.png';
-/* CSS */
+// CSS
 import './styles.css';
 
 /**

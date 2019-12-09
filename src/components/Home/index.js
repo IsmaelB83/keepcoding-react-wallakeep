@@ -8,9 +8,7 @@ import {
     fetchAdvertsFailure,
     fetchAdvertsRequest,
     fetchAdvertsSuccess,
-    fetchTagsFailure,
-    fetchTagsRequest,
-    fetchTagsSuccess
+    setPage
  } from '../../store/actions';
 import { getVisibleAdverts } from '../../store/selectors';
 // Models
@@ -36,20 +34,11 @@ const mapStateToProps = (state) => {
  */
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadTags: async () => {
-            dispatch(fetchTagsRequest());
-            try {
-                const tags = await AdvertServices.getTags();
-                dispatch(fetchTagsSuccess(tags))
-            } catch (error) {
-                dispatch(fetchTagsFailure(error.message))
-            }
-        },
         loadAdverts: async () => {
             dispatch(fetchAdvertsRequest());
             try {
                 const adverts = await AdvertServices.getAdverts();
-                setTimeout(() => dispatch(fetchAdvertsSuccess(adverts)), 1000);                
+                dispatch(fetchAdvertsSuccess(adverts));
             } catch (error) {
                 dispatch(fetchAdvertsFailure(error.message))
             }
@@ -58,11 +47,12 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(fetchAdvertsRequest());
             try {
                 const adverts = await AdvertServices.searchAdverts(filters);
-                setTimeout(() => dispatch(fetchAdvertsSuccess(adverts)), 1000);                
+                dispatch(fetchAdvertsSuccess(adverts));
             } catch (error) {
-                dispatch(fetchAdvertsFailure(error.message))
+                dispatch(fetchAdvertsFailure(error.message));
             }
-        }
+        },
+        setCurrentPage: pageNumber => dispatch(setPage(pageNumber))
     }
 }
 

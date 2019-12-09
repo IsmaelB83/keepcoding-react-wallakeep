@@ -1,10 +1,10 @@
-/* NPM modules */
+// NPM Modules
 import React, { Component } from 'react';
-/* Material UI */
+// Material UI
 import Container from '@material-ui/core/Container';
 /* Own modules */
-/* Assets */
-/* CSS */
+// Assets
+// CSS
 
 /**
  * Error Boundary (mantengo el class component de react)

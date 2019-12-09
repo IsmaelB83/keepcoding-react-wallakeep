@@ -1,6 +1,6 @@
-/* NPM modules */
+// NPM Modules
 import React, { Component } from 'react';
-/* Material UI */
+// Material UI
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -13,16 +13,15 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Chip from '@material-ui/core/Chip';
-/* Models */
+// Models
 import Session from '../../models/Session';
 /* Own modules */
 import LocalStorage from '../../utils/Storage';
-import { AdvertServices } from '../../services';
-/* Models */
+// Models
 import { ADVERT_CONSTANTS } from '../../models/Advert';
-/* Assets */
+// Assets
 import imageLogo from '../../assets/images/logo2.png';
-/* CSS */
+// CSS
 import './styles.css';
 
 /**
@@ -36,13 +35,11 @@ export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: false,
       isRemember: true,
-      email: '',
-      name: '',
-      surname: '',
-      tag: '',
-      tags: null,
+      email: this.props.session.email,
+      name: this.props.session.name,
+      surname: this.props.session.surname,
+      tag: this.props.session.tag,
     }
   }
 
@@ -122,8 +119,8 @@ export default class Register extends Component {
                   />
                 </MenuItem>
                 {
-                  this.state.tags && 
-                  this.state.tags.map((value) => {
+                  this.props.tags && 
+                  this.props.tags.map((value) => {
                     return  <MenuItem key={value} value={value}>
                               <Chip size='small'
                                     label={value}
@@ -157,30 +154,11 @@ export default class Register extends Component {
    * Did mount
    */
   componentDidMount() {
-    // Restaurar datos de sesion del store de redux
-    this.setState({
-      email: this.props.session.email,
-      name: this.props.session.name,
-      surname: this.props.session.surname,
-    }, () => {
-      // Recuperar tags de la API
-      AdvertServices.getTags()
-      .then(res => {
-        // Conectado OK a la API
-        this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
-        this.setState({
-          error: false,
-          tags: res,
-          tag: this.props.session.tag,
-        });
-      })
-      .catch(() => {
-        this.props.enqueueSnackbar('Error conectando con la API. Revise la URL.', { variant: 'error', });
-        this.setState({
-          error: true,
-        });
-      });
-    });  
+    if (!this.props.isFetching && this.props.apiConnected) {
+      this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
+    } else if (!this.props.isFetching && !this.props.apiConnected) {
+      this.props.enqueueSnackbar('Error conectando con la API. Revise la URL.', { variant: 'error', });
+    }
   }
 
   /**

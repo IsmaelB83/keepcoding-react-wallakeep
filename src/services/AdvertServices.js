@@ -1,10 +1,10 @@
-/* NPM modules */
+// NPM Modules
 import Axios from 'axios';
-/* Material UI */
+// Material UI
 /* Own modules */
 import Advert from '../models/Advert';
-/* Assets */
-/* CSS */
+// Assets
+// CSS
 
 // Endpoint
 const API_URL = process.env.REACT_APP_API;

@@ -1,14 +1,14 @@
-/* NPM modules */
+// NPM Modules
 import React from 'react';
-/* Material UI */
+// Material UI
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 /* Own modules */
-/* Assets */
+// Assets
 import './styles.css'
-/* CSS */
+// CSS
 
 /**
 * Functional component for the advert paginator

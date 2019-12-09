@@ -1,10 +1,10 @@
-/* NPM modules */
+// NPM Modules
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-/* Material UI */
+// Material UI
 /* Own modules */
-/* Assets */
-/* CSS */
+// Assets
+// CSS
 
 /**
  * Main App

@@ -1,9 +1,9 @@
-/* NPM modules */
+// NPM Modules
 import React from 'react'
-/* Material UI */
+// Material UI
 /* Own modules */
-/* Assets */
-/* CSS */
+// Assets
+// CSS
 
 // Creo el contexto
 const UserContext = React.createContext()

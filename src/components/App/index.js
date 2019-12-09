@@ -1,18 +1,15 @@
-// Node modules
+// NPM modules
 import { connect } from 'react-redux';
-// Own modules
+// Own components
 import App from './App';
-import { setSession } from '../../store/actions';
-
-/**
- * Inyecta props en mi componente para acceder al state del store
- * @param {Object} state Estado de mi store
- */
-const mapStateToProps = (state) => {
-    return {
-        session: state.session,
-    }
-}
+// Own modules
+import { 
+    fetchTagsFailure,
+    fetchTagsRequest,
+    fetchTagsSuccess,
+ } from '../../store/actions';
+ // API
+import { AdvertServices } from '../../services';
 
 /**
  * Inyecta props en mi componente para acceder a los reducers del store
@@ -20,11 +17,17 @@ const mapStateToProps = (state) => {
  */
 const mapDispatchToProps = (dispatch) => {
     return {
-        setSession: (session) => dispatch(setSession(session)),
+        loadTags: async () => {
+            dispatch(fetchTagsRequest());
+            try {
+                const tags = await AdvertServices.getTags();
+                dispatch(fetchTagsSuccess(tags))
+            } catch (error) {
+                dispatch(fetchTagsFailure(error.message))
+            }
+        },
     }
 }
 
-/**
- * Envuelvo el App en al función connect para conectar con el store recibido del provider
- */ 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// Retorno el componente envuelto en el "connect", y en un withSnackBar (para los tags de info de la app)
+export default connect(null, mapDispatchToProps)(App);
