@@ -3,13 +3,7 @@ import { connect } from 'react-redux';
 // Own components
 import App from './App';
 // Own modules
-import { 
-    fetchTagsFailure,
-    fetchTagsRequest,
-    fetchTagsSuccess,
- } from '../../store/actions';
- // API
-import { AdvertServices } from '../../services';
+import { fetchTags } from '../../store/actions';
 
 /**
  * Inyecta props en mi componente para acceder a los reducers del store
@@ -17,15 +11,7 @@ import { AdvertServices } from '../../services';
  */
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadTags: async () => {
-            dispatch(fetchTagsRequest());
-            try {
-                const tags = await AdvertServices.getTags();
-                dispatch(fetchTagsSuccess(tags))
-            } catch (error) {
-                dispatch(fetchTagsFailure(error.message))
-            }
-        },
+        loadTags: () => dispatch(fetchTags()),
     }
 }
 

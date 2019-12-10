@@ -3,14 +3,8 @@ import { connect } from 'react-redux';
 // Own components
 import AdvertDetail from './AdvertDetail';
 // Own modules
-import { 
-    fetchAdvertFailure,
-    fetchAdvertRequest,
-    fetchAdvertSuccess,
- } from '../../store/actions';
-// Models
-// API
-import { AdvertServices } from '../../services';
+import { fetchAdvert } from '../../store/actions';
+
 
 /**
  * Inyecta props en mi componente para acceder al state del store
@@ -30,15 +24,7 @@ const mapStateToProps = (state) => {
  */
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadAdvert: async (id) => {
-            dispatch(fetchAdvertRequest());
-            try {
-                const advert = await AdvertServices.getAdvert(id);
-                setTimeout(()=>dispatch(fetchAdvertSuccess(advert)),500);
-            } catch (error) {
-                dispatch(fetchAdvertFailure(error.message))
-            }
-        },
+        loadAdvert: (id) => dispatch(fetchAdvert(id))
     }
 }
 

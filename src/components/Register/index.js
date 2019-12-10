@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 // Own components
 import Register from './Register';
 // Own modules
-import { 
-    setSession
- } from '../../store/actions';
+import { setSession } from '../../store/actions';
 
  
 /**

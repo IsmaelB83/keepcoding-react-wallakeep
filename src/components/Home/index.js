@@ -5,15 +5,12 @@ import { withSnackbar } from 'notistack';
 import Home from './Home';
 // Own modules
 import { 
-    fetchAdvertsFailure,
-    fetchAdvertsRequest,
-    fetchAdvertsSuccess,
+    fetchAdverts,
+    searchAdverts,
     setPage
  } from '../../store/actions';
 import { getVisibleAdverts } from '../../store/selectors';
-// Models
-// API
-import { AdvertServices } from '../../services';
+
 
 /**
  * Inyecta props en mi componente para acceder al state del store
@@ -34,25 +31,8 @@ const mapStateToProps = (state) => {
  */
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadAdverts: async () => {
-            dispatch(fetchAdvertsRequest());
-            try {
-                const adverts = await AdvertServices.getAdverts();
-                setTimeout(()=>dispatch(fetchAdvertsSuccess(adverts)),500);
-            } catch (error) {
-                dispatch(fetchAdvertsFailure(error.message))
-            }
-        },
-        searchAdverts: async (filters) => {
-            dispatch(fetchAdvertsRequest());
-            try {
-                const adverts = await AdvertServices.searchAdverts(filters);
-                setTimeout(()=>dispatch(fetchAdvertsSuccess(adverts)),500);
-                
-            } catch (error) {
-                dispatch(fetchAdvertsFailure(error.message));
-            }
-        },
+        loadAdverts: () => dispatch(fetchAdverts()),
+        searchAdverts: (filters) => dispatch(searchAdverts(filters)),
         setCurrentPage: pageNumber => dispatch(setPage(pageNumber))
     }
 }
