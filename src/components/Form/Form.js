@@ -1,48 +1,18 @@
 // NPM Modules
-import React, { useState } from 'react';
+import React from 'react';
 // Material UI
-/* Own modules */
+// Own modules
 // Models
-import { ADVERT_CONSTANTS } from '../../models/Advert';
 // Assets
 // CSS
 import './styles.css';
 
-// Initial state del componente
-const initialState = {
-    name: '',
-    type: ADVERT_CONSTANTS.TYPE.ALL,
-    tag: ADVERT_CONSTANTS.TAG.ALL,
-    priceFrom: 0,
-    priceTo: 0
-}
-
+import withForm from './withForm';
 
 /**
-* Component para el footer (functional component)
-*/
-export default function Form(props) {
-    
-    // Uso del hook useState
-    const [inputs, setInputs] = useState(initialState);
-    
-    // Cambio en alguno de los campo del formulario
-    const handleInputChange = event => {
-        const name = event.target.name;
-        const value = event.target.value;
-        const formInputs = {...inputs, [name]: value};
-        setInputs(formInputs);
-        // Los campos numérico NO lanzan busqueda automática (salvo que estén en blanco). El resto de campos lanzan búsqueda en tiempo real
-        if (!name.startsWith('price') || (name.startsWith('price') && inputs[name] === '')) {
-            props.handleSearch(formInputs);
-        }
-    }
-    
-    /**
-    * Reseteo el estado a los valores originales de búsqueda
-    */
-    const handleSubmit = (ev) => {
-        ev.preventDefault();
-        props.handleSubmit(inputs);
-    }
-}
+ * Component reutilizable para formularios. Lo exporto envuelto en el HOC que me aporta
+ * las funcionalidades para controlar un cambio en los inputs/checbox y submit
+ */
+const Form = ({children, ...props}) => <form {...props}>{children}</form>
+
+export default withForm(Form);

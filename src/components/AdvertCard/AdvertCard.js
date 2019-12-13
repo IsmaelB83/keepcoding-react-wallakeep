@@ -7,7 +7,7 @@ import Moment from 'react-moment';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import Chip from '@material-ui/core/Chip';
-/* Own modules */
+// Own modules
 // Models
 import { ADVERT_CONSTANTS } from '../../models/Advert';
 // Assets

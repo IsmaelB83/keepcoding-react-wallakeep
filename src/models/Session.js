@@ -1,6 +1,6 @@
 // NPM Modules
 // Material UI
-/* Own modules */
+// Own modules
 // Assets
 // CSS
 

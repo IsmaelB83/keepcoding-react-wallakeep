@@ -1,7 +1,7 @@
 // NPM Modules
 import Axios from 'axios';
 // Material UI
-/* Own modules */
+// Own modules
 import Advert from '../models/Advert';
 // Assets
 // CSS

@@ -12,7 +12,7 @@ import Loading from '../Loading';
 import Footer from '../Footer/';
 import NavBar from '../NavBar';
 import Error from '../Error';
-/* Own modules */
+// Own modules
 // Assets
 // CSS
 import './styles.css';

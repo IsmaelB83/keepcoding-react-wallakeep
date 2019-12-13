@@ -2,7 +2,7 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 // Material UI
-/* Own modules */
+// Own modules
 // Assets
 // CSS
 

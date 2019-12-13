@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
 import Chip from '@material-ui/core/Chip';
-/* Own modules */
+// Own modules
 // Models
 import { ADVERT_CONSTANTS } from '../../models/Advert';
 // Assets

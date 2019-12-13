@@ -6,7 +6,7 @@ import { SnackbarProvider } from 'notistack';
 // Material UI
 // Components
 import App from './components/App';
-/* Own modules */
+// Own modules
 import { configureStore } from './store';
 import LocalStorage from './utils/Storage';
 import { setSession } from './store/actions';

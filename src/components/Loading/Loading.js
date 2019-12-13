@@ -1,7 +1,7 @@
 // NPM Modules
 import React from 'react';
 // Material UI
-/* Own modules */
+// Own modules
 // Assets
 import imageSpinner from '../../assets/images/spinner.gif';
 // CSS

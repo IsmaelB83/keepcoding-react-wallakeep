@@ -12,7 +12,7 @@ import ErrorBoundary from '../ErrorBoundary';
 import PrivateRoute from '../PrivateRoute';
 import Error404 from '../Error404';
 // Models
-/* Own modules */
+// Own modules
 // Assets
 // CSS
 

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 // Material UI
 import Container from '@material-ui/core/Container';
-/* Own modules */
+// Own modules
 // Assets
 // CSS
 

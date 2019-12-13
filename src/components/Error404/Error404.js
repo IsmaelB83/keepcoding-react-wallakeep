@@ -1,7 +1,7 @@
 // NPM Modules
 import React from 'react';
 // Material UI
-/* Own modules */
+// Own modules
 import NavBar from '../NavBar';
 import Footer from '../Footer';
 // Assets

@@ -14,7 +14,7 @@ import NavBar from '../NavBar';
 import Footer from '../Footer';
 // Models
 import Session from '../../models/Session';
-/* Own modules */
+// Own modules
 import LocalStorage from '../../utils/Storage';
 // Assets
 import imagePhoto from '../../assets/images/user.png'

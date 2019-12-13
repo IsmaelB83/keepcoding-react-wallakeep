@@ -3,7 +3,7 @@ import React from 'react';
 // Material UI
 // Components
 import AdvertCard from '../AdvertCard';
-/* Own modules */
+// Own modules
 // Models
 // Assets
 // CSS
