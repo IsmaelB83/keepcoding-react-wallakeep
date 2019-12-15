@@ -1,6 +1,7 @@
 // NPM Modules
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 // Material UI
 import Container from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
@@ -60,7 +61,7 @@ export default class Profile extends Component {
                 <Input
                   name='name'
                   value={this.state.name}
-                  onChange={this.handleChange('name')}
+                  onChange={this.handleChange}
                   type='text' 
                   required
                 />
@@ -70,7 +71,7 @@ export default class Profile extends Component {
                 <Input
                   name='surname'
                   value={this.state.surname}
-                  onChange={this.handleChange('surname')}
+                  onChange={this.handleChange}
                   type='text' 
                   required
                 />
@@ -80,7 +81,7 @@ export default class Profile extends Component {
                 <Input
                   name='email'
                   value={this.state.email}
-                  onChange={this.handleChange('email')}
+                  onChange={this.handleChange}
                   type='email' 
                   required
                 />
@@ -91,7 +92,7 @@ export default class Profile extends Component {
                   name='maxAdverts'
                   type='number'
                   value={this.state.maxAdverts}
-                  onChange={this.handleChange('maxAdverts')}
+                  onChange={this.handleChange}
                   min={1}
                   max={20}
                 />
@@ -115,9 +116,9 @@ export default class Profile extends Component {
   /**
    * Cambio en un input tipo texto
    */
-  handleChange = field => event => {
+  handleChange = event => {
     this.setState({
-      [field]: event.target.value
+      [event.target.name]: event.target.value
     });
   }
 
@@ -143,4 +144,11 @@ export default class Profile extends Component {
     LocalStorage.cleanLocalStorage();
     this.props.logout();
   }
+}
+
+Profile.propTypes = {
+  tags: PropTypes.array,
+  session: PropTypes.object,
+  editSession: PropTypes.func,
+  logout: PropTypes.func
 }

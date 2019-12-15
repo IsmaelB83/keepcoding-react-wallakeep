@@ -21,12 +21,14 @@ const defaultProps = {
         }
     }
 };
-const render = props => shallow(<AdvertDetail {...defaultProps} {...props} />);
+const render = props => shallow(<AdvertDetail {...defaultProps} {...props} />);      
 
-describe('ADVERT DETAIL TEST', () => {
+describe('ADVERT DETAIL TESTS', () => {
 
-    it('should render BikesList component', () => {
-        const wrapper = render();
-        expect(wrapper).toMatchSnapshot();
+    describe('Snapshot test', () => {
+        it('should match snapshot', () => {
+            const wrapper = render();
+            expect(wrapper).toMatchSnapshot();
+        });
     });
 });

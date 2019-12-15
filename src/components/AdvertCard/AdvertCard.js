@@ -13,7 +13,6 @@ import { ADVERT_CONSTANTS } from '../../models/Advert';
 // Assets
 import imgBuy from '../../assets/images/buy.png';
 import imgSell from '../../assets/images/sell.png';
-import imgProduct from '../../assets/images/product.jpg';
 // CSS
 import './styles.css';
 
@@ -32,7 +31,7 @@ export default function AdvertCard (props) {
                 </div>
             </header>
             <div className='AdvertCard__Media'>
-                <img src={props.photo || imgProduct} alt='caption'/>
+                <img src={props.photo} alt='caption'/>
                 <p className='AdvertCard__Price'>
                     {props.price} 
                     <span className='AdvertCard__Currency'>€</span>
