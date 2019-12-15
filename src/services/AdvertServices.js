@@ -7,7 +7,7 @@ import Advert from '../models/Advert';
 // CSS
 
 // Endpoint
-const API_URL = process.env.REACT_APP_API || 'http://localhost:8080/apiv1';
+const API_URL = 'http://localhost:8080/apiv1';
 
 /**
 * Objeto API

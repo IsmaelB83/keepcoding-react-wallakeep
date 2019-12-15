@@ -50,7 +50,7 @@ class Register extends Component {
     if (!this.props.isFetching && this.props.apiConnected) {
       this.props.enqueueSnackbar('Conectado con éxito a la API', { variant: 'success', });
     } else if (!this.props.isFetching && !this.props.apiConnected) {
-      this.props.enqueueSnackbar(`Error conectando con la API ${process.env.REACT_APP_API}`, { variant: 'error', });
+      this.props.enqueueSnackbar('Error conectando con la API', { variant: 'error', });
     }
   }
 
@@ -68,6 +68,7 @@ class Register extends Component {
         return;
       }
       // Genero sesión y la guardo en LS si ha seleccionado "remember"
+      debugger;
       const session = new Session (email, name, surname, this.props.session.maxAdverts);
       if (isRemember) {
         LocalStorage.saveLocalStorage(session);
@@ -77,7 +78,7 @@ class Register extends Component {
       this.props.history.push('/');
     } else {
       // Sin API no continuamos
-      this.props.enqueueSnackbar(`Error conectando con la API ${process.env.REACT_APP_API}`, { variant: 'error', });
+      this.props.enqueueSnackbar('Error conectando con la API', { variant: 'error', });
     }
   }
 }

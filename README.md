@@ -9,13 +9,6 @@ Wallakeep - Este frontend escrito en REACT hace uso de la siguiente API (https:/
 - Refactorización de mcuhos de los class-componentes de la versión anterior a componentes funcionales. Utilizando además los hooks de useState y useEffect en algunos de ellos.
 - Utilización de jest y redux-mock-store para implementar tests unitarios sobre: action creators, reducers, selectores y componentes.
 
-
-**IMPORTANTE. FICHERO .env:** es necesario crear un fichero .env en la raiz del proyecto, para indicar la **url de la API de Nodepop** a la que va a apuntar el frontal, y el **número máximo de anuncios** que queremos ver en el grid de anuncios del home (por pagina). Puede utilizar como ejemplo el fichero .env.example que se proporciona.
-```js
-REACT_APP_API=http://localhost:3001/apiv1
-REACT_APP_MAX_ADVERTS_GRID=20
-```
-
 ### Contents
 - [Introducción](#INTRODUCCION)
 - [Instalación y ejecución](#INSTALACIÓN-Y-EJECUCIÓN)
@@ -26,7 +19,7 @@ REACT_APP_MAX_ADVERTS_GRID=20
 - [Guía de uso](#GUÍA-DE-USO)
   - [Registro](#Registro)
   - [Home](#Home)
-  - [Create Advert](#Create-Advert)
+  - [Create Advert](#Create-Advert)ev
   - [Edit Advert](#Edit-Advert)
   - [Perfil de Usuario](#Perfil-de-Usuario)
 
@@ -73,14 +66,6 @@ Utiliza npm install para instalar todas las dependencias de la aplicación
 Para arrancar la aplicación react utilizaremos npm start (esta aplicación utiliza create-react-app):
 ```
 \downloads\keepcoding-react-wallakeep\npm start
-```
-
-## Configuración
-
-En el fichero .env que es necesario crear en la raiz del proyecto, se debe indicar la **url de la API de Nodepop** a la que va a apuntar el frontal (por defecto el localhost puerto 3001), y el **número máximo de anuncios** que queremos ver en el grid de anuncios del home (por pagina). **Importante** cree este fichero antes de arrancar la aplicación, para que no falle. Puede utilizar como ejemplo el fichero .env.example que se proporciona.
-```js
-REACT_APP_API=http://localhost:3001/apiv1
-REACT_APP_MAX_ADVERTS_GRID=20
 ```
 
 ### GUÍA DE USO
