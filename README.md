@@ -1,7 +1,16 @@
-# Practica del módulo de fundamentos react
-Wallakeep - React Frontend for the Nodepop API (https://github.com/IsmaelB83/keepcoding-backend-node)
+# Practica de los módulos de fundamentos react y react avanzado
+Wallakeep - Este frontend escrito en REACT hace uso de la siguiente API (https://github.com/IsmaelB83/keepcoding-backend-node)
 
-**IMPORTANTE:** es necesario crear un fichero .env en la raiz del proyecto, para indicar la **url de la API de Nodepop** a la que va a apuntar el frontal, y el **número máximo de anuncios** que queremos ver en el grid de anuncios del home (por pagina). Puede utilizar como ejemplo el fichero .env.example que se proporciona.
+**NOTAS SOBRE LA VERSIÓN 2.0 (15.12.2019):** esta versión 2 ha sido generada para la práctica de REACT Avanzado de Keepcoding Fullstack. Las nuevas funcionalidades incorporadas son:
+- Configuración de Redux, para almacenar el estado de la aplicación (sesión, anuncios, filtros y ui), despachado de acciones (sincronas y asíncronas)
+- Generación de reducers separados, y utilización de combine reducers
+- Uso de redux dev tools
+- Utilización de contextos y HOCs para crear componentes de formulario e inputs reutilizables. Se ha refactoriado el componente de registro para mostrar el uso de estos nuevos componentes.
+- Refactorización de mcuhos de los class-componentes de la versión anterior a componentes funcionales. Utilizando además los hooks de useState y useEffect en algunos de ellos.
+- Utilización de jest y redux-mock-store para implementar tests unitarios sobre: action creators, reducers, selectores y componentes.
+
+
+**IMPORTANTE. FICHERO .env:** es necesario crear un fichero .env en la raiz del proyecto, para indicar la **url de la API de Nodepop** a la que va a apuntar el frontal, y el **número máximo de anuncios** que queremos ver en el grid de anuncios del home (por pagina). Puede utilizar como ejemplo el fichero .env.example que se proporciona.
 ```js
 REACT_APP_API=http://localhost:3001/apiv1
 REACT_APP_MAX_ADVERTS_GRID=20
