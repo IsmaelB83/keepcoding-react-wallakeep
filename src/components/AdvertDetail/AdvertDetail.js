@@ -1,6 +1,7 @@
 // NPM Modules
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 // Material UI
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
@@ -8,6 +9,8 @@ import Container from '@material-ui/core/Container';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
+// Models
+import Advert from '../../models/Advert';
 // Components
 import Loading from '../Loading';
 import NavBar from '../NavBar';
@@ -81,6 +84,7 @@ export default function AdvertDetail(props) {
                 <Moment className='AdvertDetail__Date' fromNow>{props.advert.createdAt}</Moment>
               </div>
             </article>
+
           }
           { props.isFetching && <Loading text={'fetching advert'}/> }
           { props.error &&  <Error error={props.error}/> }
@@ -89,4 +93,10 @@ export default function AdvertDetail(props) {
       <Footer/>
     </React.Fragment>
   );
+}
+
+AdvertDetail.propTypes = {
+  advert: PropTypes.instanceOf(Advert),
+  isFetching: PropTypes.bool,
+  error: PropTypes.string,
 }

@@ -1,10 +1,12 @@
 // NPM Modules
 import React from 'react';
+import PropTypes from 'prop-types';
 // Material UI
 // Components
 import AdvertCard from '../AdvertCard';
 // Own modules
 // Models
+import Advert from '../../models/Advert';
 // Assets
 // CSS
 import './styles.css';
@@ -30,4 +32,8 @@ export default function AdvertList (props) {
         )}
         </section>
     );
+}
+
+AdvertCard.propTypes = {
+    adverts: PropTypes.arrayOf(Advert),
 }
