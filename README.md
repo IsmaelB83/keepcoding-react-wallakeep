@@ -1,6 +1,12 @@
 # Practica del módulo de fundamentos react
 Wallakeep - React Frontend for the Nodepop API (https://github.com/IsmaelB83/keepcoding-backend-node)
 
+**IMPORTANTE:** es necesario crear un fichero .env en la raiz del proyecto, para indicar la **url de la API de Nodepop** a la que va a apuntar el frontal, y el **número máximo de anuncios** que queremos ver en el grid de anuncios del home (por pagina). Puede utilizar como ejemplo el fichero .env.example que se proporciona.
+```js
+REACT_APP_API=http://localhost:3001/apiv1
+REACT_APP_MAX_ADVERTS_GRID=20
+```
+
 ### Contents
 - [Introducción](#INTRODUCCION)
 - [Instalación y ejecución](#INSTALACIÓN-Y-EJECUCIÓN)

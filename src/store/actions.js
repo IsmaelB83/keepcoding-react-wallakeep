@@ -30,7 +30,7 @@ export const fetchTags = () => {
         dispatch(fetchTagsRequest());
         try {
             const tags = await AdvertServices.getTags();
-            setTimeout(() => dispatch(fetchTagsSuccess(tags)), 500);
+            dispatch(fetchTagsSuccess(tags));
         } catch (error) {
             dispatch(fetchTagsFailure(error.message))
         }
@@ -42,7 +42,7 @@ export const fetchAdvert = (id) => {
         dispatch(fetchAdvertRequest());
         try {
             const advert = await AdvertServices.getAdvert(id);
-            setTimeout(() => dispatch(fetchAdvertSuccess(advert)), 500);
+            dispatch(fetchAdvertSuccess(advert));
         } catch (error) {
             dispatch(fetchAdvertFailure(error.message))
         }
@@ -54,7 +54,7 @@ export const fetchAdverts = () => {
         dispatch(fetchAdvertsRequest());
         try {
             const adverts = await AdvertServices.getAdverts();
-            setTimeout(() => dispatch(fetchAdvertsSuccess(adverts)), 500);
+            dispatch(fetchAdvertsSuccess(adverts));
         } catch (error) {
             dispatch(fetchAdvertsFailure(error.message))
         }
@@ -66,7 +66,7 @@ export const searchAdverts = (filters) => {
         dispatch(fetchAdvertsRequest());
         try {
             const adverts = await AdvertServices.searchAdverts(filters);
-            setTimeout(() => dispatch(fetchAdvertsSuccess(adverts)), 500);
+            dispatch(fetchAdvertsSuccess(adverts));
         } catch (error) {
             dispatch(fetchAdvertsFailure(error.message));
         }
@@ -78,7 +78,7 @@ export const editAdvert = (advert) => {
         dispatch(editAdvertRequest());
         try {
             const response = await AdvertServices.editAdvert(advert);
-            setTimeout(() => dispatch(editAdvertSuccess(response)), 500);
+            dispatch(editAdvertSuccess(response));
         } catch (error) {
             dispatch(editAdvertFailure(error.message))
         }
@@ -91,7 +91,7 @@ export const createAdvert = (advert) => {
         dispatch(createAdvertRequest());
         try {
             const response = await AdvertServices.postAdvert(advert);
-            setTimeout(() => dispatch(createAdvertSuccess(response)), 500);
+            dispatch(createAdvertSuccess(response));
         } catch (error) {
             dispatch(createAdvertFailure(error.message));
         }
@@ -127,7 +127,7 @@ export const setPage = pageNumber => ({
 });
 
 /**
- * Action creatos utilizados por los action creatos asincronos de redux-thunk
+ * Action creators utilizados por los action creatos asincronos de redux-thunk
  */
 const fetchTagsRequest = () => ({
     type: FETCH_TAGS_REQUEST

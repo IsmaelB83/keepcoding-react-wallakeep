@@ -1,6 +1,5 @@
 // NPM Modules
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 // Material UI
 import Container from '@material-ui/core/Container';
@@ -90,9 +89,4 @@ export default class Home extends Component {
         this.props.setCurrentPage(currentPage);
     }
   }
-}
-
-Home.propTypes = {
-  session: PropTypes.object.isRequired,
-  adverts: PropTypes.array.isRequired,
 }

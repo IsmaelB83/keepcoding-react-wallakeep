@@ -64,11 +64,7 @@ export default function SearchPanel(props) {
     props.handleAPISearch(inputs);
   }
 
-  /**
-   * Render
-   * ------
-   * TODO: al refactorizar este form utilizar el context para pasar a los inputs el contexto. Props, etc.
-   */
+  // Render del componente
   return (
     <form className='SearchPanel' onSubmit={handleSubmit}>
       <h2>Criterios de búsqueda</h2>

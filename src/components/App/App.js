@@ -21,7 +21,7 @@ import Error404 from '../Error404';
  */
 export default function App(props) {
   
-  // Cargo los tags. Son necesarios de inicio en la app (registro), y además sirve de testeo para la conectividad de la API
+  // Cargo los tags. Son necesarios en muchos de los forms de la app, y además sirve de testeo para la conectividad de la API
   props.loadTags();
 
   /**

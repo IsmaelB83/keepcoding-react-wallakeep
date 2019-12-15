@@ -30,9 +30,7 @@ export default function NavBar(props) {
   // Estado del componente funcional mediante el "useState hook"
   const [anchorUserMenu, setAnchorUserMenu] = useState(null);
   
-  /**
-   * Render del componente
-   */
+  // Render del componente
   return (
     <AppBar title='Wallakeep' position='static' className='NavBar'>
       <Container>

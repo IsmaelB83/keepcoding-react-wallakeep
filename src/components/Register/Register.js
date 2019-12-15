@@ -5,9 +5,10 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import Button from '@material-ui/core/Button';
 // Own components
-import InputForm from '../InputForm';
-import CheckForm from '../CheckForm';
-import Form from '../Form';
+import InputForm from '../Forms/InputForm';
+import CheckForm from '../Forms/CheckForm';
+import Form from '../Forms/Form';
+import withForm from '../Forms/Form/withForm';
 // Models
 import Session from '../../models/Session';
 // Own modules
@@ -20,7 +21,7 @@ import './styles.css';
 /**
  * Register Form
  */
-export default class Register extends Component {
+class Register extends Component {
 
   /**
    * Render
@@ -80,3 +81,5 @@ export default class Register extends Component {
     }
   }
 }
+
+export default withForm(Register);
