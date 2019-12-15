@@ -17,5 +17,8 @@ export default class Session {
         this.name = name;
         this.surname = surname;
         this.maxAdverts = maxAdverts;
+        if (this.maxAdverts <= 0 || this.maxAdverts === '') {
+            this.maxAdverts = 8;
+        }
     }
 }

@@ -95,6 +95,7 @@ export default class Profile extends Component {
                   onChange={this.handleChange}
                   min={1}
                   max={20}
+                  required
                 />
               </FormControl>
               <div className='Profile__Footer'>

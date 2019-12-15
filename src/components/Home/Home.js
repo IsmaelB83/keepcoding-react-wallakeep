@@ -27,10 +27,11 @@ export default class Home extends Component {
   render() {   
     // Variables para el UI
     const { isFetching, error, currentPage } = this.props.ui;
+    const { maxAdverts } = this.props.session;
     // Variables para el paginado
-    const numPages = Math.ceil(this.props.adverts.length/this.props.session.maxAdverts);
-    const minAdvert = currentPage * this.props.session.maxAdverts;
-    const maxAdvert = currentPage * parseInt(this.props.session.maxAdverts) + parseInt(this.props.session.maxAdverts)
+    const numPages = Math.ceil(this.props.adverts.length/maxAdverts);
+    const minAdvert = currentPage * maxAdverts;
+    const maxAdvert = currentPage * parseInt(maxAdverts) + parseInt(maxAdverts)
 
     // Render
     return (
@@ -82,7 +83,8 @@ export default class Home extends Component {
   handleMovePaginator = increment => {
     // Actualizo la pagina actual
     let { currentPage } = this.props.ui;
-    const numPages = Math.ceil(this.props.adverts.length/this.props.session.maxAdverts);
+    const { maxAdverts } = this.props.session;
+    const numPages = Math.ceil(this.props.adverts.length/maxAdverts);
     currentPage += increment;
     // Actualizo el state sólo si sigue dentro de los limites (realmente este chequeo también lo hace el componete paginator)
     if (increment !== 0 && currentPage >= 0 && currentPage < numPages) {

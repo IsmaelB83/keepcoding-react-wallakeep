@@ -68,7 +68,6 @@ class Register extends Component {
         return;
       }
       // Genero sesión y la guardo en LS si ha seleccionado "remember"
-      debugger;
       const session = new Session (email, name, surname, this.props.session.maxAdverts);
       if (isRemember) {
         LocalStorage.saveLocalStorage(session);
